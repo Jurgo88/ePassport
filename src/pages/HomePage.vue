@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 import { useStore } from 'vuex';
 import AdminPage from './AdminPage.vue';
+import VolunteerPage from './VolunteerPage.vue';
 
 const store = useStore();
 const userState = computed(() => store.state.auth.userDetails);
@@ -16,6 +17,8 @@ const isAdmin = computed(() => userState.value?.userData?.uid === admin);
       <h1>Home Page</h1>
       <h1 class="text-3xl ml-5 mb-7" v-text="isAdmin ? 'Toto je admin' : 'Toto nieje Admin'"></h1>
       <AdminPage v-if="isAdmin" :userState="userState"/>
+      <VolunteerPage v-if="!isAdmin" :userState="userState"/>
+
     </div>
   </div>
 </template>
