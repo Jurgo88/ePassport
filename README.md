@@ -1,10 +1,8 @@
-# Firebase Auth for Vite
+#  ePassport
 
 This project was created with [Vite](https://vitejs.dev/).
 
-This is a simple app using Firebase Auth to authenticate users, and using Vuex to manage state.
-
-You can see the full application at [vue-ts-firebase-example](https://github.com/Chia1104/vue-ts-firebase-example)
+This app using Firebase Auth to authenticate users, and using Vuex to manage state.
 
 ## Languages and Tools
 
@@ -25,13 +23,13 @@ You can see the full application at [vue-ts-firebase-example](https://github.com
 
 ## Deployment
 
-### Vercel
-You can go here, [deployment](https://firebase-auth-vite.vercel.app/).
+### Netlify
+You can go here, [deployment](https://epassport.netlify.app/).
 
 ## Features
 - [X] Authentication
-- [ ] CI/CD
-- [ ] E2E Testing(with [Cypress](https://www.cypress.io/))
+- [ ] Export PDF
+- [ ] Export CSV
 
 ## Get Started
 
@@ -48,7 +46,15 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 $ yarn
 $ yarn dev
 ```
+```
+$ npm install
+$ npm run dev
+```
 Builds the app for production to the `build` folder.
 ```
 $ yarn build
+```
+
+```
+$ npm build
 ```
