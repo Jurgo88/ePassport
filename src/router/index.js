@@ -66,9 +66,9 @@ const routes = [
         beforeEnter: (to, from, next) => {
             firebaseAuth.onAuthStateChanged(user => {
                 if (user) {
-                    next('/home');
-                } else {
                     next();
+                } else {
+                    next('/login');
                 }
             });
         }
