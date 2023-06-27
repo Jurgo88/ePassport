@@ -3,7 +3,9 @@ import LoginCard from "../components/LoginCard.vue";
 import Message from "../components/Message.vue";
 import {useStore} from "vuex";
 
+// Get the Vuex store.
 const store = useStore()
+// Get the signIn state from the store.
 const signInState = store.state.auth.signIn
 
 </script>

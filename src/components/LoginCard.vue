@@ -9,32 +9,42 @@ import router from "../router";
 const store = useStore()
 const signInState = store.state.auth.signIn
 
+// The data model for the password and email fields.
 const passwordModel = ref('')
 const emailModel= ref('')
+
+// The state of the component, which is used to control the disabled state of the sign-in button.
 const localState = reactive({
   disableSignIn: true,
   emailError: false,
   passwordError: false,
 })
 
+// The sign-in function.
 const signIn = () => {
+  // Dispatch the sign-in action.
   store.dispatch('signInAction', {email: emailModel.value, password: passwordModel.value}).then(() => {
     if (!signInState.isError) {
+      // Dispatch the get-user action.
+      console.log('signInAction');
       store.dispatch('getUserAction')
-      router.push('/home')
+      router.push('/home');
     }
   })
 }
 
+// Validate the email field.
 const validateEmail = () => {
   const mail_format = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   localState.emailError = emailModel.value.length < 1 || !emailModel.value.match(mail_format);
 }
 
+// Validate the password field.
 const validatePassword = () => {
   localState.passwordError = passwordModel.value.length < 1;
 }
 
+// Validate the form.
 const validateForm = () => {
   validateEmail()
   validatePassword()
