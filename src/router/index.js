@@ -18,10 +18,12 @@ const routes = [
         name: 'HomePage',
         component: HomePage,
         beforeEnter: (to, from, next) => {
-            firebaseAuth.onAuthStateChanged(user => {
+            const unsubscribe = firebaseAuth.onAuthStateChanged(user => {
                 if (user) {
+                    unsubscribe();
                     next();
                 } else {
+                    unsubscribe();
                     next('/login');
                 }
             });
@@ -32,17 +34,19 @@ const routes = [
         name: 'ProfilePage',
         component: ProfilePage,
         beforeEnter: (to, from, next) => {
-            firebaseAuth.onAuthStateChanged(user => {
+            const unsubscribe = firebaseAuth.onAuthStateChanged(user => {
                 if (user) {
+                    unsubscribe();
                     next();
                 } else {
-                    next('/login');
+                    unsubscribe();
+                    next('/home');
                 }
             });
         }
     },
     {
-        patch: "/",
+        path: "/",
         redirect: "/home"
     },
     {
@@ -50,10 +54,13 @@ const routes = [
         name: 'LoginPage',
         component: LoginPage,
         beforeEnter: (to, from, next) => {
-            firebaseAuth.onAuthStateChanged(user => {
+            const unsubscribe = firebaseAuth.onAuthStateChanged(user => {
+                console.log("login");
                 if (user) {
+                    unsubscribe();
                     next('/home');
                 } else {
+                    unsubscribe();
                     next();
                 }
             });
@@ -64,10 +71,12 @@ const routes = [
         name: 'RegisterPage',
         component: RegisterPage,
         beforeEnter: (to, from, next) => {
-            firebaseAuth.onAuthStateChanged(user => {
+            const unsubscribe = firebaseAuth.onAuthStateChanged(user => {
                 if (user) {
+                    unsubscribe();
                     next();
                 } else {
+                    unsubscribe();
                     next('/login');
                 }
             });
@@ -77,11 +86,13 @@ const routes = [
         path: "/:catchAll(.*)",
         component: NotFoundPage
     }
-]
+];
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes
 });
+
+
 
 export default router;
