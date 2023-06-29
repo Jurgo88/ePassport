@@ -1,6 +1,6 @@
 <script setup>
-import { defineProps } from 'vue';
-import { ref } from 'vue';
+import { defineProps, ref, onMounted } from 'vue';
+import { getRecords } from '/services/database.js';
 
 const props = defineProps({
   userState: {
@@ -9,48 +9,27 @@ const props = defineProps({
   },
 });
 
-const users = [
-  {
-    id: 1,
-    name: 'John',
-    surname: 'Doe',
-    sex: 'Male',
-    nationality: 'American',
-    start: '2023-01-01',
-    end: '2023-12-31',
-    registrationDate: '2023-05-01',
-  },
-  {
-    id: 2,
-    name: 'Jane',
-    surname: 'Doe',
-    sex: 'Female',
-    nationality: 'British',
-    start: '2023-02-01',
-    end: '2023-11-30',
-    registrationDate: '2023-05-02',
-  },
-  {
-    id: 3,
-    name: 'Bob',
-    surname: 'Smith',
-    sex: 'Male',
-    nationality: 'Canadian',
-    start: '2023-03-01',
-    end: '2023-10-31',
-    registrationDate: '2023-05-03',
-  },
-];
-
+const users = ref([]);
 const expandedUser = ref(null);
 
 const toggleInfo = (userId) => {
   if (expandedUser.value && expandedUser.value.id === userId) {
     expandedUser.value = null;
   } else {
-    expandedUser.value = users.find((user) => user.id === userId);
+    expandedUser.value = users.value.find((user) => user.id === userId);
   }
 };
+
+const loadUsers = async () => {
+  users.value = await getRecords();
+  console.log("co tu ma byt ? " + users.value[1].data.name);
+  console.log("idtu ma byt ? " + users.value[1].id);
+};
+
+onMounted(() => {
+  loadUsers();
+});
+
 
 console.log('Admin page');
 </script>
@@ -71,9 +50,9 @@ console.log('Admin page');
             </tr>
           </thead>
           <tbody>
-            <tr v-for="user in users" :key="user.id" @click="toggleInfo(user.id)">
-              <td>{{ user.name }}</td>
-              <td>{{ user.surname }}</td>
+            <tr v-for="(user, index) in users" :key="index" @click="toggleInfo(index)">
+              <td>{{ user.data.name}}</td>
+              <td>{{ user.data.surname }}</td>
               <td>{{ user.sex }}</td>
               <td>{{ user.nationality }}</td>
               <td>{{ user.start }}</td>
