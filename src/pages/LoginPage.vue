@@ -7,6 +7,7 @@ import {useStore} from "vuex";
 const store = useStore()
 // Get the signIn state from the store.
 const signInState = store.state.auth.signIn
+console.log('Login page' + signInState);
 
 </script>
 
