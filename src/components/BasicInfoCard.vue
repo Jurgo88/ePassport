@@ -1,47 +1,46 @@
 <script setup>
-import { ref, onMounted, defineProps, getCurrentInstance  } from 'vue';
+import { ref, onMounted, defineProps, getCurrentInstance, defineEmits } from 'vue';
 import { useStore } from 'vuex';
 import { createNewRecord } from '/services/database.js';
 import { getAuth, updateProfile } from 'firebase/auth';
 
+const emit = defineEmits(['volunteerData']);
+
 const store = useStore();
 
 const volunteerInfo = ref({
-    name: '',
-    surname: '',
-    start: '',
-    end: '',
-    dateOfBirth: '',
-    placeOfBirth: '',
-    sex: '',
-    address: '',
-    telephone: '',
-    email: '',
-    hoName: '',
-    hoAddress: '',
-    projectNo: '',
-    projectName: '',
-    hoContactPerson: '',
-    hoTelephone: '',
-    hoEmail: '',
-    hoWeb: '',
-    soName: '',
-    soAddress: '',
-    soContactPerson: '',
-    soTelephone: '',
-    soEmail: '',
-    soWeb: '',
+  name: '',
+  surname: '',
+  start: '',
+  end: '',
+  dateOfBirth: '',
+  placeOfBirth: '',
+  sex: '',
+  address: '',
+  telephone: '',
+  email: '',
+  hoName: '',
+  hoAddress: '',
+  projectNo: '',
+  projectName: '',
+  hoContactPerson: '',
+  hoTelephone: '',
+  hoEmail: '',
+  hoWeb: '',
+  soName: '',
+  soAddress: '',
+  soContactPerson: '',
+  soTelephone: '',
+  soEmail: '',
+  soWeb: '',
 });
 
 const userMail = ref('');
-
-const emit = defineEmits(['volunteerData'])
 
 const props = defineProps({
   volunteerData: {
     type: Object,
     required: true,
-    //default: () => ({}),
   },
 });
 
@@ -49,59 +48,39 @@ const volunteerData = ref(props.volunteerData);
 
 onMounted(() => {
   userMail.value = store.state.auth.userDetails.userData.email;
-  //console.log("store: " + store.state.auth.userDetails.userData.hasBasicInfo);
 });
 
-
-
 const submitForm = async (e) => {
-    e.preventDefault();
-    console.log('createNewRecord');
-    console.log(volunteerInfo.value);
-    try{
-        await createNewRecord(userMail.value, volunteerInfo.value);
-        store.state.auth.userDetails.userData.hasBasicInfo = true;
+  e.preventDefault();
 
+  try {
+    await createNewRecord(userMail.value, volunteerInfo.value);
+    store.state.auth.userDetails.userData.hasBasicInfo = true;
 
-        const updatedVolunteerData = {
-            ...volunteerInfo.value,
-        };
+    const updatedVolunteerData = {
+      ...volunteerInfo.value,
+    };
 
-        volunteerData.value = updatedVolunteerData;
-        console.log("Props data : " + volunteerData.data)
-        
+    volunteerData.value = updatedVolunteerData;
 
-        const auth = getAuth(); // Získání instance autentizační služby
-        const user = auth.currentUser; // Získání aktuálního přihlášeného uživatele
+    const auth = getAuth();
+    const user = auth.currentUser;
 
-        if (user) {
-            // Aktualizace profilu uživatele s vlastností hasBasicInfo
-            await updateProfile(user, { hasBasicInfo: true });
-            console.log('Profil byl úspěšně aktualizován.');
-        }
-
-        //const { emit } = getCurrentInstance();
-        emit('volunteerData', volunteerData.value);
-        return volunteerInfo.value;
-
+    if (user) {
+      await updateProfile(user, { hasBasicInfo: true });
+      console.log('Profil bol úspešne aktualizovaný.');
     }
-    catch(error){
-        store.state.auth.userDetails.userData.hasBasicInfo = false;
-        console.log(error);
-    }
-    // createNewRecord(userMail.value, volunteerInfo.value);
-    // store.state.auth.userDetails.userData.hasBasicInfo = true;
-     console.log("Ma zakladne info : " + store.state.auth.userDetails.userData.hasBasicInfo)
+
+    emit('volunteerData', volunteerData.value);
+    return volunteerInfo.value;
+  } catch (error) {
+    store.state.auth.userDetails.userData.hasBasicInfo = false;
+    console.log(error);
+  }
 };
 
-
-// const createNewRecord = (data) => {
-    
-//   // Implementujte logiku pro vytvoření nového záznamu v databázi
-// };
-
-
 </script>
+
 
 <!-- <script>
   export default {

@@ -3,6 +3,7 @@ import { defineProps } from 'vue';
 import  BasicInfoCard  from '../components/BasicInfoCard.vue';
 import { ref } from 'vue';
 import { useStore } from 'vuex';
+import { volunteerDataModel } from '/services/volunteerDataModel.js';
 
 const store = useStore();
 
@@ -21,13 +22,16 @@ const props = defineProps({
 
 const userMail = ref(props.userState.userData.email);
 
-const volunteerData = ref(props.volunteerData);
+const volunteerData = ref(volunteerDataModel);
 
 //const user = ref(props.userState.userData.user);
 
 const handleFormSubmited  = (data) => {
-  volunteerData.value = data;
-  console.log('handleFormSubmited');
+  volunteerData.value.basicInfo.volunteerInfo = data.volunteerInfo;
+  volunteerData.value.basicInfo.hoInfo = data.hoInfo;
+  volunteerData.value.basicInfo.soInfo = data.soInfo;
+  console.log('handleFormSubmitted');
+  console.log('Updated volunteerData:', volunteerData.value);
 }
 
 
