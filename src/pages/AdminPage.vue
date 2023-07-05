@@ -13,17 +13,18 @@ const users = ref([]);
 const expandedUser = ref(null);
 
 const toggleInfo = (userId) => {
-  if (expandedUser.value && expandedUser.value.id === userId) {
+  if (expandedUser.value && expandedUser.value.userId === userId) {
     expandedUser.value = null;
   } else {
-    expandedUser.value = users.value.find((user) => user.id === userId);
+    expandedUser.value = users.value.find((user) => user.userId === userId);
   }
 };
 
 const loadUsers = async () => {
   users.value = await getRecords();
-  console.log("co tu ma byt ? " + users.value[1].data.name);
-  console.log("idtu ma byt ? " + users.value[1].id);
+  console.log("Load users : "+users.value.length)
+  // console.log("co tu ma byt ? " + users.value[1].data.name);
+  // console.log("idtu ma byt ? " + users.value[1].id);
 };
 
 onMounted(() => {
@@ -50,19 +51,19 @@ console.log('Admin page');
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(user, index) in users" :key="index" @click="toggleInfo(index)">
-              <td>{{ user.data.name}}</td>
-              <td>{{ user.data.surname }}</td>
-              <td>{{ user.sex }}</td>
-              <td>{{ user.nationality }}</td>
-              <td>{{ user.start }}</td>
-              <td>{{ user.end }}</td>
-              <td>{{ user.registrationDate }}</td>
+            <tr v-for="(user, index) in users" :key="index" @click="toggleInfo(user.userId)">
+              <td>{{ user.basicInfo.volunteerInfo.name}}</td>
+              <td>{{ user.basicInfo.volunteerInfo.surname }}</td>
+              <td>{{ user.basicInfo.volunteerInfo.sex }}</td>
+              <td>{{ user.basicInfo.volunteerInfo.nationality }}</td>
+              <td>{{ user.basicInfo.volunteerInfo.start }}</td>
+              <td>{{ user.basicInfo.volunteerInfo.end }}</td>
+              <td>{{ user.basicInfo.volunteerInfo.registrationDate }}</td>
             </tr>
-            <tr v-if="expandedUser" :key="expandedUser.id">
+            <tr v-if="expandedUser" :key="expandedUser.userId">
               <td colspan="7">
                 <div class="expanded-info">
-                  <p><strong>Name:</strong> {{ expandedUser.name }}</p>
+                  <p><strong>Name:</strong> {{ expandedUser.basicInfo.volunteerInfo.name }}</p>
                   <p><strong>Surname:</strong> {{ expandedUser.surname }}</p>
                   <p><strong>Sex:</strong> {{ expandedUser.sex }}</p>
                   <p><strong>Nationality:</strong> {{ expandedUser.nationality }}</p>
