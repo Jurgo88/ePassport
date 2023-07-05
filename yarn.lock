@@ -1465,6 +1465,11 @@
     "@vue/server-renderer" "3.2.41"
     "@vue/shared" "3.2.41"
 
+"vuetify@^3.3.6":
+  "integrity" "sha512-9QHh3mY5dK2Y4FGGBHFaIl/RVoP3Wg+XzP/pvruAoglIsUqzMlHrUOYAjO6/SWTxmhsiPI1jl4TyEBlppMXtNQ=="
+  "resolved" "https://registry.npmjs.org/vuetify/-/vuetify-3.3.6.tgz"
+  "version" "3.3.6"
+
 "vuex@^4.1.0":
   "integrity" "sha512-hmV6UerDrPcgbSy9ORAtNXDr9M4wlNP4pEFKye4ujJF8oqgFFuxDCdOLS3eNoRTtq5O3hoBDh9Doj1bQMYHRbQ=="
   "resolved" "https://registry.npmjs.org/vuex/-/vuex-4.1.0.tgz"

@@ -5,6 +5,7 @@ import { ref } from 'vue';
 import { useStore } from 'vuex';
 import { volunteerDataModel } from '/services/volunteerDataModel.js';
 import { loadVolunteerDataByID } from '/services/database.js';
+import WelcomePage from './WelcomePage.vue';
 
 const store = useStore();
 
@@ -55,18 +56,19 @@ onBeforeMount(() => {
 
 </script>
 <template>
-    <div class="container mx-auto">
+    <div class="">
       <div v-if="!loading" class="w-full text-center">
         <h1>Volunteer Page</h1>
         <div>{{ userMail }}</div>
         <div class="home-screen">
-          <div class="flex flex-col">
+          <div class="">
             <div v-if="!volunteerData.hasBasicInfo">
               <BasicInfoCard @formSubmitted="handleFormSubmited" :volunteerData="volunteerData" />
             </div>
             <div v-if="loading">Loading your data...</div>
             <div v-else>
               Welcome page
+              <WelcomePage :volunteerData="volunteerData" />
             </div>
             
           </div>
