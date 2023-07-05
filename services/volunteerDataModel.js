@@ -40,6 +40,6 @@ export const volunteerDataModel = {
   afterProject: {
     afterProject: '',
   },
-  id: '',
-  hasBasicInfo: false,
+  userId: '',
+  hasBasicInfo: '',
   };

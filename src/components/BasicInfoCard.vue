@@ -4,35 +4,43 @@ import { useStore } from 'vuex';
 import { createNewRecord } from '/services/database.js';
 import { getAuth, updateProfile } from 'firebase/auth';
 
-const emit = defineEmits(['volunteerData']);
+const emit = defineEmits(['formSubmitted']);
 
 const store = useStore();
 
 const volunteerInfo = ref({
-  name: '',
-  surname: '',
-  start: '',
-  end: '',
-  dateOfBirth: '',
-  placeOfBirth: '',
-  sex: '',
-  address: '',
-  telephone: '',
-  email: '',
-  hoName: '',
-  hoAddress: '',
-  projectNo: '',
-  projectName: '',
-  hoContactPerson: '',
-  hoTelephone: '',
-  hoEmail: '',
-  hoWeb: '',
-  soName: '',
-  soAddress: '',
-  soContactPerson: '',
-  soTelephone: '',
-  soEmail: '',
-  soWeb: '',
+    basicInfo: {
+        volunteerInfo: {
+            name: '',
+            surname: '',
+            start: '',
+            end: '',
+            dateOfBirth: '',
+            placeOfBirth: '',
+            sex: '',
+            address: '',
+            telephone: '',
+            email: '',
+        },
+        hoInfo: {
+            hoName: '',
+            hoAddress: '',
+            projectNo: '',
+            projectName: '',
+            hoContactPerson: '',
+            hoTelephone: '',
+            hoEmail: '',
+            hoWeb: '',
+        },
+        soInfo: {
+            soName: '',
+            soAddress: '',
+            soContactPerson: '',
+            soTelephone: '',
+            soEmail: '',
+            soWeb: '',
+        },
+  },
 });
 
 const userMail = ref('');
@@ -51,6 +59,7 @@ onMounted(() => {
 });
 
 const submitForm = async (e) => {
+    console.log('submitForm + e ' + e);
   e.preventDefault();
 
   try {
@@ -59,6 +68,8 @@ const submitForm = async (e) => {
 
     const updatedVolunteerData = {
       ...volunteerInfo.value,
+      hasBasicInfo: true,
+      userId: userMail.value,
     };
 
     volunteerData.value = updatedVolunteerData;
@@ -70,8 +81,9 @@ const submitForm = async (e) => {
       await updateProfile(user, { hasBasicInfo: true });
       console.log('Profil bol úspešne aktualizovaný.');
     }
+    console.log('Volunteer info:', volunteerData.value);
 
-    emit('volunteerData', volunteerData.value);
+    emit('formSubmitted', volunteerData.value);
     return volunteerInfo.value;
   } catch (error) {
     store.state.auth.userDetails.userData.hasBasicInfo = false;
@@ -79,139 +91,133 @@ const submitForm = async (e) => {
   }
 };
 
+
+
 </script>
 
 
-<!-- <script>
-  export default {
-    props: ['volunteerData'],
-  }
-</script> -->
-
 <template>
-  <div>
-    <p>Ma Info email: {{ store.state.auth.userDetails.userData.hasBasicInfo }}</p>
-    <div v-if="!store.state.auth.userDetails.userData.hasBasicInfo">
-        <form novalidate  @submit="submitForm">
-        <!-- novalidet sluzi na to aby neboli polia required -->
-      <!-- Informace o dobrovolníkovi -->
-      <h2>Volunteer Details</h2>
-      <div>
-        <label for="name">Name of volunteer:</label>
-        <input type="text" id="name" v-model="volunteerInfo.name" required>
+    <div>
+      <p>Ma Info email: {{ props.volunteerData.hasBasicInfo}}</p>
+      <div v-if="!props.volunteerData.hasBasicInfo">
+        <form novalidate @submit="submitForm">
+          <!-- Informace o dobrovolníkovi -->
+          <h2>Volunteer Details</h2>
+          <div>
+            <label for="name">Name of volunteer:</label>
+            <input type="text" id="name" v-model="volunteerInfo.basicInfo.volunteerInfo.name" required>
+          </div>
+          <div>
+            <label for="surname">Surname of volunteer:</label>
+            <input type="text" id="surname" v-model="volunteerInfo.basicInfo.volunteerInfo.surname" required>
+          </div>
+          <div>
+            <label for="start">Start of mobility:</label>
+            <input type="date" id="start" v-model="volunteerInfo.basicInfo.volunteerInfo.start" required>
+          </div>
+          <div>
+            <label for="end">End of mobility:</label>
+            <input type="date" id="end" v-model="volunteerInfo.basicInfo.volunteerInfo.end" required>
+          </div>
+          <div>
+            <label for="dob">Date of birth:</label>
+            <input type="date" id="dob" v-model="volunteerInfo.basicInfo.volunteerInfo.dateOfBirth" required>
+          </div>
+          <div>
+            <label for="placeOfBirth">Place of birth:</label>
+            <input type="text" id="placeOfBirth" v-model="volunteerInfo.basicInfo.volunteerInfo.placeOfBirth" required>
+          </div>
+          <div>
+            <label for="sex">Sex:</label>
+            <select id="sex" v-model="volunteerInfo.basicInfo.volunteerInfo.sex" required>
+              <option value="male">Muž</option>
+              <option value="female">Žena</option>
+            </select>
+          </div>
+          <div>
+            <label for="address">Address of volunteer:</label>
+            <input type="text" id="address" v-model="volunteerInfo.basicInfo.volunteerInfo.address" required>
+          </div>
+          <div>
+            <label for="telephone">Telephone no.:</label>
+            <input type="tel" id="telephone" v-model="volunteerInfo.basicInfo.volunteerInfo.telephone" required>
+          </div>
+          <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" v-model="volunteerInfo.basicInfo.volunteerInfo.email" required>
+          </div>
+  
+          <!-- Informace o hostitelské organizaci -->
+          <h2>Host Organisation Information</h2>
+          <div>
+            <label for="hoName">Name of HO:</label>
+            <input type="text" id="hoName" v-model="volunteerInfo.basicInfo.hoInfo.hoName" required>
+          </div>
+          <div>
+            <label for="hoAddress">Address of HO:</label>
+            <input type="text" id="hoAddress" v-model="volunteerInfo.basicInfo.hoInfo.hoAddress" required>
+          </div>
+          <div>
+            <label for="projectNo">No. of project:</label>
+            <input type="text" id="projectNo" v-model="volunteerInfo.basicInfo.hoInfo.projectNo" required>
+          </div>
+          <div>
+            <label for="projectName">Name of project:</label>
+            <input type="text" id="projectName" v-model="volunteerInfo.basicInfo.hoInfo.projectName" required>
+          </div>
+          <div>
+            <label for="hoContactPerson">Contact person:</label>
+            <input type="text" id="hoContactPerson" v-model="volunteerInfo.basicInfo.hoInfo.hoContactPerson" required>
+          </div>
+          <div>
+            <label for="hoTelephone">Telephone no.:</label>
+            <input type="tel" id="hoTelephone" v-model="volunteerInfo.basicInfo.hoInfo.hoTelephone" required>
+          </div>
+          <div>
+            <label for="hoEmail">Email:</label>
+            <input type="email" id="hoEmail" v-model="volunteerInfo.basicInfo.hoInfo.hoEmail" required>
+          </div>
+          <div>
+            <label for="hoWeb">Web:</label>
+            <input type="text" id="hoWeb" v-model="volunteerInfo.basicInfo.hoInfo.hoWeb" required>
+          </div>
+  
+          <!-- Informace o odesílající organizaci -->
+          <h2>Sending Organisation Information</h2>
+          <div>
+            <label for="soName">Name of SO:</label>
+            <input type="text" id="soName" v-model="volunteerInfo.basicInfo.soInfo.soName" required>
+          </div>
+          <div>
+            <label for="soAddress">Address of SO:</label>
+            <input type="text" id="soAddress" v-model="volunteerInfo.basicInfo.soInfo.soAddress" required>
+          </div>
+          <div>
+            <label for="soContactPerson">Contact person:</label>
+            <input type="text" id="soContactPerson" v-model="volunteerInfo.basicInfo.soInfo.soContactPerson" required>
+          </div>
+          <div>
+            <label for="soTelephone">Telephone no.:</label>
+            <input type="tel" id="soTelephone" v-model="volunteerInfo.basicInfo.soInfo.soTelephone" required>
+          </div>
+          <div>
+            <label for="soEmail">Email:</label>
+            <input type="email" id="soEmail" v-model="volunteerInfo.basicInfo.soInfo.soEmail" required>
+          </div>
+          <div>
+            <label for="soWeb">Web:</label>
+            <input type="text" id="soWeb" v-model="volunteerInfo.basicInfo.soInfo.soWeb" required>
+          </div>
+  
+          <button type="submit">Submit</button>
+        </form>
       </div>
-      <div>
-        <label for="surname">Surname of volunteer:</label>
-        <input type="text" id="surname" v-model="volunteerInfo.surname" required>
-      </div>
-      <div>
-        <label for="start">Start of mobility:</label>
-        <input type="date" id="start" v-model="volunteerInfo.start" required>
-      </div>
-      <div>
-        <label for="end">End of mobility:</label>
-        <input type="date" id="end" v-model="volunteerInfo.end" required>
-      </div>
-      <div>
-        <label for="dob">Date of birth:</label>
-        <input type="date" id="dob" v-model="volunteerInfo.dateOfBirth" required>
-      </div>
-      <div>
-        <label for="placeOfBirth">Place of birth:</label>
-        <input type="text" id="placeOfBirth" v-model="volunteerInfo.placeOfBirth" required>
-      </div>
-      <div>
-        <label for="sex">Sex:</label>
-        <select id="sex" v-model="volunteerInfo.sex" required>
-          <option value="male">Muž</option>
-          <option value="female">Žena</option>
-        </select>
-      </div>
-      <div>
-        <label for="address">Address of volunteer:</label>
-        <input type="text" id="address" v-model="volunteerInfo.address" required>
-      </div>
-      <div>
-        <label for="telephone">Telephone no.:</label>
-        <input type="tel" id="telephone" v-model="volunteerInfo.telephone" required>
-      </div>
-      <div>
-        <label for="email">Email:</label>
-        <input type="email" id="email" v-model="volunteerInfo.email" required>
-      </div>
-
-      <!-- Informace o hostitelské organizaci -->
-      <h2>Host Organisation Information</h2>
-      <div>
-        <label for="hoName">Name of HO:</label>
-        <input type="text" id="hoName" v-model="volunteerInfo.hoName" required>
-      </div>
-      <div>
-        <label for="hoAddress">Address of HO:</label>
-        <input type="text" id="hoAddress" v-model="volunteerInfo.hoAddress" required>
-      </div>
-      <div>
-        <label for="projectNo">No. of project:</label>
-        <input type="text" id="projectNo" v-model="volunteerInfo.projectNo" required>
-      </div>
-      <div>
-        <label for="projectName">Name of project:</label>
-        <input type="text" id="projectName" v-model="volunteerInfo.projectName" required>
-      </div>
-      <div>
-        <label for="hoContactPerson">Contact person:</label>
-        <input type="text" id="hoContactPerson" v-model="volunteerInfo.hoContactPerson" required>
-      </div>
-      <div>
-        <label for="hoTelephone">Telephone no.:</label>
-        <input type="tel" id="hoTelephone" v-model="volunteerInfo.hoTelephone" required>
-      </div>
-      <div>
-        <label for="hoEmail">Email:</label>
-        <input type="email" id="hoEmail" v-model="volunteerInfo.hoEmail" required>
-      </div>
-      <div>
-        <label for="hoWeb">Web:</label>
-        <input type="text" id="hoWeb" v-model="volunteerInfo.hoWeb" required>
-      </div>
-
-      <!-- Informace o odesílající organizaci -->
-      <h2>Sending Organisation Information</h2>
-      <div>
-        <label for="soName">Name of SO:</label>
-        <input type="text" id="soName" v-model="volunteerInfo.soName" required>
-      </div>
-      <div>
-        <label for="soAddress">Address of SO:</label>
-        <input type="text" id="soAddress" v-model="volunteerInfo.soAddress" required>
-      </div>
-      <div>
-        <label for="soContactPerson">Contact person:</label>
-        <input type="text" id="soContactPerson" v-model="volunteerInfo.soContactPerson" required>
-      </div>
-      <div>
-        <label for="soTelephone">Telephone no.:</label>
-        <input type="tel" id="soTelephone" v-model="volunteerInfo.soTelephone" required>
-      </div>
-      <div>
-        <label for="soEmail">Email:</label>
-        <input type="email" id="soEmail" v-model="volunteerInfo.soEmail" required>
-      </div>
-      <div>
-        <label for="soWeb">Web:</label>
-        <input type="text" id="soWeb" v-model="volunteerInfo.soWeb" required>
-      </div>
-
-      <button type="submit" @submit="submitForm">Submit</button>
-    </form>
-    </div>
-    <div v-else>
+      <div v-else>
         <h2>Thank you for your submission!</h2>
-        
+      </div>
     </div>
-    
-  </div>
-</template>
+  </template>
+  
 
 <style scoped>
 .container {
