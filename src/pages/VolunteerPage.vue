@@ -58,8 +58,6 @@ onBeforeMount(() => {
 <template>
     <div class="">
       <div v-if="!loading" class="w-full text-center">
-        <h1>Volunteer Page</h1>
-        <div>{{ userMail }}</div>
         <div class="home-screen">
           <div class="">
             <div v-if="!volunteerData.hasBasicInfo">
@@ -67,7 +65,6 @@ onBeforeMount(() => {
             </div>
             <div v-if="loading">Loading your data...</div>
             <div v-else>
-              Welcome page
               <WelcomePage :volunteerData="volunteerData" />
             </div>
             
