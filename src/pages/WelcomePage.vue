@@ -42,11 +42,12 @@ const props = defineProps({
       </v-row>
      
       <v-row>
-        <v-layout class="overflow-visible" style="height: 56px;">
+        <v-layout class="overflow-visible">
             <v-bottom-navigation
             v-model="value"
             active
-            color="primary"
+            bg-color="primary"
+            rounded="true"
             >
             <v-btn>
                 <i class="material-icons">add_home</i>
