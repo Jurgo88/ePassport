@@ -74,48 +74,6 @@ watchEffect(firebaseUser)
           </router-link>         
         </div>
 
-        
-        
-
-        
-
       </v-app-bar>
   </v-layout>
-  
-  <!-- <div class="w-screen flex h-[70px] items-center bg-white shadow-lg inset-x-0 top-0 fixed justify-center z-40">
-    <div class="flex container w-[100%]">
-      <div class="flex items-center w-[30%]">
-        <div>
-          <h1 class="text-primary text-xl">
-            ePassport
-          </h1>
-        </div>
-      </div>
-      <div class="md:flex items-center w-[70%]  justify-center">
-        <div v-if="userState.isSignIn">
-          <router-link to="/" class="text-primary mr-2 hover:text-[#FF9000] transition ease-in-out">
-            <v-btn rounded="0" elevation="0" ><i class="material-icons">home</i></v-btn>
-          </router-link>
-          <router-link to="/profile" class="text-primary mr-2 hover:text-[#FF9000] transition ease-in-out">
-            <v-btn rounded="0" elevation="0" ><i class="material-icons">account_circle</i></v-btn>
-          </router-link>
-          <router-link to="/login" class="text-primary mr-2 hover:text-[#FF9000] transition ease-in-out">
-            <v-btn rounded="0" elevation="0" @click="logOut"><i class="material-icons">logout</i></v-btn>
-          </router-link>
-          
-        </div>
-        
-        <div v-else>
-          <router-link to="/login" class="text-primary mr-2 hover:text-[#FF9000] transition ease-in-out">
-            Login
-          </router-link>          
-        </div>
-        <div v-if="isAdmin">
-          <router-link to="/register" class="text-primary mr-2 hover:text-[#FF9000] transition ease-in-out">
-            Register
-          </router-link>
-        </div>
-      </div>
-    </div>
-  </div> -->
 </template>
