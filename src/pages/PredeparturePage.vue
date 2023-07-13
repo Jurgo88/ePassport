@@ -126,17 +126,17 @@ onMounted(() => {
             </v-col>
         </v-row>
         <v-row>
-            <LetterToMyself v-if="indexButton === 0" :volunteerData="volunteerData" />
-            <EuropassCV v-if="indexButton === 1" :volunteerData="volunteerData" />
-            <EnglishTest v-if="indexButton === 2" :volunteerData="volunteerData" />
-            <LanguageLearning v-if="indexButton === 3" :volunteerData="volunteerData" />
-            <Project v-if="indexButton === 4" :volunteerData="volunteerData" />
-            <Country v-if="indexButton === 5" :volunteerData="volunteerData" />
-            <Competences v-if="indexButton === 6" :volunteerData="volunteerData" />
-            <EuropeanSolidarity v-if="indexButton === 7" :volunteerData="volunteerData" />
-            <Insurance v-if="indexButton === 8" :volunteerData="volunteerData" />
-            <HealthAndSecurity v-if="indexButton === 9" :volunteerData="volunteerData" />
-            <BeforeDepartureChecklist v-if="indexButton === 10" :volunteerData="volunteerData" />
+            <LetterToMyself v-if="indexButton === 0 && !showing" :volunteerData="volunteerData" />
+            <EuropassCV v-if="indexButton === 1 && !showing" :volunteerData="volunteerData" />
+            <EnglishTest v-if="indexButton === 2 && !showing" :volunteerData="volunteerData" />
+            <LanguageLearning v-if="indexButton === 3 && !showing" :volunteerData="volunteerData" />
+            <Project v-if="indexButton === 4 && !showing" :volunteerData="volunteerData" />
+            <Country v-if="indexButton === 5 && !showing" :volunteerData="volunteerData" />
+            <Competences v-if="indexButton === 6 && !showing" :volunteerData="volunteerData" />
+            <EuropeanSolidarity v-if="indexButton === 7 && !showing" :volunteerData="volunteerData" />
+            <Insurance v-if="indexButton === 8 && !showing" :volunteerData="volunteerData" />
+            <HealthAndSecurity v-if="indexButton === 9 && !showing" :volunteerData="volunteerData" />
+            <BeforeDepartureChecklist v-if="indexButton === 10 && !showing" :volunteerData="volunteerData" /> 
 
         </v-row>
     </v-container>
