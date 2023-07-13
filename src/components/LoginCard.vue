@@ -54,7 +54,7 @@ const validateForm = () => {
 </script>
 
 <template>
-  <form class="flex-col text-center bg-white lg:w-[40%] md:w-[60%] rounded-xl shadow-lg mx-auto sm:w-full p-5 relative" @submit.prevent="signIn" @change="validateForm">
+  <form class="flex-col text-center lg:w-[40%] md:w-[60%] rounded-xl shadow-lg mx-auto sm:w-full p-5 relative" @submit.prevent="signIn" @change="validateForm">
     <LoadingSpinner v-if="signInState.isLoading" />
     <img src="../assets/logo.png" alt="" srcset="">
     <div class="md:w-[90%] mx-auto my-10 sm:w-full">

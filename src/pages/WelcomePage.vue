@@ -35,7 +35,12 @@ const props = defineProps({
       </v-row>
       <v-row align="center" justify="center">
         <v-col cols="12">
-          <v-btn block color="primary" class="my-button">Pre-departure</v-btn>
+            <router-link :to="{
+                path: '/predeparture', 
+                params: { volunteerData: volunteerData.value},
+            }" >
+               <v-btn block color="primary" class="my-button">Pre-departure</v-btn>
+            </router-link>
           <v-btn block color="secondary" class="my-button">On the project</v-btn>
           <v-btn block color="accent" class="my-button">Evaluation of the Experience</v-btn>
         </v-col>
