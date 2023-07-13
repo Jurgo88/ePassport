@@ -97,8 +97,63 @@ const submitForm = async (e) => {
 
 
 <template>
+    <v-container>
+        <h2>Volunteer Details</h2>
+        <div v-if="!props.volunteerData.hasBasicInfo">
+            <v-app full-height>
+                <v-form novalidate @submit="submitForm" v-if="!props.volunteerData.hasBasicInfo">
+                    <v-col cols="12">
+                        <v-text-field class="" height="22px" v-model="volunteerInfo.basicInfo.volunteerInfo.name" label="Name of volunteer" hide-details clearable required></v-text-field>
+                    </v-col>
+                    <v-col cols="12">
+                        <v-text-field class="" v-model="volunteerInfo.basicInfo.volunteerInfo.surname" label="Surname of volunteer" hide-details  clearable required></v-text-field> 
+                    </v-col>
+                    <v-col cols="12">
+                        <v-text-field class="" v-model="volunteerInfo.basicInfo.volunteerInfo.start" label="Start of mobility" hide-details  clearable required></v-text-field>
+                    </v-col>
+                    <v-col cols="12">
+                        <v-text-field class="" v-model="volunteerInfo.basicInfo.volunteerInfo.end" label="End of mobility" hide-details  clearable required></v-text-field>
+                    </v-col>
+                    <v-col cols="12">
+                        <v-text-field class="" v-model="volunteerInfo.basicInfo.volunteerInfo.dateOfBirth" label="Date of birth" hide-details  clearable required></v-text-field>
+                    </v-col>
+                    <v-col cols="12">
+                        <v-text-field class="" v-model="volunteerInfo.basicInfo.volunteerInfo.placeOfBirth" label="Place of birth" hide-details  clearable required></v-text-field>
+                    </v-col>
+                    <v-col cols="12" >
+                        <v-select v-model="volunteerInfo.basicInfo.volunteerInfo.sex" label="Sex" :items="['male', 'female']" required></v-select>
+                    </v-col>
+                    <v-col cols="12">
+                        <v-text-field class="" v-model="volunteerInfo.basicInfo.volunteerInfo.address" label="Address" hide-details  clearable required></v-text-field>
+                    </v-col>
+                    <v-col cols="12">
+                        <v-text-field class="" v-model="volunteerInfo.basicInfo.volunteerInfo.telephone" label="Telephone" hide-details  clearable required></v-text-field>
+                    </v-col>
+                    <v-col cols="12">
+                        <v-text-field class="" v-model="volunteerInfo.basicInfo.volunteerInfo.email" label="Email" hide-details  clearable required></v-text-field>
+                    </v-col>
+                    <h2>Host Organisation Information</h2>
+                    <v-col cols="12">
+                        <v-text-field class="" v-model="volunteerInfo.basicInfo.hoInfo.hoName" label="Hosting organisation name" hide-details  clearable required></v-text-field>
+                    </v-col>
+                    <v-col cols="12">
+                        <v-text-field class="" v-model="volunteerInfo.basicInfo.hoInfo.hoAddress" label="Hosting organisation address" hide-details  clearable required></v-text-field>
+                    </v-col>
+                    <v-row>
+                        <v-col cols="12">
+                        <v-text-field class="" v-model="volunteerInfo.basicInfo.hoInfo.projectNo" label="Project number and you dont have my number?" hide-details  clearable required></v-text-field>
+                    </v-col>
+                    </v-row>
+                    
+
+
+                </v-form>
+            </v-app>
+        </div>
+
+
+    </v-container>
     <div>
-      <p>Ma Info email: {{ props.volunteerData.hasBasicInfo}}</p>
       <div v-if="!props.volunteerData.hasBasicInfo">
         <form novalidate @submit="submitForm">
           <!-- Informace o dobrovolníkovi -->
@@ -219,7 +274,7 @@ const submitForm = async (e) => {
   </template>
   
 
-<style scoped>
+<style>
 .container {
   max-width: 600px;
   margin: 0 auto;
@@ -267,5 +322,12 @@ button {
     width: calc(100% - 160px);
   }
 }
+
+.v-text-field .v-input__control .v-input__slot {
+    min-height: auto !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
 </style>
 

@@ -51,7 +51,6 @@ const createNewRecord = async (userId, data) => {
           return {
             userId: doc.data().userId,
             ...doc.data(),
-            hasBasicInfo: doc.data().hasBasicInfo,
           };
         });
 
