@@ -8,8 +8,13 @@ import { getAuth } from 'firebase/auth';
 const store = useStore();
 
 const volunteerData = ref(props.volunteerData);
-const answer = ref(volunteerData.value.beforeProject.letterToMyself);
+const answer = ref('');
 const buttonColor = ref('');
+
+if(volunteerData.value.beforeProject.letterToMyself)
+{
+    answer.value = volunteerData.value.beforeProject.letterToMyself;
+}
 
 // props
 const props = defineProps({
