@@ -2,11 +2,13 @@
 import { firebaseAuth } from '../../firebase/config';
 import { useStore } from "vuex";
 import { watchEffect, computed } from "vue";
+import { useRouter } from 'vue-router';
 import 'vuetify/dist/vuetify.min.css';
 
 const store = useStore()
 const userState = computed(() => store.state.auth.userDetails)
 const admin = import.meta.env.VITE_ADMIN;
+const router = useRouter();
 
 // Check if user is admin
 const isAdmin = computed(() => userState.value?.userData?.uid === admin);
@@ -56,7 +58,7 @@ watchEffect(firebaseUser)
             <v-btn icon ><i class="material-icons">account_circle</i></v-btn>
           </router-link>
 
-          <router-link to="/login" class="">
+          <router-link to="/" class="">
             <v-btn icon  @click="logOut" ><i class="material-icons">logout</i></v-btn>
           </router-link>
 
@@ -77,3 +79,8 @@ watchEffect(firebaseUser)
       </v-app-bar>
   </v-layout>
 </template>
+<style>
+i{
+  color: white;
+}
+</style>

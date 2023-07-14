@@ -1,4 +1,4 @@
-import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { collection, addDoc, getDocs, doc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase/config';
 import { useStore } from 'vuex';
 import { volunteerDataModel } from './volunteerDataModel';
@@ -8,6 +8,7 @@ const store = useStore();
 //const hasBasicInfo = store.state.auth.userDetails.userData.hasBasicInfo;
 
 const volunteerData = ref(volunteerDataModel);
+
 
 const createNewRecord = async (userId, data) => {
     console.log('Create new record ' + userId + data.basicInfo);
@@ -39,6 +40,26 @@ const createNewRecord = async (userId, data) => {
         console.error('Chyba při načítání záznamů:', error);
     }    
   };
+
+  const updateRecord = async (userId, data) => {
+    try {
+      const recordsCollection = collection(db, 'records');
+      const querySnapshot = await getDocs(recordsCollection);
+      
+      const recordDoc = querySnapshot.docs.find((doc) => doc.data().userId === userId);
+      if (recordDoc) {
+        const recordRef = doc(recordsCollection, recordDoc.id);
+        await updateDoc(recordRef, data);
+        console.debug('Záznam bol úspešne aktualizovaný v databáze.');
+      } else {
+        console.warn('Nenašiel sa žiadny záznam s userId:', userId);
+      }
+    } catch (error) {
+      console.error('Chyba pri aktualizácii záznamu podľa userId:', error);
+      throw error;
+    }
+  };
+
 
   const loadVolunteerDataByID = async (id) => {
     try {
@@ -75,4 +96,4 @@ const createNewRecord = async (userId, data) => {
   };
 
 
-export { createNewRecord, getRecords, loadVolunteerDataByID };
+export { createNewRecord, getRecords, loadVolunteerDataByID, updateRecord };

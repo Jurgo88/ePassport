@@ -33,6 +33,13 @@ export const volunteerDataModel = {
   },
   beforeProject: {
     beforeProject: '',
+    letterToMyself: '',
+    europassCV: '',
+    englishTest: '',
+    languageLearning: '',
+    project: '',
+    country: '',
+    competences: '',
   },
   onProject: {
     onProject: '',

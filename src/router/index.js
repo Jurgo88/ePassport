@@ -5,6 +5,7 @@ import ProfilePage from "../pages/ProfilePage.vue";
 import LoginPage from "../pages/LoginPage.vue";
 import RegisterPage from "../pages/RegisterPage.vue";
 import NotFoundPage from "../pages/exceptions/NotFoundPage.vue";
+import PredeparturePage from "../pages/PredeparturePage.vue";
 import { firebaseAuth } from '../../firebase/config';
 
 const routes = [
@@ -70,6 +71,23 @@ const routes = [
         path: "/register",
         name: 'RegisterPage',
         component: RegisterPage,
+        beforeEnter: (to, from, next) => {
+            const unsubscribe = firebaseAuth.onAuthStateChanged(user => {
+                if (user) {
+                    unsubscribe();
+                    next();
+                } else {
+                    unsubscribe();
+                    next('/login');
+                }
+            });
+        }
+    },
+    {
+        path: "/predeparture",
+        name: 'PredeparturePage',
+        component: PredeparturePage,
+        props: { VolunteerData: true},
         beforeEnter: (to, from, next) => {
             const unsubscribe = firebaseAuth.onAuthStateChanged(user => {
                 if (user) {

@@ -67,14 +67,8 @@ onBeforeMount(() => {
             <div v-else>
               <WelcomePage :volunteerData="volunteerData" />
             </div>
-            
-            
-            
           </div>
         </div>
-      </div>
-      <div v-else>
-        Loading your data...
       </div>
     </div>
   </template>
