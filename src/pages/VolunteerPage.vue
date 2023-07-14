@@ -64,7 +64,6 @@ onBeforeMount(() => {
             <div v-if="!volunteerData.hasBasicInfo">
               <BasicInfoCard @formSubmitted="handleFormSubmited" :volunteerData="volunteerData" />
             </div>
-            <div v-if="loading">Loading your data...</div>
             <div v-else>
               <WelcomePage :volunteerData="volunteerData" />
             </div>
