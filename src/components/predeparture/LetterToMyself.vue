@@ -11,10 +11,20 @@ const volunteerData = ref(props.volunteerData);
 const answer = ref('');
 const buttonColor = ref('');
 
-if(volunteerData.value.beforeProject.letterToMyself)
-{
+// if(volunteerData.value.beforeProject.letterToMyself)
+// {
+//     answer.value = volunteerData.value.beforeProject.letterToMyself;
+// }
+ if (!volunteerData.value.beforeProject) {
+    volunteerData.value.beforeProject = {}; // Ak cesta beforeProject neexistuje, vytvorte ju ako prázdny objekt
+  }
+  else if (!volunteerData.value.beforeProject.letterToMyself) {
+    volunteerData.value.beforeProject.letterToMyself = ''; // Ak cesta beforeProject neexistuje, vytvorte ju ako prázdny objekt
+  }
+  else{
+    console.log('letterToMyself existuje : ' + volunteerData.value.beforeProject.letterToMyself);
     answer.value = volunteerData.value.beforeProject.letterToMyself;
-}
+  }
 
 // props
 const props = defineProps({
@@ -38,9 +48,17 @@ const sendData = async () => {
   const letterToMyself = answer.value;
 
 
-  if (!volunteerData.value.beforeProject) {
-    volunteerData.value.beforeProject = {}; // Ak cesta beforeProject neexistuje, vytvorte ju ako prázdny objekt
-  }
+//   if (!volunteerData.value.beforeProject) {
+//     volunteerData.value.beforeProject = {}; // Ak cesta beforeProject neexistuje, vytvorte ju ako prázdny objekt
+//   }
+//   else if (!volunteerData.value.beforeProject.letterToMyself) {
+//     volunteerData.value.beforeProject.letterToMyself = {}; // Ak cesta beforeProject neexistuje, vytvorte ju ako prázdny objekt
+//   }
+//   else{
+//     console.log('letterToMyself existuje : ' + volunteerData.value.beforeProject.letterToMyself);
+//     answer.value = volunteerData.value.beforeProject.letterToMyself;
+//   }
+
   volunteerData.value.beforeProject.letterToMyself = letterToMyself;
 
   console.log('Sending data to database... data + answer : ' + data + answer.value)
@@ -49,12 +67,16 @@ const sendData = async () => {
 
 const handleButtonClick = () => {
     sendData();
-    buttonColor.value = 'green';
+    if (answer.value) {
+        buttonColor.value = 'green';
+    } else {
+        buttonColor.value = 'red';
+    }
 };
 
-const handleAnswerChange = () => {
-    buttonColor.value = 'red';
-};
+// const handleAnswerChange = () => {
+//     buttonColor.value = 'red';
+// };
 
 onMounted(() => {
     if (answer.value) {

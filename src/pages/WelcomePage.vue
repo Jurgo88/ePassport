@@ -1,5 +1,7 @@
 <script setup>
 // import 'vuetify/dist/vuetify.min.css';
+import { volunteerDataModel } from '/services/volunteerDataModel.js';
+import { onMounted, ref, computed } from 'vue';
 
 const props = defineProps({
   volunteerData: {
@@ -7,6 +9,56 @@ const props = defineProps({
     required: true,
   },
 });
+
+// const volunteerData = ref(props.volunteerData);
+const modelValue = ref(volunteerDataModel);
+const initializedVolunteerData = computed(() => {
+  const mergedData = { ...volunteerDataModel, ...props.volunteerData };
+  return mergedData;
+});
+
+
+function countFieldsWithEmptyValue(mergedData) {
+  let totalFields = 0;
+  let emptyFields = 0;
+
+  function traverseObject(obj) {
+    for (const key in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, key)) {
+        const value = obj[key];
+        totalFields++;
+
+        if (value === '' || value === null || value === undefined) {
+          emptyFields++;
+        } else if (typeof value === 'object' && value !== null) {
+          traverseObject(value); // Rekurzívne prehľadávanie vnorených štruktúr
+        }
+      }
+    }
+  }
+
+  traverseObject(mergedData);
+
+  return {
+    totalFields,
+    emptyFields,
+  };
+}
+
+const progress = computed(() => {
+  const { totalFields, emptyFields } = countFieldsWithEmptyValue(initializedVolunteerData.value);
+  return (1 - emptyFields / totalFields) * 100; // Výpočet percentuálneho progresu
+});
+
+onMounted(() => {
+  console.log('onMounted: ' + initializedVolunteerData.value);
+  const { totalFields, emptyFields } = countFieldsWithEmptyValue(initializedVolunteerData.value);
+  console.log('Total Fields:', totalFields);
+  console.log('Empty Fields:', emptyFields);
+
+});
+
+
 </script>
 
 <script>
