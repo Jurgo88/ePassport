@@ -9,8 +9,9 @@ import { getAuth } from 'firebase/auth';
 const store = useStore();
 
 const volunteerData = ref(props.volunteerData);
-const answer = ref('');
+const answer = ref(props.answer);
 const buttonColor = ref('red');
+
 
  if (!volunteerData.value.beforeProject) {
     volunteerData.value.beforeProject = {}; // Ak cesta beforeProject neexistuje, vytvorte ju ako prázdny objekt
@@ -31,6 +32,10 @@ const props = defineProps({
   },
   userState: {
     type: Object,
+    required: true,
+  },
+  answer: {
+    type: String,
     required: true,
   },
 });
@@ -93,23 +98,7 @@ onMounted(() => {
 
 <template>
     <v-container class="mobile-first-container">
-        <h1>Letter to myself</h1>
-    <div>
-        <br>
-        <br>
-    <p>
-        How this experience is connected with my future career? 
-        (My first motivation to do an international mobility, which specific mission and which countries).
-    </p>
-    <br>
-    <p>
-       What would I like to achieve personally and professionally, my strengths to reach these objectives, my fears and challenges, what should I leave home and what should I take with me - material and not only.
-    </p>
-    <br>
-    <p>
-        Hybrid or virtual mobility? Explain also how you will organize your tasks in remote. What is important for you and the organisation which will work with you?
-    </p>
-    <br>
+   
     <div>
         <v-textarea class="textarea" v-model="answer"  label="Your answer..." outlined></v-textarea>
         <v-btn icon @click="handleButtonClick()"  :color="buttonColor" class="myButton" style="margin: 0;">
@@ -117,8 +106,6 @@ onMounted(() => {
         </v-btn>
     </div>
     
-    </div>
-
     </v-container>
     
 

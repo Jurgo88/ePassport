@@ -1,13 +1,8 @@
 <script setup>
 // import { ref, onMounted  } from 'vue';
-import { ref, uploadBytes, listAll } from 'firebase/storage';
+import { ref } from 'vue';
+import { ref as storageRef, uploadBytes, listAll } from 'firebase/storage';
 import { storage, firebaseAuth } from '../../../firebase/config';
-
-const volunteerData = ref(props.volunteerData);
-
-let selectedFile = null;
-const user = firebaseAuth.currentUser;
-const userEmail = user.email;
 
 const props = defineProps({
   volunteerData: {
@@ -16,23 +11,45 @@ const props = defineProps({
   },
 });
 
+const volunteerData = ref(props.volunteerData);
+
+let selectedFile = null;
+const user = firebaseAuth.currentUser;
+const userEmail = user.email;
+const isSelected = ref(false);
+const uploadbuttonColor = ref('primary');
+const uploadbuttonText = ref('Send your CV');
+
+
+
 function handleFileChange(event) {
   selectedFile = event.target.files[0];
+  if(selectedFile)
+  {
+    isSelected.value = true;
+  }
+  else{
+    isSelected.value = false;
+  }
 }
 
 async function uploadFile(file) {
-  const storageRef = ref(storage, userEmail +'/CV/'+ file.name);
+  const thisIsStorageRef = storageRef(storage, userEmail +'/CV/'+ file.name);
   
   try {
-    await uploadBytes(storageRef, file);
+    await uploadBytes(thisIsStorageRef, file);
     console.log('Súbor bol úspešne nahraný na Firebase Storage.');
+    volunteerData.value.beforeProject.CV = userEmail +'/CV/'+ file.name;
+    console.log('volunteerData.value.beforeProject.CV: ' + volunteerData.value.beforeProject.CV);
+    uploadbuttonColor.value = 'success';
+    uploadbuttonText.value = 'File uploaded';
   } catch (error) {
     console.error('Chyba pri nahrávaní súboru:', error);
   }
 }
 
 function uploadSelectedFile() {
-    console.log('uploadSelectedFile');
+    console.log('uploadSelectedFile' + selectedFile);
   if (selectedFile) {
     uploadFile(selectedFile);
   }
@@ -104,13 +121,23 @@ function uploadSelectedFile() {
         <br>
         <br>
         <div align="center">
+          <div >
+            <v-file-input
+              label="Upload your Europass CV" 
+              variant="solo-filled"  
+              @change="handleFileChange">
+            </v-file-input>
+          </div>
+          <div v-if="isSelected">
             <v-btn 
-            color="primary"
-            @click="uploadSelectedFile"
-            >
-                Upload your Europass CV
+              :text="uploadbuttonText"
+              :color="uploadbuttonColor"
+              @click="uploadSelectedFile">
             </v-btn>
-            <input type="file" @change="handleFileChange" />
+          </div>
+         
+                       
+            
         </div>
 
 
