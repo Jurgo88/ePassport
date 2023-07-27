@@ -2,6 +2,7 @@
 import { ref, onMounted, defineProps, defineEmits } from 'vue';
 import EnglishTestHomePage from './EnglishTestHomePage.vue';
 import EnglishTestListening from './EnglishTestListening.vue';
+import EnglishTestWritten from './EnglishTestWritten.vue';
 
 
 const props = defineProps({
@@ -12,11 +13,12 @@ const props = defineProps({
 });
 
 // Emitované udalosti
-const emit = defineEmits(['isShowingTest']);
+const emit = defineEmits(['isShowingTest', 'isShowingListeningTest', 'isShowingWrittingTest']);
 
 //const volunteerData = ref(props.volunteerData);
 const isShowingTest = ref(false);
 const isShowingListeningTest = ref(false);
+const isShowingWrittingTest = ref(false);
 
 function handleButtonClick() {
     console.log('handleButtonClick');
@@ -30,10 +32,28 @@ function handleListeningButtonClick() {
      console.log('isShowingListeningTest.value : ' + isShowingListeningTest.value);
 }
 
+function handleWrittenButtonClick() {
+    console.log('handleWrittenButtonClick');
+    isShowingWrittingTest.value = true;
+     console.log('isShowingWrittingTest.value : ' + isShowingWrittingTest.value);
+}
+
 const  handleIsShowingTest = (value) => {
   console.log('Odchytená hodnota emitovanej udalosti isShowingTest:', value);
   // Tu môžete vykonať ďalšie operácie na základe emitovanej hodnoty
     isShowingTest.value = value;
+}
+
+const handleIsShowingListeningTest = (value) => {
+  console.log('Odchytená hodnota emitovanej udalosti isShowingTest:', value);
+  // Tu môžete vykonať ďalšie operácie na základe emitovanej hodnoty
+  isShowingListeningTest.value = value;
+}
+
+const handleIsShowingWrittingTest = (value) => {
+  console.log('Odchytená hodnota emitovanej udalosti isShowingTest:', value);
+  // Tu môžete vykonať ďalšie operácie na základe emitovanej hodnoty
+  isShowingWrittingTest.value = value;
 }
 
 </script>
@@ -41,7 +61,7 @@ const  handleIsShowingTest = (value) => {
     <v-container>
         <h1>English Test</h1>
         <br>
-        <div class="firstLink" v-if="!isShowingTest && !isShowingListeningTest " >
+        <div class="firstLink" v-if="!isShowingTest && !isShowingListeningTest && !isShowingWrittingTest " >
             <div class="subheading">
             The objectives of this sheet : 
         </div>
@@ -80,6 +100,14 @@ const  handleIsShowingTest = (value) => {
                 @click="handleListeningButtonClick()"
                 >
             </v-btn>
+            <br>
+            <br>
+            <v-btn
+                text="Start Written"
+                color="primary"
+                @click="handleWrittenButtonClick()"
+                >
+            </v-btn>
         </div>
         <EnglishTestHomePage 
             v-if="isShowingTest"
@@ -91,8 +119,14 @@ const  handleIsShowingTest = (value) => {
             v-if="isShowingListeningTest"
             :isShowingListeningTest="isShowingListeningTest" 
             :volunteerData="volunteerData"
-            @isShowingListeningTest="handleListeningButtonClick"
+            @isShowingListeningTest="handleIsShowingListeningTest"
         ></EnglishTestListening>
+        <EnglishTestWritten 
+            v-if="isShowingWrittingTest"
+            :isShowingWrittingTest="isShowingWrittingTest" 
+            :volunteerData="volunteerData"
+            @isShowingWrittingTest="handleIsShowingWrittingTest"
+        ></EnglishTestWritten>
         
 
     </v-container>

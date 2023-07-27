@@ -6,7 +6,21 @@ import LoginPage from "../pages/LoginPage.vue";
 import RegisterPage from "../pages/RegisterPage.vue";
 import NotFoundPage from "../pages/exceptions/NotFoundPage.vue";
 import PredeparturePage from "../pages/PredeparturePage.vue";
+import OnTheProjectPage from "../pages/OnProjectPage.vue";
+import RolesPage from "../pages/OnProject/RolesPage.vue";
 import { firebaseAuth } from '../../firebase/config';
+
+function checkAuthAndProceed(to, from, next, redirectPath) {
+    const unsubscribe = firebaseAuth.onAuthStateChanged(user => {
+        if (user) {
+            unsubscribe();
+            next();
+        } else {
+            unsubscribe();
+            next(redirectPath);
+        }
+    });
+}
 
 const routes = [
     {
@@ -19,15 +33,7 @@ const routes = [
         name: 'HomePage',
         component: HomePage,
         beforeEnter: (to, from, next) => {
-            const unsubscribe = firebaseAuth.onAuthStateChanged(user => {
-                if (user) {
-                    unsubscribe();
-                    next();
-                } else {
-                    unsubscribe();
-                    next('/login');
-                }
-            });
+            checkAuthAndProceed(to, from, next, '/login');
         }
     },
     {
@@ -72,33 +78,44 @@ const routes = [
         name: 'RegisterPage',
         component: RegisterPage,
         beforeEnter: (to, from, next) => {
-            const unsubscribe = firebaseAuth.onAuthStateChanged(user => {
-                if (user) {
-                    unsubscribe();
-                    next();
-                } else {
-                    unsubscribe();
-                    next('/login');
-                }
-            });
+            checkAuthAndProceed(to, from, next, '/login');
         }
     },
     {
         path: "/predeparture",
         name: 'PredeparturePage',
         component: PredeparturePage,
-        props: { VolunteerData: true},
+        props: true,
         beforeEnter: (to, from, next) => {
-            const unsubscribe = firebaseAuth.onAuthStateChanged(user => {
-                if (user) {
-                    unsubscribe();
-                    next();
-                } else {
-                    unsubscribe();
-                    next('/login');
-                }
-            });
+            checkAuthAndProceed(to, from, next, '/login');
         }
+    },
+    {
+        path: "/project",
+        name: 'ProjectPage',
+        component: OnTheProjectPage,
+        props:  true,
+        beforeEnter: (to, from, next) => {
+            checkAuthAndProceed(to, from, next, '/login');
+        }        
+    },
+    {
+        path: "/project/roles",
+        name: 'RolesPage',
+        component: RolesPage,
+        props: true,
+        beforeEnter: (to, from, next) => {
+            checkAuthAndProceed(to, from, next, '/login');
+        }
+    },
+    {
+        path: "/project/activities",
+        name: 'ActivitiesPage',
+        component: () => import('../pages/OnProject/ActivitiesPage.vue'), // Lazy loading
+        props: true,
+        beforeEnter: (to, from, next) => {
+            checkAuthAndProceed(to, from, next, '/login');
+        }  
     },
     {
         path: "/:catchAll(.*)",

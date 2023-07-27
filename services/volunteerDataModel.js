@@ -35,7 +35,31 @@ export const volunteerDataModel = {
     beforeProject: '',
     letterToMyself: '',
     europassCV: '',
-    englishTest: '',
+    englishTest: {
+      listening: {
+        Scenario1: {
+          question1: '',
+          question2: '',
+          question3: '',
+        },
+        Scenario2: {
+          question1: '',
+          question2: '',
+          question3: '',
+          question4: '',
+          question5: '',
+        },
+        Scenario3: {
+          question1: '',
+          question2: '',
+          question3: '',
+          question4: '',
+          question5: '',
+        }
+      },
+      reading: {},
+      writting: {},
+    },
     languageLearning: '',
     project: '',
     country: '',
@@ -43,6 +67,9 @@ export const volunteerDataModel = {
   },
   onProject: {
     onProject: '',
+    kokot: '',
+    pica: '',
+    holic : '',
   },
   afterProject: {
     afterProject: '',

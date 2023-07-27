@@ -11,14 +11,14 @@ const volunteerData = ref(volunteerDataModel);
 
 
 const createNewRecord = async (userId, data) => {
-    console.log('Create new record ' + userId + data.basicInfo);
+    console.log('Create new record ' + userId + data.value);
     try {
-      const hasBasicInfo = true
-      const basicInfo = data.basicInfo;
+      //const hasBasicInfo = true
+      //const basicInfo = data.basicInfo;
       //hasBasicInfo = true;
       const recordsCollection = collection(db, 'records');
-      const newRecord = { userId, basicInfo, hasBasicInfo };
-      await addDoc(recordsCollection, newRecord);
+      //const newRecord = { userId, data, hasBasicInfo };
+      await addDoc(recordsCollection, data);
       console.log('Nový záznam byl úspěšně vytvořen v databázi.');
     } catch (error) {
       console.error('Chyba při vytváření nového záznamu:', error);
@@ -76,7 +76,7 @@ const createNewRecord = async (userId, data) => {
         });
 
       if (volunteerInfo.length === 0) {
-        console.warn('Záznam nebyl nalezen. + Data budou načtena z modelu. + ' + volunteerData.value.basicInfo);
+        console.warn('Záznam nebyl nalezen. + Data budou načtena z modelu. + ' + volunteerData.value); // Tu bynemuselo byt to basicInfo
         volunteerData.value.userId = id;
         return volunteerData.value;
       }

@@ -1,10 +1,10 @@
 <script setup>
-import { ref, defineProps, defineEmits, onMounted } from 'vue';
+import { ref, defineProps, defineEmits, onBeforeMount } from 'vue';
 import AnswerBox from '../AnswerBox.vue';
 import sendData from '/services/sendData.js';
 
-const emit = defineEmits(['isShowingListeningTest']);
-const isShowingListeningTest = ref(props.isShowingListeningTest);
+const emit = defineEmits(['isShowingWrittingTest']);
+const isShowingWrittingTest = ref(props.isShowingWrittingTest);
 
 // props
 const props = defineProps({
@@ -12,7 +12,7 @@ const props = defineProps({
     type: Object,
     required: true,
   },
-  isShowingListeningTest: {
+  isShowingWrittingTest: {
     type: Boolean,
     required: true,
   },
@@ -23,87 +23,95 @@ const props = defineProps({
 });
 
 const volunteerData = ref(props.volunteerData);
-const path = "beforeProject.englishTest.listening";
+const path = "beforeProject.englishTest.writting";
 
-const listeningAnswers = ref({
-  Scenario1: {
-    question1: '',
-    question2: '',
-    question3: '',
-  },
-  Scenario2: {
-    question1: '',
-    question2: '',
-    question3: '',
-    question4: '',
-    question5: '',
-  },
-  Scenario3: {
-    question1: '',
-    question2: '',
-    question3: '',
-    question4: '',
-    question5: '',
-  },
+// Initialize the answers with values from the model, if available
+const answers = ref({
+  question1: '',
+  question2: '',
+  question3: '',
+  question4: '',
+  question5: '',
+  question6: '',
 });
+
+// Check if the model has the necessary properties before assigning values to answers
+// if (props.volunteerData.beforeProject?.englishTest?.writting) {
+//     console.log('Kokotko');
+//   const writting = props.volunteerData.beforeProject.englishTest.writting;
+//   answers.value = {
+//     question1: writting.question1 || '',
+//     question2: writting.question2 || '',
+//     question3: writting.question3 || '',
+//     question4: writting.question4 || '',
+//     question5: writting.question5 || '',
+//     question6: writting.question6 || '',
+//   };
+// }
+// else {
+//     console.log('Kokotko2');
+//      volunteerData.beforeProject.englishTest.writting = {
+//        question1: '',
+//        question2: '',
+//        question3: '',
+//        question4: '',
+//        question5: '',
+//        question6: '',};
+//      console.log(volunteerData.beforeProject.englishTest.writting);
+// }
 
 // methods
 function handleButtonClick() {
   console.log('handleButtonClick');
-  isShowingListeningTest.value = false;
-  emit('isShowingListeningTest', isShowingListeningTest.value);
-  console.log('isShowingListeningTest.value : ' + isShowingListeningTest.value);
+  isShowingWrittingTest.value = false;
+  emit('isShowingWrittingTest', isShowingWrittingTest.value);
+  console.log('isShowingWrittingTest.value : ' + isShowingWrittingTest.value);
 }
 
-function handleAnswer(scenario, question, value) {
-  console.log(`Odchytená hodnota emitovanej udalosti handleAnswer ${value}`);
-  listeningAnswers.value[scenario][question] = value;
-  console.log(`listeningAnswers.value.${scenario}.${question}: ${listeningAnswers.value[scenario][question]}`);
+function handleAnswer(question, value) {
+//   console.log(`Odchytená hodnota emitovanej udalosti handleAnswer ${value}`);
+//   answers.value[question] = value;
+//   console.log(`answers.value.${question}: ${answers.value[question]}`);
 
-  // Create the path to the specific question
-  const questionPath = `${path}.${scenario}.${question}`;
+//   // Create the path to the specific question
+//   const questionPath = `${path}.${question}`;
 
-  // Update the corresponding answer in volunteerData
-  volunteerData.value = {
-    ...volunteerData.value,
-    [questionPath]: value,
-  };
+//   // Update the corresponding answer in volunteerData
+//   volunteerData.value = {
+//     ...volunteerData.value,
+//     [questionPath]: value,
+//   };
 
-  sendData(volunteerData.value);
+//   sendData(volunteerData.value);
 }
 
-onMounted(() => {
+
+onBeforeMount(() => {
   console.log('ListeningTest.vue mounted');
-  if(!volunteerData.value.beforeProject.englishTest.listening.Scenario3){
-    volunteerData.value.beforeProject.englishTest.listening.Scenario3 = {
-      question1: '',
-      question2: '',
-      question3: '',
-      question4: '',
-      question5: '',
-    };
-  }
-    if(!volunteerData.value.beforeProject.englishTest.listening.Scenario2){
-        volunteerData.value.beforeProject.englishTest.listening.Scenario2 = {
+  if(!volunteerData.value.beforeProject.englishTest.writting)
+    {
+        volunteerData.value.beforeProject.englishTest.writting = {
         question1: '',
         question2: '',
         question3: '',
         question4: '',
         question5: '',
+        question6: '',
         };
     }
 });
+
+
 </script>
 
 <template>
     <p class="subheading">
-        LISTENING COMPREHENSION
+        WRITTEN COMPREHENSION
     </p>
     <p>
-        Copy the following link on your web browser: 
-        <a href="https://www.youtube.com/watch?v=xpmflnvpo0A" target="_blank">https://www.youtube.com/watch?v=xpmflnvpo0A</a>
-        <!-- <iframe width="auto" height="auto" src="https://www.youtube.com/embed/xpmflnvpo0A?start=0&end=60" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
- 
+        Read the testimony of a participant who volunteered as part of the EU Aid Volunteers programme on the ADICE website: 
+        <a href="http://adice.asso.fr/en/news/testimonials/jac-eu-aid-volunteer-in-nepal/" target="_blank">http://adice.asso.fr/en/news/testimonials/jac-eu-aid-volunteer-in-nepal/</a>
+        
 
         <br>
         <br>
@@ -114,17 +122,17 @@ onMounted(() => {
     <br>
     <br>
     <p>
-        What is the person looking for?
+        Where did Jac volunteer and when did he start?
     </p>
     <br>
     <AnswerBox
     :volunteerData="volunteerData"
-    :answer="props.volunteerData.beforeProject.englishTest.listening.Scenario1.question1"
-    @answer="value => handleAnswer('Scenario1', 'question1', value)"
+    :answer="answers.question1"
+    @answer="value => handleAnswer('question1', value)"
   >
   </AnswerBox>
     <br>
-    <p>
+    <!-- <p>
         What the fuck?
     </p>
     <br>
@@ -251,7 +259,7 @@ onMounted(() => {
         :volunteerData="volunteerData"
         :answer="props.volunteerData.beforeProject.englishTest.listening.Scenario3.question5"
         @answer="value => handleAnswer('Scenario3', 'question5', value)">
-    </AnswerBox>
+    </AnswerBox> -->
     <br>
     
 

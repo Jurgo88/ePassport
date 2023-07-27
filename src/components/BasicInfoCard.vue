@@ -62,17 +62,24 @@ const submitForm = async (e) => {
     console.log('submitForm + e ' + e);
   e.preventDefault();
 
-  try {
-    await createNewRecord(userMail.value, volunteerInfo.value);
-    store.state.auth.userDetails.userData.hasBasicInfo = true;
+  console.log('Pod sem pls ------ submitForm + volunteerInfo ' + volunteerInfo.value);
+  console.log(volunteerData.value)
 
-    const updatedVolunteerData = {
+  const updatedVolunteerData = {
+      ...volunteerData.value,
       ...volunteerInfo.value,
       hasBasicInfo: true,
       userId: userMail.value,
     };
+    console.log('updatedVolunteerData: ', updatedVolunteerData);
 
     volunteerData.value = updatedVolunteerData;
+
+  try {
+    await createNewRecord(userMail.value, volunteerData.value);
+    //store.state.auth.userDetails.userData.hasBasicInfo = true;
+
+    
 
     const auth = getAuth();
     const user = auth.currentUser;

@@ -10,8 +10,8 @@ const props = defineProps({
   },
 });
 
-// const volunteerData = ref(props.volunteerData);
-const modelValue = ref(volunteerDataModel);
+const volunteerData = ref(props.volunteerData);
+//const modelValue = ref(volunteerDataModel);
 const initializedVolunteerData = computed(() => {
   const mergedData = { ...volunteerDataModel, ...props.volunteerData };
   return mergedData;
@@ -51,7 +51,7 @@ const progress = computed(() => {
 });
 
 onMounted(() => {
-  console.log('onMounted: ' + initializedVolunteerData.value);
+  console.log('onMounted: ' + props.volunteerData.value);
   const { totalFields, emptyFields } = countFieldsWithEmptyValue(initializedVolunteerData.value);
   console.log('Total Fields:', totalFields);
   console.log('Empty Fields:', emptyFields);
@@ -93,7 +93,12 @@ onMounted(() => {
             }" >
                <v-btn block color="primary" class="my-button">Pre-departure</v-btn>
             </router-link>
-          <v-btn block color="secondary" class="my-button">On the project</v-btn>
+            <router-link :to="{
+                name: 'ProjectPage', 
+                params: { volunteerData: volunteerData.value},
+            }" >
+               <v-btn block color="primary" class="my-button">On the project</v-btn>
+            </router-link>
           <v-btn block color="accent" class="my-button">Evaluation of the Experience</v-btn>
         </v-col>
       </v-row>
