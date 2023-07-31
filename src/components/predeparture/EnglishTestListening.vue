@@ -56,8 +56,8 @@ function handleButtonClick() {
 }
 
 function handleAnswer(scenario, question, value) {
-  console.log(`Odchytená hodnota emitovanej udalosti handleAnswer ${value}`);
-  listeningAnswers.value[scenario][question] = value;
+  console.log(`Odchytená hodnota emitovanej udalosti handleAnswer ${value.answer}`);
+  listeningAnswers.value[scenario][question] = value.answer;
   console.log(`listeningAnswers.value.${scenario}.${question}: ${listeningAnswers.value[scenario][question]}`);
 
   // Create the path to the specific question
@@ -66,7 +66,7 @@ function handleAnswer(scenario, question, value) {
   // Update the corresponding answer in volunteerData
   volunteerData.value = {
     ...volunteerData.value,
-    [questionPath]: value,
+    [questionPath]: value.answer,
   };
 
   sendData(volunteerData.value);
@@ -125,7 +125,7 @@ onMounted(() => {
   </AnswerBox>
     <br>
     <p>
-        What the fuck?
+        What?
     </p>
     <br>
     <AnswerBox

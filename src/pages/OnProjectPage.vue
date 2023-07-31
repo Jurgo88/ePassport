@@ -76,7 +76,6 @@ onMounted(() => {
     <v-toolbar class="navigation-predeparture" color="primary" dark>
         <v-toolbar-title><button @click="goBack"><i class="material-icons">arrow_back_ios_new</i></button></v-toolbar-title>
     </v-toolbar>
-    On The Project Page
     <v-container class="mobile-first-container">
         <v-row>
             <v-col cols="12">
@@ -93,29 +92,18 @@ onMounted(() => {
             }" >
             <v-btn block color="primary" class="my-button">Activities of the project:</v-btn>
         </router-link>
-        <router-link to="/volunteer/ontheproject/europasscv">Europass CV</router-link>
-        <router-link to="/volunteer/ontheproject/englishtest">English Test</router-link>
-        <router-link to="/volunteer/ontheproject/languagelearning">Language Learning</router-link>
-        <v-row v-if="showing">
-            <v-col cols="12"  v-for="(buttonText, index) in buttonList" :key="buttonText">
-                <v-btn block color="primary" class="my-button" @click="handleButtonClick(buttonText, index)">{{ buttonText }}</v-btn>
-            </v-col>
-        </v-row>
-        <v-row>
-            kokot
-            <LetterToMyself v-if="indexButton === 0 && !showing" :volunteerData="volunteerData" />
-            <EuropassCV v-if="indexButton === 1 && !showing" :volunteerData="volunteerData" />
-            <EnglishTest v-if="indexButton === 2 && !showing" :volunteerData="volunteerData" />
-            <LanguageLearning v-if="indexButton === 3 && !showing" :volunteerData="volunteerData" />
-            <Project v-if="indexButton === 4 && !showing" :volunteerData="volunteerData" />
-            <Country v-if="indexButton === 5 && !showing" :volunteerData="volunteerData" />
-            <Competences v-if="indexButton === 6 && !showing" :volunteerData="volunteerData" />
-            <EuropeanSolidarity v-if="indexButton === 7 && !showing" :volunteerData="volunteerData" />
-            <Insurance v-if="indexButton === 8 && !showing" :volunteerData="volunteerData" />
-            <HealthAndSecurity v-if="indexButton === 9 && !showing" :volunteerData="volunteerData" />
-            <BeforeDepartureChecklist v-if="indexButton === 10 && !showing" :volunteerData="volunteerData" /> 
+        <router-link :to="{
+                path: '/project/management' 
+            }" >
+            <v-btn block color="primary" class="my-button">Management of Daily Tasks</v-btn>
+        </router-link>
+        <router-link :to="{
+                path: '/project/followup'
+            }" >
+            <v-btn block color="primary" class="my-button">Follow-up during the Project</v-btn>
+        </router-link>
 
-        </v-row>
+       
     </v-container>
 </template>
 

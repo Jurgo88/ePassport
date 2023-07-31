@@ -91,6 +91,15 @@ const routes = [
         }
     },
     {
+        path: "/predeparture/country",
+        name: 'CountryPage',
+        component: () => import('../pages/Predeparture/CountryPage.vue'), // Lazy loading
+        props: true,
+        beforeEnter: (to, from, next) => {
+            checkAuthAndProceed(to, from, next, '/login');
+        }
+    },    
+    {
         path: "/project",
         name: 'ProjectPage',
         component: OnTheProjectPage,
@@ -116,6 +125,52 @@ const routes = [
         beforeEnter: (to, from, next) => {
             checkAuthAndProceed(to, from, next, '/login');
         }  
+    },
+    {
+        path: "/project/management",
+        name: 'ManagementPage',
+        component: () => import('../pages/OnProject/ManagementPage.vue'), // Lazy loading
+        props: true,
+        beforeEnter: (to, from, next) => {
+            checkAuthAndProceed(to, from, next, '/login');
+        }
+
+    },
+    {
+        path: "/project/followup",
+        name: 'FollowUpPage',
+        component: () => import('../pages/OnProject/FollowUpPage.vue'), // Lazy loading
+        props: true,
+        beforeEnter: (to, from, next) => {
+            checkAuthAndProceed(to, from, next, '/login');
+        }
+    },
+    {
+        path: "/project/followup/activities",
+        name: 'FollowUpActivitiesPage',
+        component: () => import('../pages/OnProject/FollowUpActivitiesPage.vue'), // Lazy loading
+        props: true,
+        beforeEnter: (to, from, next) => {
+            checkAuthAndProceed(to, from, next, '/login');
+        }
+    },
+    {
+        path: "/project/followup/support",
+        name: 'FollowUpSupportPage',
+        component: () => import('../pages/OnProject/FollowUpSupportPage.vue'), // Lazy loading
+        props: true,
+        beforeEnter: (to, from, next) => {
+            checkAuthAndProceed(to, from, next, '/login');
+        }        
+    },
+    {
+        path: "/project/followup/competences",
+        name: 'FollowUpCompetencesPage',
+        component: () => import('../pages/OnProject/FollowUpCompetencesPage.vue'), // Lazy loading
+        props: true,
+        beforeEnter: (to, from, next) => {
+            checkAuthAndProceed(to, from, next, '/login');
+        }
     },
     {
         path: "/:catchAll(.*)",

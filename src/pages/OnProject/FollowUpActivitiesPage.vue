@@ -8,9 +8,14 @@ import  QuestionsList  from '../../components/QuestionsList.vue';
 const store = useStore();
 const userState = computed(() => store.state.auth.userDetails);
 const uid = userState.value.userData.email;
+const volunteerDataOnProject = ref({}); // Tu používame ref, pretože budeme meniť hodnotu.
 const volunteerData = ref({}); 
-const path = "onProject.activities";
+const path = "onProject.followUp.activities";
+const pathForQuestionsList = "followUp.activities";
 const loading = ref(false);
+
+console.log(path);
+
 
 function getQuestionsByPath(obj, path) {
   const keys = path.split('.');
@@ -24,8 +29,8 @@ function getQuestionsByPath(obj, path) {
   return value;
 }
 
-const thisFormQuestions = getQuestionsByPath(questions, path); // Získanie hodnoty pod cestou z objektu questions
-
+const followUpActivitiesQuestions = getQuestionsByPath(questions, path); // Získanie hodnoty pod cestou z objektu questions
+    console.log('Follow-up activities:', followUpActivitiesQuestions);
 
 
 onBeforeMount(async () => {
@@ -43,17 +48,17 @@ onBeforeMount(async () => {
   }
 });
 
+console.log('ActivitiesPage');
+console.log('Questions: ' + questions );
 
-
+console.log('Mame tieto data volunteerData  na Activities: ' + volunteerDataOnProject.value);
 
 </script>
-
 <template>
-  <v-container v-if="!loading">
-    <h1>Activities of the project:</h1>
-    <QuestionsList :questions="thisFormQuestions" :volunteerData="volunteerData" :path="path" />
-
+    <v-container v-if="!loading">
+<!-- {{ followUpActivitiesQuestions.question1 }} -->
+        <h1>Support during the activitiess</h1>
+        <QuestionsList :questions="followUpActivitiesQuestions" :volunteerData="volunteerData" :path="path" />
+    </v-container>
     
-  </v-container>
-
 </template>

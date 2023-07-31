@@ -16,24 +16,32 @@ const props = defineProps({
   },
   userState: {
     type: Object,
-    required: true,
+    required: false,
   },
   answer: {
     type: String,
     required: true,
   },
+  question : {
+    type: String,
+    required: false,
+  },
 });
 
 // emits
-const emit = defineEmits(['answer']);
+const emit = defineEmits(['answer, question']);
 
 
 const volunteerData = ref(props.volunteerData);
 const answer = ref(props.answer);
 const buttonColor = ref('red');
+const question = ref(props.question);
 
+const answerData = ref({
+  question: '',
+  answer: '',
+});
 
-// console.log('answer : ' + answer.value);
 
 if(answer.value == ''){
   buttonColor.value = 'red';
@@ -46,7 +54,11 @@ else{
 
 const handleButtonClick = () => {
     console.log('handleButtonClick : ' + answer.value);
-    emit('answer', answer.value);
+    answerData.value.question = question.value;
+  answerData.value.answer = answer.value;
+  emit('answer', answerData.value);
+    // emit('question', question.value);
+    // emit('answer', answer.value);
 
     if (answer.value) {
         buttonColor.value = 'green';
@@ -82,7 +94,7 @@ onMounted(() => {
 
 <template>
    
-    <div style="height: 100px;">
+    <div style="height: 125px;">
         <v-textarea class="textarea" rows="3" v-model="answer"  label="Your answer..." outlined></v-textarea>
         <v-btn icon @click="handleButtonClick()"  :color="buttonColor" class="myButton" style="margin: 0;">
             <i class="material-icons">add_circle_outline</i>

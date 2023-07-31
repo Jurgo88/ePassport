@@ -125,6 +125,12 @@ onMounted(() => {
                 <v-btn block color="primary" class="my-button" @click="handleButtonClick(buttonText, index)">{{ buttonText }}</v-btn>
             </v-col>
         </v-row>
+        <router-link :to="{
+                name: 'CountryPage' 
+            }" >
+            <v-btn block color="primary" class="my-button">Country</v-btn>
+        </router-link>
+
         <v-row>
             <LetterToMyself v-if="indexButton === 0 && !showing" :volunteerData="volunteerData" />
             <EuropassCV v-if="indexButton === 1 && !showing" :volunteerData="volunteerData" />
