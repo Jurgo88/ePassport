@@ -12,7 +12,7 @@ const store = useStore();
 const props = defineProps({
   volunteerData: {
     type: Object,
-    required: true,
+    required: false,
   },
   userState: {
     type: Object,

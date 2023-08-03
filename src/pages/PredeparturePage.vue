@@ -130,6 +130,11 @@ onMounted(() => {
             }" >
             <v-btn block color="primary" class="my-button">Country</v-btn>
         </router-link>
+        <router-link :to="{
+                name: 'EuPage' 
+            }" >
+            <v-btn block color="primary" class="my-button">European Union, Citizenship and Eco-responsibility</v-btn>
+        </router-link>
 
         <v-row>
             <LetterToMyself v-if="indexButton === 0 && !showing" :volunteerData="volunteerData" />

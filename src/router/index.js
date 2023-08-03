@@ -98,7 +98,107 @@ const routes = [
         beforeEnter: (to, from, next) => {
             checkAuthAndProceed(to, from, next, '/login');
         }
-    },    
+    },
+    {
+        path: "/predeparture/Eu",
+        name: 'EuPage',
+        component: () => import('../pages/Predeparture/EuPage.vue'), // Lazy loading
+        props: true,
+        beforeEnter: (to, from, next) => {
+            checkAuthAndProceed(to, from, next, '/login');
+        }
+    },
+    {
+        path: "/predeparture/Eu/Part1",
+        name: 'EuPage1',
+        component: () => import('../pages/Predeparture/EuPage1.vue'), // Lazy loading
+        props: true,
+        beforeEnter: (to, from, next) => {
+            checkAuthAndProceed(to, from, next, '/login');
+        }
+    },
+    {
+        path: "/predeparture/Eu/Part2",
+        name: 'EuPage2',
+        component: () => import('../pages/Predeparture/EuPage2.vue'), // Lazy loading
+        props: true,
+        beforeEnter: (to, from, next) => {
+            checkAuthAndProceed(to, from, next, '/login');
+        }
+    },
+    {
+        path: "/predeparture/Eu/Part3",
+        name: 'EuPage3',
+        component: () => import('../pages/Predeparture/EuPage3.vue'), // Lazy loading
+        props: true,
+        beforeEnter: (to, from, next) => {
+            checkAuthAndProceed(to, from, next, '/login');
+        }
+    },
+
+    {
+        path: "/predeparture/health",
+        name: 'HealthPage',
+        component: () => import('../pages/Predeparture/HealthPage.vue'), // Lazy loading
+        props: true,
+        beforeEnter: (to, from, next) => {
+            checkAuthAndProceed(to, from, next, '/login');
+        }
+    },
+    {
+        path: "/predeparture/health/Part1",
+        name: 'HealthPage1',
+        component: () => import('../pages/Predeparture/HealthPage1.vue'), // Lazy loading
+        props: true,
+        beforeEnter: (to, from, next) => {
+            checkAuthAndProceed(to, from, next, '/login');
+        }
+    },   
+    {
+        path: "/predeparture/health/Part2",
+        name: 'HealthPage2',
+        component: () => import('../pages/Predeparture/HealthPage2.vue'), // Lazy loading
+        props: true,
+        beforeEnter: (to, from, next) => {
+            checkAuthAndProceed(to, from, next, '/login');
+        }
+    }, 
+    {
+        path: "/predeparture/health/Part3",
+        name: 'HealthPage3',
+        component: () => import('../pages/Predeparture/HealthPage3.vue'), // Lazy loading
+        props: true,
+        beforeEnter: (to, from, next) => {
+            checkAuthAndProceed(to, from, next, '/login'); 
+        }
+    },
+    {
+        path: "/predeparture/health/Part4",
+        name: 'HealthPage4',
+        component: () => import('../pages/Predeparture/HealthPage4.vue'), // Lazy loading
+        props: true,
+        beforeEnter: (to, from, next) => {
+            checkAuthAndProceed(to, from, next, '/login'); 
+        }
+    },
+    {
+        path: "/predeparture/health/Part5",
+        name: 'HealthPage5',
+        component: () => import('../pages/Predeparture/HealthPage5.vue'), // Lazy loading
+        props: true,
+        beforeEnter: (to, from, next) => {
+            checkAuthAndProceed(to, from, next, '/login'); 
+        }
+    },
+    {
+        path: "/predeparture/health/Part6",
+        name: 'HealthPage6',
+        component: () => import('../pages/Predeparture/HealthPage6.vue'), // Lazy loading
+        props: true,
+        beforeEnter: (to, from, next) => {
+            checkAuthAndProceed(to, from, next, '/login'); 
+        }
+    },
     {
         path: "/project",
         name: 'ProjectPage',
