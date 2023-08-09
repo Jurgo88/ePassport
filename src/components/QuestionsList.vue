@@ -27,6 +27,8 @@ const questions = ref(props.questions);
 const volunteerData = ref(props.volunteerData);
 const path = ref(props.path);
 
+const loading = ref(true);
+
 
 //tuto mam chybu, nacitava mi vsetky polia treba to opravit
 const deepValue = (obj, path) => {
@@ -38,6 +40,7 @@ const deepValue = (obj, path) => {
   return obj;
 };
 const getValueByPath = (obj, path) => {
+  loading.value = true;
   const pathArray = path.split('.');
   let value = obj;
 
@@ -48,7 +51,7 @@ const getValueByPath = (obj, path) => {
       return undefined;
     }
   }
-
+  loading.value = false;
   console.log("pozrime sa co tu mame na getValueByPath " + value);
   return value;
 };
@@ -82,7 +85,8 @@ sendData(volunteerData.value);
 
 <template>
     
-        <div v-for="(question, index ) in questions" key="question.id">
+    <div v-if="!loading">
+        <div v-for="(question, index ) in questions" key="question.id" >
             <hr>
             <br>
             <div v-html="question"></div>
@@ -98,7 +102,7 @@ sendData(volunteerData.value);
                 />
             </div>
             
-            
-            
         </div>
+    </div>
+
 </template>

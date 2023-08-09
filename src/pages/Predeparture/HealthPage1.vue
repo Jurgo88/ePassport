@@ -17,7 +17,6 @@ const loading = ref(false);
 const selected1 = ref([]);
 const selected2 = ref([]);
 const selected3 = ref([]);
-const selected4 = ref([]);
 
 
 function getQuestionsByPath(obj, path) {
@@ -34,6 +33,7 @@ function getQuestionsByPath(obj, path) {
 
 const thisFormQuestions = getQuestionsByPath(questions, path); // Získanie hodnoty pod cestou z objektu questions
 const firstQuestion = { question1: thisFormQuestions.question1 };
+console.log('firstQuestion', firstQuestion);
 // const firstQuestion = { question1: questions.beforeProject.healthQuiz.part1.question1};
 
 const part1Checkbox1Values = checkboxesQuestions.beforeProject.healthQuiz.part1.checkbox1;
@@ -41,21 +41,26 @@ const part1Checkbox2Values = checkboxesQuestions.beforeProject.healthQuiz.part1.
 const part1Checkbox3Values = checkboxesQuestions.beforeProject.healthQuiz.part1.checkbox3;
 
 
+
 console.log('HealthPage');
 
 function sendSelectedOptions() {
-    const quiz = {
-      part1: {
-        //prvu otazku mam zle, lebo pri refreshnuti a posielani do db sa posle povodna hodnota, nie ta, ktoru som vybral
-        //asi by som mal ukladat iba selected values do konkretnej hodnoty v db, nie vsetky hodnoty
-        question1: volunteerData.value.beforeProject.healthQuiz.part1.question1, 
-        question2: selected1.value,
-        question3: selected2.value,
-        question4: selected3.value,
-        question5: selected4.value,
-      },
-    };
-    volunteerData.value.beforeProject.healthQuiz = quiz;
+    // const quiz = {
+    //   part1: {
+    //     //prvu otazku mam zle, lebo pri refreshnuti a posielani do db sa posle povodna hodnota, nie ta, ktoru som vybral
+    //     //asi by som mal ukladat iba selected values do konkretnej hodnoty v db, nie vsetky hodnoty
+    //     question1: volunteerData.value.beforeProject.healthQuiz.part1.question1, 
+    //     question2: selected1.value,
+    //     question3: selected2.value,
+    //     question4: selected3.value,
+    //   },
+    // };
+    // volunteerData.value.beforeProject.healthQuiz = quiz;
+    volunteerData.value.beforeProject.healthQuiz.part1.question1 = selected1.value;
+    volunteerData.value.beforeProject.healthQuiz.part1.question2 = selected2.value;
+    volunteerData.value.beforeProject.healthQuiz.part1.question3 = selected3.value; 
+
+
     sendData(volunteerData.value);
 }
 
@@ -66,11 +71,11 @@ onBeforeMount(async () => {
     loading.value = true;
     const dataFromDatabase = await loadVolunteerDataByID(uid);
     volunteerData.value = dataFromDatabase; // Meníme hodnotu ref.
-    //selected1.value = volunteerData.value.beforeProject?.europeanUnion?.part3?.question1 || [];
-    selected1.value = volunteerData.value.beforeProject?.healthQuiz?.part1?.question2 || [];
-    selected2.value = volunteerData.value.beforeProject?.healthQuiz?.part1?.question3 || [];
-    selected3.value = volunteerData.value.beforeProject?.healthQuiz?.part1?.question4 || [];
-    selected4.value = volunteerData.value.beforeProject?.healthQuiz?.part1?.question5 || [];
+    // //selected1.value = volunteerData.value.beforeProject?.europeanUnion?.part3?.question1 || [];
+    // selected1.value = volunteerData.value.beforeProject?.healthQuiz?.part1?.question2 || [];
+    // selected2.value = volunteerData.value.beforeProject?.healthQuiz?.part1?.question3 || [];
+    // selected3.value = volunteerData.value.beforeProject?.healthQuiz?.part1?.question4 || [];
+    // selected4.value = volunteerData.value.beforeProject?.healthQuiz?.part1?.question5 || [];
     loading.value = false;
   } catch (error) {
     console.log(error);
@@ -123,18 +128,7 @@ onBeforeMount(async () => {
           </v-checkbox>
         </div>
         {{ selected3 }}
-        <br>
-        {{ questions.beforeProject.healthQuiz.part1.question5 }}
-        <div v-for="(question, index) in part1Checkbox3Values" :key="index">       
-          <v-checkbox  light
-          class="shrink mr-1" hide-details="true"
-            :label="question"
-            :value="question"
-            v-model="selected4"
-            @change="sendSelectedOptions">
-          </v-checkbox>
-        </div>
-        {{ selected4 }}
+        
         <br>
         <!-- <v-btn class="my-button" color="primary" @click="sendSelectedOptions">Update options</v-btn> -->
         <br>

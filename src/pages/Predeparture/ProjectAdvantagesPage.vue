@@ -3,17 +3,14 @@ import { ref, onBeforeMount, computed } from 'vue';
 import { useStore } from 'vuex';
 import { loadVolunteerDataByID } from '/services/database.js';
 import { questions } from '../../../services/questions';
-import { checkboxesQuestions } from '../../../services/checkboxesQuestions';
 import  QuestionsList  from '../../components/QuestionsList.vue';
-import sendData from '../../../services/sendData.js';
 
 const store = useStore();
 const userState = computed(() => store.state.auth.userDetails);
 const uid = userState.value.userData.email;
 const volunteerData = ref({}); 
-const path = "beforeProject.healthQuiz.part3";
+const path = "beforeProject.project.advantages";
 const loading = ref(false);
-
 
 function getQuestionsByPath(obj, path) {
   const keys = path.split('.');
@@ -28,9 +25,6 @@ function getQuestionsByPath(obj, path) {
 }
 
 const thisFormQuestions = getQuestionsByPath(questions, path); // Získanie hodnoty pod cestou z objektu questions
-
-
-
 
 onBeforeMount(async () => {
   try {
@@ -47,15 +41,23 @@ onBeforeMount(async () => {
 </script>
 <template>
     <v-container v-if="!loading">
-        <h1>PART 3 - POLITICAL AND SECURITY RISKS</h1>
-
+        <h1>Advantages, strengths, fears & challenges</h1>
+        <br>
+        <h2>INSTRUCTIONS AND PRACTICAL MATTERS</h2>
+        <ul>
+            <li>Please complete the table below with accurately information and set realistic objectives</li>
+            <li>Start before the beginning of your experience and continue all along with your project</li>
+        </ul>
         <QuestionsList :questions="thisFormQuestions" :volunteerData="volunteerData" :path="path" />
-        
-        <router-link :to="{
-                name: 'HealthPage4' 
-            }" >
-            <v-btn block color="primary" class="my-button">Continue to  PART 4</v-btn>
+        <hr>
+        <br>
+
+        <router-link
+            :to="{
+                name: 'ProjectExpectationsPage'
+                } ">
+            <v-btn color="primary" class="my-button">Next</v-btn>
         </router-link>
-        
-    </v-container>
+ 
+        </v-container>
 </template>

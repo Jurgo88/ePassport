@@ -125,27 +125,3 @@ onMounted(() => {
   
 </template>
 
-<style >
-    .mobile-first-container {
-    }
-    .textarea {
-        width: 80%;
-        float: left;
-    }  
-    .myButton {
-        float: right;
-        margin-top: 20px;
-        margin-right: 20px;
-        display: none;
-    }
-    h1 {
-        font-size: 32px;
-        font-weight: 700;
-        color: #0c2f6b;
-    }
-    h2{
-        font-size: 24px;
-        font-weight: 700;
-        color: #0c2f6b;
-    }
-</style>

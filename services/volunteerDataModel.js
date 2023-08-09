@@ -58,7 +58,14 @@ export const volunteerDataModel = {
         }
       },
       reading: {},
-      writting: {},
+      writting: {
+        question1: '',
+        question2: '',
+        question3: '',
+        question4: '',
+        question5: '',
+        question6: '',
+      },
     },
     languageLearning: '',
     project: {
@@ -68,7 +75,7 @@ export const volunteerDataModel = {
         question3: '',
         question4: '',
       },
-      exceptations: {
+      expectations: {
         question1:{
           answer1: '',
           answer2: '',
@@ -182,7 +189,6 @@ export const volunteerDataModel = {
         question2: '',
         question3: '',
         question4: '',
-        question5: '',
       },
       part2: {
         question1: '',

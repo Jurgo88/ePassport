@@ -3,6 +3,7 @@
 import { ref } from 'vue';
 import { ref as storageRef, uploadBytes, listAll } from 'firebase/storage';
 import { storage, firebaseAuth } from '../../../firebase/config';
+import sendData from '../../../services/sendData';
 
 const props = defineProps({
   volunteerData: {
@@ -39,13 +40,15 @@ async function uploadFile(file) {
   try {
     await uploadBytes(thisIsStorageRef, file);
     console.log('Súbor bol úspešne nahraný na Firebase Storage.');
-    volunteerData.value.beforeProject.CV = userEmail +'/CV/'+ file.name;
-    console.log('volunteerData.value.beforeProject.CV: ' + volunteerData.value.beforeProject.CV);
     uploadbuttonColor.value = 'success';
     uploadbuttonText.value = 'File uploaded';
   } catch (error) {
     console.error('Chyba pri nahrávaní súboru:', error);
   }
+  
+  volunteerData.value.beforeProject.europassCV = userEmail +'/CV/'+ file.name;
+    console.log('volunteerData.value.beforeProject.CV: ' + volunteerData.value.beforeProject.europassCV);
+    sendData(volunteerData.value);
 }
 
 function uploadSelectedFile() {

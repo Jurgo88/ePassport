@@ -1,8 +1,76 @@
 // For formating text in HTM using tag with v-html
 export const questions = {
     beforeProject: {
-        beforeProject: 'Pred projektom',
-        letterToMyself: 'List sebe samému',
+        letterToMyself: 'Where did Jac volunteer and when did he start?',
+        englishTest: {
+            listening: {
+                Scenario1: {
+                    question1: 'What is the person looking for?',
+                    question2: 'Where is the train station?',
+                    question3: 'Why is the person lost?',
+                },
+                Scenario2: {
+                    question1: 'Where does Carla work?',
+                    question2: 'Why does she enjoy her work?',
+                    question3: 'What does Pierre do in the design department?',
+                    question4: 'Which countries are Pierre and Carla from?',
+                    question5: 'How many months will Pierre be working within the association?',
+                },
+                Scenario3: {
+                    question1: 'Where is the director’s office?',
+                    question2: 'How often does the general meeting take place?',
+                    question3: 'How long does it last?',
+                    question4: 'When do the activities start?',
+                    question5: 'How long is the lunch break?',
+                }
+            },
+            reading: {},                
+            writting: {
+                question1: 'Where did Jac volunteer and when did he start?',
+                question2: 'What are the particularities of this country, geographically speaking?',
+                question3: 'What happened in 2015? One correct answer.',
+                question4: 'What are the other climate disasters that the country often faces? Several correct answers.',
+                question5: 'Who did Jac work with during his volunteering experience?',
+                question6: 'Name two missions that Jack had to carry out.',
+            },
+        },
+        project: {
+            advantages: {
+                question1: 'Myadvantages & strengths',
+                question2: 'Why do I think it is an advantage or a strength?',
+                question3: 'My fears and challenges',
+                question4: 'Please justify each answer',
+            },
+            expectations: {
+                question1: 'I expect that everybody in the field take into account my experience',
+                question2: 'I expect that after participating in this project I will find a job in my field',
+                question3: 'I expect to develop/gain competences that will contribute to my professional, but also my personal development.',
+                question4: 'I have no expectation, just wait and see',
+                question5: 'To contribute to a piece of change in the local community in a specific sector and bring positive impact in the field',
+                question6: 'To support the hosting organisation to improve its tools and/or methods of working in a specific field/with beneficiaries/ the staff’s technical competences',
+                question7: 'Personally',
+                question8: 'Professionally',
+            },
+            competences: {
+                question1: 'Technical competences in a specific field (environment, health, pedagogy...other)',
+                question2: 'Management competences (project implementation, fund raising, evaluation and monitoring, partnership relations...)',
+                question3: 'Relational competences (diplomacy, intercultural issues management, team working...)',
+                question4: 'Personal competences (autonomy, Adaptability, flexibility...)',
+                question5: 'Other',
+                question6: 'Technical competences',
+                question7: 'Management competences',
+                question8: 'Relational competences',
+                question9: 'Network<br>I can bring new partners that:',
+                question10: 'Personal competences',
+                question11: 'Other',
+            },
+            howBenefit: {
+                question1: 'In terms of career',
+                question2: 'Personally',
+                question3: 'Socially/relationships',
+                question4: 'How can I make use of this experience when I return?',
+            },
+        },               
         country:{
             question1: '<b>Complete your information answering to the following questions: </b> <br> <ul><li>What are the country’s main resources, strengths?</li><li>What are the country’s main problems/challenges?</li><li>Main risks in the country and how you could mitigate them</li></ul>',
             question2: '<b>WHAT ARE THE MOST COMMON PRECONCEIVED NOTIONS ABOUT THE COUNTRY?</b> <br><ul><li> How to avoid the “saviour” thinking and mitigate stereotypes? </li><li> Do you have any preconceived ideas about your local country? Where did you get them from?</li><li> List three positive aspects about your hosting country, that makes it “different”.</li></ul>',
@@ -76,6 +144,21 @@ export const questions = {
                 question3: 'How can I adapt my behavior to the context of the host country? (Culture, religion, political regime, society, etc.)',
                 question4: 'Are there any risks of natural disasters? If so, which ones?',
             },
+            part4:{
+                question1: 'What health-related steps should I take?',
+                question2: 'What vaccinations are required before leaving for my host country?',
+                question3: 'What should I have in my first aid kit?',
+                question4: 'What should my emergency bag contain? (If you are advised to do so before your departure and depending on depending on the program and country of your mobility).',
+                question5: 'What water can I drink in my host country? (Depending on the country and region)',
+                question6: 'Hybrid/Virtual mobility? <br>How to have a balance between mobility and my personal life?',
+                question7: 'What should I do if I’m ill during my virtual mobility? Who should I inform?',
+            },
+            part5:{
+                question1: 'What insurance information do I need to know?',
+                question2: 'When should I contact my insurance?',
+                question3: 'Who should contact the insurance company in case of illness/accident?',
+            },
+
         },
     },
     onProject: {

@@ -91,6 +91,123 @@ const routes = [
         }
     },
     {
+        path: "/predeparture/letter",
+        name: 'LetterToMyselfPage',
+        component: () => import('../pages/Predeparture/LetterToMyselfPage.vue'), // Lazy loading
+        props: true,
+        beforeEnter: (to, from, next) => {
+            checkAuthAndProceed(to, from, next, '/login');
+        }
+    },
+    {
+        path: "/predeparture/CV",
+        name: 'EuropassCVPage',
+        component: () => import('../pages/Predeparture/EuropassCVPage.vue'), // Lazy loading
+        props: true,
+        beforeEnter: (to, from, next) => {
+            checkAuthAndProceed(to, from, next, '/login');
+        }
+    },
+    {
+        path: "/predeparture/EnglishTest",
+        name: 'EnglishTestPage',
+        component: () => import('../pages/Predeparture/EnglishTestPage.vue'), // Lazy loading
+        props: true,
+        beforeEnter: (to, from, next) => {
+            checkAuthAndProceed(to, from, next, '/login');
+        }
+    },
+    {
+        path: "/predeparture/EnglishTest/test",
+        name: 'EnglishTestStartTestPage',
+        component: () => import('../pages/Predeparture/EnglishTestStartTestPage.vue'), // Lazy loading
+        props: true,
+        beforeEnter: (to, from, next) => {
+            checkAuthAndProceed(to, from, next, '/login');
+        }
+    },
+    {
+        path: "/predeparture/EnglishTest/listening",
+        name: 'EnglishTestListeningPage',
+        component: () => import('../pages/Predeparture/EnglishTestListeningPage.vue'), // Lazy loading
+        props: true,
+        beforeEnter: (to, from, next) => {
+           checkAuthAndProceed(to, from, next, '/login');
+        }
+    },
+    {
+        path: "/predeparture/EnglishTest/writting",
+        name: 'EnglishTestWrittingPage',
+        component: () => import('../pages/Predeparture/EnglishTestWrittingPage.vue'), // Lazy loading
+        props: true,
+        beforeEnter: (to, from, next) => {
+              checkAuthAndProceed(to, from, next, '/login');
+          }
+    },
+    {
+        path: "/predeparture/EnglishTest/learning",
+        name: 'EnglishTestLearningPage',
+        component: () => import('../pages/Predeparture/EnglishTestLearningPage.vue'), // Lazy loading
+        props: true,
+        beforeEnter: (to, from, next) => {
+                checkAuthAndProceed(to, from, next, '/login');
+            }
+    },
+    {
+        path: "/predeparture/project",
+        name: 'ProjectPage',
+        component: () => import('../pages/Predeparture/ProjectPage.vue'), // Lazy loading
+        props: true,
+        beforeEnter: (to, from, next) => {
+            checkAuthAndProceed(to, from, next, '/login');
+        }
+    },
+    {
+        path: "/predeparture/project/advantages",
+        name: 'ProjectAdvantagesPage',
+        component: () => import('../pages/Predeparture/ProjectAdvantagesPage.vue'), // Lazy loading
+        props: true,
+        beforeEnter: (to, from, next) => {
+                checkAuthAndProceed(to, from, next, '/login');
+        }
+    },
+    {
+        path: "/predeparture/project/expectations",
+        name: 'ProjectExpectationsPage',
+        component: () => import('../pages/Predeparture/ProjectExpectationsPage.vue'), // Lazy loading
+        props: true,
+        beforeEnter: (to, from, next) => {
+           checkAuthAndProceed(to, from, next, '/login');
+        }
+    },
+    {
+        path: "/predeparture/project/howIsee",
+        name: 'ProjectHowIseePage',
+        component: () => import('../pages/Predeparture/ProjectHowIseePage.vue'), // Lazy loading
+        props: true,
+        beforeEnter: (to, from, next) => {
+            checkAuthAndProceed(to, from, next, '/login');
+        }
+    },
+    {
+        path: "/predeparture/project/competences",
+        name: 'ProjectCompetencesPage',
+        component: () => import('../pages/Predeparture/ProjectCompetencesPage.vue'), // Lazy loading
+        props: true,
+        beforeEnter: (to, from, next) => {
+            checkAuthAndProceed(to, from, next, '/login');
+        }
+    },
+    {
+        path: "/predeparture/project/howBenefit",
+        name: 'ProjectHowBenefitPage',
+        component: () => import('../pages/Predeparture/ProjectHowBenefitPage.vue'), // Lazy loading
+        props: true,
+        beforeEnter: (to, from, next) => {
+            checkAuthAndProceed(to, from, next, '/login');
+        }
+    },
+    {
         path: "/predeparture/country",
         name: 'CountryPage',
         component: () => import('../pages/Predeparture/CountryPage.vue'), // Lazy loading
@@ -201,7 +318,7 @@ const routes = [
     },
     {
         path: "/project",
-        name: 'ProjectPage',
+        name: 'OnProjectPage',
         component: OnTheProjectPage,
         props:  true,
         beforeEnter: (to, from, next) => {

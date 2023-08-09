@@ -120,11 +120,36 @@ onMounted(() => {
     </v-toolbar>
 
     <v-container class="mobile-first-container">
-        <v-row v-if="showing">
+        <!-- <v-row v-if="showing">
             <v-col cols="12"  v-for="(buttonText, index) in buttonList" :key="buttonText">
                 <v-btn block color="primary" class="my-button" @click="handleButtonClick(buttonText, index)">{{ buttonText }}</v-btn>
             </v-col>
-        </v-row>
+        </v-row> -->
+        <router-link :to="{
+                name: 'LetterToMyselfPage' 
+            }" >
+            <v-btn block color="primary" class="my-button">Letter to myself</v-btn>
+        </router-link>
+        <router-link :to="{
+                name: 'EuropassCVPage' 
+            }" >
+            <v-btn block color="primary" class="my-button">Europass CV</v-btn>
+        </router-link>
+        <router-link :to="{
+                name: 'EnglishTestPage' 
+            }" >
+            <v-btn block color="primary" class="my-button">English test</v-btn>
+        </router-link>
+        <router-link :to="{
+                name: 'ProjectPage' 
+            }" >
+            <v-btn block color="primary" class="my-button">Project</v-btn>
+        </router-link>
+        <!--<router-link :to="{
+                name: 'LanguageLearningPage' 
+            }" >
+            <v-btn block color="primary" class="my-button">Language learning</v-btn>
+        </router-link> -->
         <router-link :to="{
                 name: 'CountryPage' 
             }" >
@@ -135,8 +160,14 @@ onMounted(() => {
             }" >
             <v-btn block color="primary" class="my-button">European Union, Citizenship and Eco-responsibility</v-btn>
         </router-link>
+        <router-link :to="{
+                name: 'HealthPage' 
+            }" >
+            <v-btn block color="primary" class="my-button">Health and Security Quizz</v-btn>
+        </router-link>
 
-        <v-row>
+
+        <!-- <v-row>
             <LetterToMyself v-if="indexButton === 0 && !showing" :volunteerData="volunteerData" />
             <EuropassCV v-if="indexButton === 1 && !showing" :volunteerData="volunteerData" />
             <EnglishTest v-if="indexButton === 2 && !showing" :volunteerData="volunteerData" />
@@ -149,7 +180,7 @@ onMounted(() => {
             <HealthAndSecurity v-if="indexButton === 9 && !showing" :volunteerData="volunteerData" />
             <BeforeDepartureChecklist v-if="indexButton === 10 && !showing" :volunteerData="volunteerData" /> 
 
-        </v-row>
+        </v-row> -->
     </v-container>
 </template>
 
