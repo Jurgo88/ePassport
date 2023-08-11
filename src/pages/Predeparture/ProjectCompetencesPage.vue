@@ -14,6 +14,12 @@ const volunteerData = ref({});
 const path = "beforeProject.project.competences";
 const loading = ref(false);
 
+const selected1 = ref([]);
+const selected2 = ref([]);
+const selected3 = ref([]);
+const selected4 = ref([]);
+const selected5 = ref([]);
+
 
 function getQuestionsByPath(obj, path) {
   const keys = path.split('.');
@@ -58,11 +64,7 @@ function sendSelectedOptions() {
     sendData(volunteerData.value);
 }
 
-const selected1 = ref([]);
-const selected2 = ref([]);
-const selected3 = ref([]);
-const selected4 = ref([]);
-const selected5 = ref([]);
+
 
 
 
@@ -71,17 +73,16 @@ onBeforeMount(async () => {
     loading.value = true;
     const dataFromDatabase = await loadVolunteerDataByID(uid);
     volunteerData.value = dataFromDatabase; // Meníme hodnotu ref.
+    selected1.value = volunteerData.value.beforeProject?.project?.competences?.question6 || [];
+    selected2.value = volunteerData.value.beforeProject?.project?.competences?.question7 || [];
+    selected3.value = volunteerData.value.beforeProject?.project?.competences?.question8 || [];
+    selected4.value = volunteerData.value.beforeProject?.project?.competences?.question9 || [];
+    selected5.value = volunteerData.value.beforeProject?.project?.competences?.question10 || [];
     loading.value = false;
   } catch (error) {
     console.log(error);
     loading.value = false;
   }
-
-selected1.value = volunteerData.value.beforeProject.project.competences.question6;
-selected2.value = volunteerData.value.beforeProject.project.competences.question7;
-selected3.value = volunteerData.value.beforeProject.project.competences.question8;
-selected4.value = volunteerData.value.beforeProject.project.competences.question9;
-selected5.value = volunteerData.value.beforeProject.project.competences.question10;
 
 });
 

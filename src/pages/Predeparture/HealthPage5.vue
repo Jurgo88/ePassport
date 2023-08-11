@@ -49,6 +49,9 @@ onBeforeMount(async () => {
     loading.value = true;
     const dataFromDatabase = await loadVolunteerDataByID(uid);
     volunteerData.value = dataFromDatabase; // Meníme hodnotu ref.
+    selected1.value = volunteerData.value.beforeProject?.healthQuiz?.part5?.question1 || [];
+    selected2.value = volunteerData.value.beforeProject?.healthQuiz?.part5?.question2 || [];
+    selected3.value = volunteerData.value.beforeProject?.healthQuiz?.part5?.question3 || [];
     loading.value = false;
   } catch (error) {
     console.error(error);

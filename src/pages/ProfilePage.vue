@@ -12,8 +12,8 @@ const changePasswordState = store.state.auth.changePassword
 </script>
 
 <template>
-  <div class="flex flex-col items-center">
-    <div class="container mx-auto">
+  <v-container>
+    <div class="mx-auto">
       <ProfileCard />
       <Transition>
         <ChangePasswordCard v-if="isShow" />
@@ -25,7 +25,7 @@ const changePasswordState = store.state.auth.changePassword
         :warning="changePasswordState.isError"
         :warningMsg="changePasswordState.errorMessage"
     />
-  </div>
+  </v-container>
 </template>
 
 <style scoped>

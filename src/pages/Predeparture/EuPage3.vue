@@ -69,7 +69,11 @@ onBeforeMount(async () => {
     loading.value = true;
     const dataFromDatabase = await loadVolunteerDataByID(uid);
     volunteerData.value = dataFromDatabase; // Meníme hodnotu ref.
-    //selected1.value = volunteerData.value.beforeProject?.europeanUnion?.part3?.question1 || [];
+    selected1.value = volunteerData.value.beforeProject?.europeanUnion?.part3?.question1 || [];
+    selected2.value = volunteerData.value.beforeProject?.europeanUnion?.part3?.question2 || [];
+    selected3.value = volunteerData.value.beforeProject?.europeanUnion?.part3?.question3 || [];
+    selected4.value = volunteerData.value.beforeProject?.europeanUnion?.part3?.question4 || [];
+    selected5.value = volunteerData.value.beforeProject?.europeanUnion?.part3?.question9 || [];
     loading.value = false;
   } catch (error) {
     console.log(error);

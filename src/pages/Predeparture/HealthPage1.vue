@@ -56,9 +56,9 @@ function sendSelectedOptions() {
     //   },
     // };
     // volunteerData.value.beforeProject.healthQuiz = quiz;
-    volunteerData.value.beforeProject.healthQuiz.part1.question1 = selected1.value;
-    volunteerData.value.beforeProject.healthQuiz.part1.question2 = selected2.value;
-    volunteerData.value.beforeProject.healthQuiz.part1.question3 = selected3.value; 
+    volunteerData.value.beforeProject.healthQuiz.part1.question2 = selected1.value;
+    volunteerData.value.beforeProject.healthQuiz.part1.question3 = selected2.value;
+    volunteerData.value.beforeProject.healthQuiz.part1.question4 = selected3.value; 
 
 
     sendData(volunteerData.value);
@@ -71,10 +71,10 @@ onBeforeMount(async () => {
     loading.value = true;
     const dataFromDatabase = await loadVolunteerDataByID(uid);
     volunteerData.value = dataFromDatabase; // Meníme hodnotu ref.
-    // //selected1.value = volunteerData.value.beforeProject?.europeanUnion?.part3?.question1 || [];
-    // selected1.value = volunteerData.value.beforeProject?.healthQuiz?.part1?.question2 || [];
-    // selected2.value = volunteerData.value.beforeProject?.healthQuiz?.part1?.question3 || [];
-    // selected3.value = volunteerData.value.beforeProject?.healthQuiz?.part1?.question4 || [];
+    //selected1.value = volunteerData.value.beforeProject?.europeanUnion?.part3?.question1 || [];
+    selected1.value = volunteerData.value.beforeProject?.healthQuiz?.part1?.question2 || [];
+    selected2.value = volunteerData.value.beforeProject?.healthQuiz?.part1?.question3 || [];
+    selected3.value = volunteerData.value.beforeProject?.healthQuiz?.part1?.question4 || [];
     // selected4.value = volunteerData.value.beforeProject?.healthQuiz?.part1?.question5 || [];
     loading.value = false;
   } catch (error) {
@@ -115,7 +115,6 @@ onBeforeMount(async () => {
             @change="sendSelectedOptions">
           </v-checkbox>
         </div>
-        {{ selected2 }}
         <br>
         {{ questions.beforeProject.healthQuiz.part1.question4 }}
         <div v-for="(question, index) in part1Checkbox3Values" :key="index">       
@@ -127,7 +126,6 @@ onBeforeMount(async () => {
             @change="sendSelectedOptions">
           </v-checkbox>
         </div>
-        {{ selected3 }}
         
         <br>
         <!-- <v-btn class="my-button" color="primary" @click="sendSelectedOptions">Update options</v-btn> -->

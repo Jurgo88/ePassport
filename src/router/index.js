@@ -390,6 +390,51 @@ const routes = [
         }
     },
     {
+        path: "/evaluation",
+        name: 'AfterProjectPage',
+        component: () => import('../pages/AfterProjectPage.vue'), // Lazy loading
+        props: true,
+        beforeEnter: (to, from, next) => {
+              checkAuthAndProceed(to, from, next, '/login');
+          }
+    },
+    {
+        path: "/evaluation/support",
+        name: 'SupportPage',
+        component: () => import('../pages/AfterProject/SupportPage.vue'), // Lazy loading
+        props: true,
+        beforeEnter: (to, from, next) => {
+            checkAuthAndProceed(to, from, next, '/login');
+        }
+    },
+    {
+        path:"/evaluation/tasks",
+        name: 'TasksPage',
+        component: () => import('../pages/AfterProject/TasksPage.vue'), // Lazy loading
+        props: true,
+        beforeEnter: (to, from, next) => {
+            checkAuthAndProceed(to, from, next, '/login');
+        }   
+    },
+    {
+        path: "/evaluation/competences",
+        name: 'CompetencesPage',
+        component: () => import('../pages/AfterProject/CompetencesPage.vue'), // Lazy loading
+        props: true,
+        beforeEnter: (to, from, next) => {
+            checkAuthAndProceed(to, from, next, '/login');
+        }   
+    },
+    {
+        path: "/evaluation/general",
+        name: 'GeneralPage',
+        component: () => import('../pages/AfterProject/GeneralPage.vue'), // Lazy loading
+        props: true,
+        beforeEnter: (to, from, next) => {
+            checkAuthAndProceed(to, from, next, '/login');
+        }
+    },
+    {
         path: "/:catchAll(.*)",
         component: NotFoundPage
     }

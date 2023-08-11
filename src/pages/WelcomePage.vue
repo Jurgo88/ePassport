@@ -99,7 +99,12 @@ onMounted(() => {
             }" >
                <v-btn block color="primary" class="my-button">On the project</v-btn>
             </router-link>
-          <v-btn block color="accent" class="my-button">Evaluation of the Experience</v-btn>
+            <router-link :to="{
+                name: 'AfterProjectPage', 
+                params: { volunteerData: volunteerData.value},
+            }" >
+               <v-btn block color="primary" class="my-button">Evaluation of the Experience</v-btn>
+            </router-link>
         </v-col>
       </v-row>
      
@@ -141,7 +146,7 @@ onMounted(() => {
   .my-button {
     margin: 10px 0;
     width: 100%;
-    height: 80px !important;
+    height: 70px !important;
     white-space: nowrap;
   }
   .my-button > span {

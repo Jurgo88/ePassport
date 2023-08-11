@@ -5,6 +5,7 @@ import { loadVolunteerDataByID }  from '/services/database.js';
 import sendData from '../../../services/sendData.js';
 import { questions } from '../../../services/questions';
 import QuestionsList from '../../components/QuestionsList.vue';
+import AnswerBox from '../../components/AnswerBox.vue';
 
 
 const store = useStore();
@@ -30,7 +31,13 @@ const thisFormQuestions = getQuestionsByPath(questions, path); // Získanie hodn
 
 //4.8. toto treba spravit tak aby sa posielal objekt, bud vytvorit pre LetterToMyself question1 alebo nebudem vobec posielat QestionList a spravim si novu funkciu
 
- 
+
+function handleAnswer(answerData) {
+  console.log('handleAnswer', answerData);
+  volunteerData.value.beforeProject.letterToMyself = answerData.answer;
+  console.log('volunteerData.value', volunteerData.value);
+  sendData(volunteerData.value);
+}
 
 onBeforeMount(async () => {
   try {
@@ -57,6 +64,14 @@ onBeforeMount(async () => {
         What is important for you and the organisation which will work with you?
     </p>
     <br>
-    <QuestionsList :questions="{thisFormQuestions}" :path="path" :volunteerData="volunteerData" />
+    <br>
+    {{ questions.beforeProject.letterToMyself  }}
+    <br>
+    <br>
+    <hr>
+    <br>
+    <AnswerBox :answer="volunteerData.beforeProject.letterToMyself" :volunteerData="volunteerData" @answer="handleAnswer" />
+    <br>
+    <hr>
     </v-container>
 </template>

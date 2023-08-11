@@ -14,6 +14,9 @@ const volunteerData = ref({});
 const path = "beforeProject.englishTest.writting";
 const loading = ref(true);
 
+const selected1 = ref([]);
+const selected2 = ref([]);
+
 
 function getQuestionsByPath(obj, path) {
   const keys = path.split('.');
@@ -46,8 +49,6 @@ function sendSelectedOptions() {
     sendData(volunteerData.value);
 }
 
-const selected1 = ref([]);
-const selected2 = ref([]);
 
 
 onBeforeMount(async () => {
@@ -57,8 +58,8 @@ onBeforeMount(async () => {
     volunteerData.value = dataFromDatabase; // Meníme hodnotu ref.
     //Neviem ci toto je dobre, ale musim to spravit pre kazdy checkbox, inak mi nenacita hodnoty z DB
     
-    selected1.value = volunteerData.value.beforeProject.englishTest.writting.question3;
-    selected2.value = volunteerData.value.beforeProject.englishTest.writting.question4;
+    selected1.value = volunteerData.value.beforeProject?.englishTest?.writting?.question3 || [];
+    selected2.value = volunteerData.value.beforeProject?.englishTest?.writting?.question4 || [];
     loading.value = false;
   } catch (error) {
     console.log(error);

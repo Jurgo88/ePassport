@@ -52,6 +52,15 @@ onBeforeMount(async () => {
   <v-container v-if="!loading">
     <h1>Activities of the project:</h1>
     <QuestionsList :questions="thisFormQuestions" :volunteerData="volunteerData" :path="path" />
+    <br>
+    <br>
+    <router-link
+       :to=" {
+        name: 'ManagementPage',
+       }">
+      <v-btn color="primary" class="my-button">NEXT</v-btn>
+     
+    </router-link>
 
     
   </v-container>
