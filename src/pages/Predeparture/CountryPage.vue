@@ -78,6 +78,18 @@ console.log('Questions: ' + questions );
         <div v-if="showQuestions">
             <h1>Country sheet</h1>
             <QuestionsList :questions="thisFormQuestions" :volunteerData="volunteerData" :path="path" />
+            <br>
+            <hr>
+            <br>
+            <br>
+            <router-link
+                :to="{
+                    name: 'PredeparturePage',
+                }"
+            >
+                <v-btn color="primary" class="my-button">Back</v-btn>
+            </router-link>
+            
         </div>
     </v-container>
     

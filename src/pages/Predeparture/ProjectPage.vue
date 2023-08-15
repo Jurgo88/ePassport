@@ -40,5 +40,16 @@
             }">
             <v-btn text color="primary" class="my-button">HOW WILL THE PROJECT BENEFIT ME?</v-btn>
         </router-link>
+        <br>
+        <br>
+        <hr>
+        <br>
+        <router-link
+        :to="{
+            name: 'PredeparturePage',
+        }"
+    >
+        <v-btn color="secondary" class="my-button">BACK TO PREDEPARTURE PAGE</v-btn>
+    </router-link>
     </v-container>
 </template>

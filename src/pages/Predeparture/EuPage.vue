@@ -86,5 +86,16 @@ console.log('Questions: ' + questions );
             }" >
             <v-btn block color="primary" class="my-button">PART 3: SUSTAINABLE DEVELOPMENT AND ECO-RESPONSIBILITY</v-btn>
         </router-link>
+        <br>
+        <hr>
+        <br>
+        <router-link
+            :to="{
+                name: 'PredeparturePage',
+            }"
+        >
+            <v-btn color="secondary" class="my-button">Back</v-btn>
+        </router-link>
+
     </v-container>
 </template>

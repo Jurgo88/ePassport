@@ -21,6 +21,7 @@ const initializedVolunteerData = computed(() => {
 function countFieldsWithEmptyValue(mergedData) {
   let totalFields = 0;
   let emptyFields = 0;
+  let withoutAnswerFields = 4;
 
   function traverseObject(obj) {
     for (const key in obj) {
@@ -42,17 +43,18 @@ function countFieldsWithEmptyValue(mergedData) {
   return {
     totalFields,
     emptyFields,
+    withoutAnswerFields,
   };
 }
 
 const progress = computed(() => {
-  const { totalFields, emptyFields } = countFieldsWithEmptyValue(initializedVolunteerData.value);
-  return (1 - emptyFields / totalFields) * 100; // Výpočet percentuálneho progresu
+  const { totalFields, emptyFields, withoutAnswerFields } = countFieldsWithEmptyValue(initializedVolunteerData.value);
+  return (1 - (emptyFields  - withoutAnswerFields) / totalFields) * 100; // Výpočet percentuálneho progresu
 });
 
 onMounted(() => {
   console.log('onMounted: ' + props.volunteerData.value);
-  const { totalFields, emptyFields } = countFieldsWithEmptyValue(initializedVolunteerData.value);
+  const { totalFields, emptyFields, withoutAnswerFields } = countFieldsWithEmptyValue(initializedVolunteerData.value);
   console.log('Total Fields:', totalFields);
   console.log('Empty Fields:', emptyFields);
 
@@ -79,6 +81,7 @@ onMounted(() => {
             <v-progress-linear
                 v-model="progress"
                 height="25"
+                color="accent"
                 >
                 <strong>{{ Math.ceil(progress) }}%</strong>
             </v-progress-linear>

@@ -32,7 +32,6 @@ export const volunteerDataModel = {
     },
   },
   beforeProject: {
-    beforeProject: '',
     letterToMyself: '',
     europassCV: '',
     englishTest: {
@@ -57,7 +56,6 @@ export const volunteerDataModel = {
           question5: '',
         }
       },
-      reading: {},
       writting: {
         question1: '',
         question2: '',
@@ -67,7 +65,6 @@ export const volunteerDataModel = {
         question6: '',
       },
     },
-    languageLearning: '',
     project: {
       advantages: {
         question1: '',
@@ -109,7 +106,6 @@ export const volunteerDataModel = {
         question7: '',
         question8: '',
       },
-      howIsee: {},
       competences: {
         question1: '',
         question2: '',
@@ -217,14 +213,16 @@ export const volunteerDataModel = {
         question2: '',
         question3: '',
       },
-      part6: '' ,
+      part6: {
+        question1: '',
+        question2: '',
+        question3: '',
+      },
     },
     checklist: '',
 
   },
-  onProject: {
-    onProject: '',
-    roles:'',
+  onProject: {     
     activities: {
       question1: '',
       question2: '',

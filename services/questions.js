@@ -158,12 +158,15 @@ export const questions = {
                 question2: 'When should I contact my insurance?',
                 question3: 'Who should contact the insurance company in case of illness/accident?',
             },
+            part6:{
+                question1: 'Hello How are you ?<br>Good Bye<br>See you soon<br>Please<br>Thank you<br>Yes/No<br>Excuse-me I don’t speak (language of the country) ?<br>Do you speak (language of the country)?<br>Monday/Tuesday/Wednesday/Thursday/ Friday/Saturday/Sunday Yesterday / Today / Tomorrow<br>One / two / three / four /.... Ten Morning/Afternoon/Evening<br>Language of the host country',
+                question2: 'My name is [name] and you? <br>I am a French intern/volunteer. <br>I work for [hoName].<br>Language of the host country',
+                question3: 'Internet access <br>Where is [location]? <br>The bank <br>The doctor <br>The police <br>The pharmacy <br>The supermarket <br>I am thirsty/hungry <br>I am tired Fever/headache/stomach ache <br>I have a pain in ...<br>Language of the host country',
+            },
 
         },
     },
     onProject: {
-        onProject: 'Na projekte som bol/a',
-        roles: 'Moje úlohy boli',
         activities: {
             question1: 'What are the main activities you are going to undertake?',
             question2: 'What kind of extra activities would you like to carry out, considering your personal project and initiatives? Are you aware of any interesting topic, activity, habit, etc that appeals to you in this country?',

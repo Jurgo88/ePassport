@@ -102,14 +102,13 @@ console.log('Questions: ' + questions );
           :label="question"
           :value="question"
           v-model="selected"
-          @change="updateSelectedQuestions">
+          @change="sendSelectedOptions">
         </v-checkbox>
       </div>
-      <v-btn class="my-button" color="primary" @click="sendSelectedOptions">Update options</v-btn>
+      <!-- <v-btn class="my-button" color="primary" @click="sendSelectedOptions">Update options</v-btn> -->
        
         
         <!-- <p>{{ selected }}</p> -->
-        <br>
         <br>
         <hr>
         <br>

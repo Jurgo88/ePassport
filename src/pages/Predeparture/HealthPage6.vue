@@ -1,60 +1,88 @@
 <script setup>
 import { ref, onBeforeMount, computed } from 'vue';
 import { useStore } from 'vuex';
+import { loadVolunteerDataByID } from '/services/database.js';
+import { questions } from '../../../services/questions';
+import  QuestionsList  from '../../components/QuestionsList.vue';
+
+const store = useStore();
+const userState = computed(() => store.state.auth.userDetails);
+const uid = userState.value.userData.email;
+const volunteerData = ref({}); 
+const path = "beforeProject.healthQuiz.part6";
+const loading = ref(false);
+const volunteerName = ref('');
+const hostOrganisationName = ref('');
+const thisFormatedQuestions = ref({});
+
+function getQuestionsByPath(obj, path) {
+  const keys = path.split('.');
+  let value = obj;
+  for (const key of keys) {
+    value = value[key];
+    if (value === undefined) {
+      return '';
+    }
+  }
+  return value;
+}
+
+const thisFormQuestions = getQuestionsByPath(questions, path); // Získanie hodnoty pod cestou z objektu questions
+console.log('Volunteer name: ' + volunteerName.value);
+
+function formatQuestion () {
+    const question2 = thisFormQuestions.question2;
+    const formattedQuestion = question2.replace('[name]', volunteerName.value).replace('[hoName]', hostOrganisationName.value);
+    const formattedQuestions = {
+        ...thisFormQuestions,
+        question2: formattedQuestion,
+    };
+  return formattedQuestions;
+};
 
 
-console.log('HealthPage');
+
+
+onBeforeMount(async () => {
+  try {
+    loading.value = true;
+    const dataFromDatabase = await loadVolunteerDataByID(uid);
+    volunteerData.value = dataFromDatabase; // Meníme hodnotu ref.
+    volunteerName.value = volunteerData.value.basicInfo?.volunteerInfo?.name || '';
+    hostOrganisationName.value = volunteerData.value.basicInfo?.hoInfo?.hoName || '';
+    thisFormatedQuestions.value = formatQuestion();
+    loading.value = false;
+  } catch (error) {
+    console.log(error);
+    loading.value = true;
+  }
+});
 
 </script>
 <template>
-    <v-container>
-        <h1>Health and Security Quizz</h1>
+    <v-container v-if="!loading">
+        <h1>PART 6 – VOCABULARY</h1>
         <br>
-        <h2>OBJECTIVES AND INSTRUCTIONS</h2>
+        <h2>English</h2>
         <br>
-        <b>The objectives of this sheet are to:</b><br>
-        <ul>
-            <li>Understand the safety regulations to be followed in your host country.</li>
-            <li>Understand the risks and preventive measures related to your health and safety during your mobility project.</li>
-            <li>Check that you have understood all the information contained in the organisation values charter and the safety guide/module.</li>
-        </ul>
+        <QuestionsList
+            :questions="thisFormatedQuestions"
+            :volunteerData="volunteerData"
+            :path="path"
+        />
+        
 
         <br>
-        <b>Terms and Conditions are to:</b><br>
-        <ul>
-            <li>Read the safety guide carefully and feel free to take notes on the most important information important information.</li>
-            <li>Be aware of the terms and conditions of your insurance policy.</li>
-        </ul>
+
         <br>
-        <router-link :to="{
-                name: 'HealthPage1' 
-            }" >
-            <v-btn block color="primary" class="my-button">PART 1 - OFFICIAL AND ADMINISTRATIVE PROCEDURES</v-btn>
-        </router-link>
-        <router-link :to="{
-                name: 'HealthPage2' 
-            }" >
-            <v-btn block color="primary" class="my-button">PART 2 - PERSONAL BEHAVIOUR</v-btn>
-        </router-link>
-        <router-link :to="{
-                name: 'HealthPage3' 
-            }" >
-            <v-btn block color="primary" class="my-button">PART 3 - POLITICAL AND SECURITY RISKS</v-btn>            
-        </router-link>
-        <router-link :to="{
-                name: 'HealthPage4' 
-            }" >
-            <v-btn block color="primary" class="my-button">PART 4 - HEALTH</v-btn>
-        </router-link>
-        <router-link :to="{
-                name: 'HealthPage5' 
-            }" >
-            <v-btn block color="primary" class="my-button">PART 5 – INSURANCE</v-btn>
-        </router-link>
-        <router-link :to="{
-                name: 'HealthPage6' 
-            }" >
-            <v-btn block color="primary" class="my-button">PART 6 – VOCABULARY</v-btn>
+        <hr>
+        <br>
+        <router-link
+            :to="{
+                name: 'HealthPage',
+            }"
+        >
+            <v-btn color="secondary" class="my-button">Back</v-btn>
         </router-link>
     </v-container>
 </template>

@@ -48,6 +48,17 @@ onBeforeMount(async () => {
         :volunteerData="volunteerData"
         :path="path"
     />
+    <br>
+    <hr>
+    <br>
+    <br>
+    <router-link
+        :to="{
+            name: 'ProjectPage',
+        }"
+    >
+        <v-btn color="primary" class="my-button">Back</v-btn>
+    </router-link>
     
     </v-container>
   </template>

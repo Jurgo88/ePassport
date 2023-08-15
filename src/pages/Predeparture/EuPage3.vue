@@ -5,6 +5,7 @@ import { loadVolunteerDataByID, loadOnProjectDataByID } from '/services/database
 import { questions } from '../../../services/questions';
 import { checkboxesQuestions } from '../../../services/checkboxesQuestions';
 import  QuestionsList  from '../../components/QuestionsList.vue';
+import sendData from '../../../services/sendData.js';
 
 const store = useStore();
 const userState = computed(() => store.state.auth.userDetails);
@@ -63,6 +64,16 @@ function updateSelectedQuestions(selected , checkboxes) {
   console.log('selected: ' + selected.value);
 }
 
+function sendSelectedOptions() {
+  console.log('selectedOptions: ' + selected1.value);
+  volunteerData.value.beforeProject.europeanUnion.part3.question1 = selected1.value;
+  volunteerData.value.beforeProject.europeanUnion.part3.question2 = selected2.value;
+  volunteerData.value.beforeProject.europeanUnion.part3.question3 = selected3.value;
+  volunteerData.value.beforeProject.europeanUnion.part3.question4 = selected4.value;
+  volunteerData.value.beforeProject.europeanUnion.part3.question9 = selected5.value;
+  sendData(volunteerData.value);
+}
+
 
 onBeforeMount(async () => {
   try {
@@ -105,11 +116,11 @@ console.log('Questions: ' + questions );
             :label="question"
             :value="question"
             v-model="selected1"
-            @change="updateSelectedQuestions(selected1)">
+            @change="sendSelectedOptions">
           </v-checkbox>
         </div> 
-
-        {{ selected1 }}
+        <br>
+        <hr>
 
         <br>
         <br>
@@ -122,12 +133,12 @@ console.log('Questions: ' + questions );
             :label="question"
             :value="question"
             v-model="selected2"
-            @change="updateSelectedQuestions(selected2, part3Checkbox2Values)">
+            @change="sendSelectedOptions">
           </v-checkbox>
         </div>
           
-          {{ selected2 }}
-
+        <br>
+        <hr>
         <br>
         <br>
 
@@ -139,12 +150,12 @@ console.log('Questions: ' + questions );
             :label="question"
             :value="question"
             v-model="selected3"
-            @change="updateSelectedQuestions(selected3)">
+            @change="sendSelectedOptions">
           </v-checkbox>
         </div>
           
-          {{ selected3 }}
-
+        <br>
+        <hr>
         <br>
         <br>
 
@@ -156,12 +167,12 @@ console.log('Questions: ' + questions );
             :label="question"
             :value="question"
             v-model="selected4"
-            @change="updateSelectedQuestions(selected4)">
+            @change="sendSelectedOptions">
           </v-checkbox>
         </div>
           
-          {{ selected4 }}
-
+        <br>
+        <hr>
         <br>
         <br>
 
@@ -186,12 +197,12 @@ console.log('Questions: ' + questions );
             :label="question"
             :value="question"
             v-model="selected5"
-            @change="updateSelectedQuestions(selected5)">
+            @change="sendSelectedOptions">
           </v-checkbox>
         </div>
             
-            {{ selected5 }}
-
+        <br>
+        <hr>
         <br>
         <br>
         <questions-list :questions="ecoResposibilityThirdQuestion" :path="path" :volunteerData="volunteerData" />
@@ -199,9 +210,9 @@ console.log('Questions: ' + questions );
 
 
         <router-link :to="{
-                name: 'EuPage1' 
+                name: 'EuPage' 
             }" >
-            <v-btn block color="primary" class="my-button">PART 1: SOME GENERAL INFORMATION ABOUT THE EUROPEAN UNION</v-btn>
+            <v-btn block color="primary" class="my-button">BACK</v-btn>
         </router-link>
     </v-container>
 </template>
