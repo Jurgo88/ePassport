@@ -60,16 +60,16 @@ const buttonList = [
 ];
 
 
-const goBack = () => {
-    console.log('goBack with data ' + volunteerData.value);
-    if(showing.value) {
-        router.back();
-    } else {
-        showing.value = true;
+// const goBack = () => {
+//     console.log('goBack with data ' + volunteerData.value);
+//     if(showing.value) {
+//         router.back();
+//     } else {
+//         showing.value = true;
         
-    }
+//     }
   
-};
+// };
 
 const loadVolunteerDataFromDatabase = async () => {
   try {
@@ -183,7 +183,7 @@ onMounted(() => {
         </v-row> -->
     </v-container>
 </template>
-
+<!-- 
 <style>
     .v-toolbar__content{
         height: 0;
@@ -197,4 +197,4 @@ onMounted(() => {
         top: 0;
         
     }
-</style>
+</style> -->

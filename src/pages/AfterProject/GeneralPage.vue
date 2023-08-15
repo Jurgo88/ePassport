@@ -57,15 +57,15 @@ onBeforeMount(async () => {
     loading.value = true;
     const dataFromDatabase = await loadVolunteerDataByID(uid);
     volunteerData.value = dataFromDatabase; // Meníme hodnotu ref.
-    question1value.value = volunteerData.value.afterProject?.tasks?.question1 || 0;
-    question4value.value = volunteerData.value.afterProject?.tasks?.question4 || 0;
-    question5value.value = volunteerData.value.afterProject?.tasks?.question5 || 0;
-    question6value.value = volunteerData.value.afterProject?.tasks?.question6 || 0;
-    question7value.value = volunteerData.value.afterProject?.tasks?.question7 || 0;
-    question8value.value = volunteerData.value.afterProject?.tasks?.question8 || 0;
-    question9value.value = volunteerData.value.afterProject?.tasks?.question9 || 0;
-    question10value.value = volunteerData.value.afterProject?.tasks?.question10 || 0;
-    question11value.value = volunteerData.value.afterProject?.tasks?.question11 || 0;
+    question1value.value = volunteerData.value.afterProject?.general?.question1 || 0;
+    question4value.value = volunteerData.value.afterProject?.general?.question4 || 0;
+    question5value.value = volunteerData.value.afterProject?.general?.question5 || 0;
+    question6value.value = volunteerData.value.afterProject?.general?.question6 || 0;
+    question7value.value = volunteerData.value.afterProject?.general?.question7 || 0;
+    question8value.value = volunteerData.value.afterProject?.general?.question8 || 0;
+    question9value.value = volunteerData.value.afterProject?.general?.question9 || 0;
+    question10value.value = volunteerData.value.afterProject?.general?.question10 || 0;
+    question11value.value = volunteerData.value.afterProject?.general?.question11 || 0;
 
     loading.value = false;
   } catch (error) {

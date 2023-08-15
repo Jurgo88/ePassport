@@ -81,14 +81,23 @@ const routes = [
             checkAuthAndProceed(to, from, next, '/login');
         }
     },
+    // {
+    //     path: "/predeparture",
+    //     name: 'PredeparturePage',
+    //     component: PredeparturePage,
+    //     props: true,
+    //     beforeEnter: (to, from, next) => {
+    //         checkAuthAndProceed(to, from, next, '/login');
+    //     }
+    // },
     {
-        path: "/predeparture",
+        path:"/predeparture",
         name: 'PredeparturePage',
-        component: PredeparturePage,
+        component: () => import('../pages/BeforeProjectPage.vue'), // Lazy loading
         props: true,
         beforeEnter: (to, from, next) => {
-            checkAuthAndProceed(to, from, next, '/login');
-        }
+                checkAuthAndProceed(to, from, next, '/login');
+            }
     },
     {
         path: "/predeparture/letter",

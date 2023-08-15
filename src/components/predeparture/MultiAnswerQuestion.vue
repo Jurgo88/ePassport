@@ -29,17 +29,30 @@ const props = defineProps({
 
 const volunteerData = ref(props.volunteerData);
 const answer = ref('');
-const answer1 = ref('');
-const answer2 = ref('');
-const answer3 = ref('');
 const buttonColor = ref('red');
-const question = ref(props.question);
 const path = ref(props.path);
 const loading = ref(true);
-    let currentObject = volunteerData.value; // Začiatočný objekt je volunteerData.value
+// let currentObject = volunteerData.value; // Začiatočný objekt je volunteerData.value
 
 const questionKeys = Object.keys(props.questions);
 const multiQuestions = [];
+
+// const buttonColors = ref({
+//   question1: 'red',
+//   question2: 'red',
+//   question3: 'red',
+//   question4: 'red',
+// });
+
+const buttonColors = {
+    question1: 'red',
+    question2: 'red',
+    question3: 'red',
+    question4: 'red',
+    question5: 'red',
+    question6: 'red',
+  }
+
 
 for (let i = 0; i < questionKeys.length; i++) {
   const key = questionKeys[i];
@@ -53,39 +66,32 @@ for (let i = 0; i < questionKeys.length; i++) {
 }
 
 
-console.log(props.multiAnswers);
-console.log(props.multiAnswerFields);
-console.log(props.questions);
-console.log(props.volunteerData);
-console.log(props.path);
 
-console.log(multiQuestions);
+// if(answer.value == ''){
+//   buttonColor.value = 'red';
+// }
+// else{
+//   buttonColor.value = 'green';
+// }
 
-if(answer.value == ''){
-  buttonColor.value = 'red';
-}
-else{
-  buttonColor.value = 'green';
-}
+// const getValueByPath = (obj, path) => {
+//   loading.value = true;
+//   const pathArray = path.split('.');
+//   let value = obj;
 
-const getValueByPath = (obj, path) => {
-  loading.value = true;
-  const pathArray = path.split('.');
-  let value = obj;
+//   for (const key of pathArray) {
+//     console.log(`Key: ${key}, Value: ${value}`);
+//     value = value[key];
+//     if (value === undefined) {
+//       return undefined;
+//     }
+//   }
+//   loading.value = false;
+//   console.log("pozrime sa co tu mame na getValueByPath " + value);
+//   return value;
+// };
 
-  for (const key of pathArray) {
-    console.log(`Key: ${key}, Value: ${value}`);
-    value = value[key];
-    if (value === undefined) {
-      return undefined;
-    }
-  }
-  loading.value = false;
-  console.log("pozrime sa co tu mame na getValueByPath " + value);
-  return value;
-};
-
-const questionData = ref(getValueByPath(volunteerData.value, path.value));
+// const questionData = ref(getValueByPath(volunteerData.value, path.value));
 
 const handleButtonClick = (index) => {
     console.log('indexk : ' + index);
@@ -93,6 +99,8 @@ const handleButtonClick = (index) => {
 
     
     const pathParts = props.path.split('.'); // Rozdelenie reťazca na časti podľa bodiek
+    
+    let currentObject = volunteerData.value; // Začiatočný objekt je volunteerData.value
 
     for (const part of pathParts) {
       currentObject = currentObject[part]; // Prístup k vnoreným objektom
@@ -102,8 +110,24 @@ const handleButtonClick = (index) => {
     currentObject[index].answer2 = multiQuestions[index].answer2.value; // Priradenie hodnoty
     currentObject[index].answer3 = multiQuestions[index].answer3.value; // Priradenie hodnoty
 
+
+
+
     sendData(volunteerData.value);
 
+    
+    checkButtons(index);
+
+}
+
+function checkButtons(index) {
+  console.log('checkButtons : ' + index);
+  if(volunteerData.value.beforeProject.project.expectations[index].answer1 && volunteerData.value.beforeProject.project.expectations[index].answer2 && volunteerData.value.beforeProject.project.expectations[index].answer3){
+    buttonColors[index] = 'green';
+  }
+  else{
+    buttonColor.value = 'red';
+  }
 }
 
 onBeforeMount(() => {
@@ -117,6 +141,13 @@ onBeforeMount(() => {
         multiQuestions[question].answer2.value = volunteerData.value.beforeProject.project.expectations[question].answer2;
         multiQuestions[question].answer3.value = volunteerData.value.beforeProject.project.expectations[question].answer3;
     }
+    checkButtons('question1');
+    checkButtons('question2');
+    checkButtons('question3');
+    checkButtons('question4');
+    checkButtons('question5');
+
+    // let currentObject = volunteerData.value; 
     
 });
 
@@ -129,7 +160,7 @@ onBeforeMount(() => {
             <br>
             <div>
                 <v-textarea class="textarea" rows="3" v-model="multiQuestions[index].answer1.value"  :label="props.multiAnswers.answer1" outlined></v-textarea>
-                <v-btn icon @click="handleButtonClick(index)"  :color="buttonColor" class="myButton" style="margin: 0;">
+                <v-btn icon @click="handleButtonClick(index)"  :color="buttonColors[index]" class="myButton" style="margin: 0;">
                     <i class="material-icons">add_circle_outline</i>
                 </v-btn>
             </div>

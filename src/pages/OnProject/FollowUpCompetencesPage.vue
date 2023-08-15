@@ -55,6 +55,16 @@ console.log('Questions: ' + questions );
 <!-- {{ followUpActivitiesQuestions.question1 }} -->
         <h1>Competences</h1>
         <QuestionsList :questions="followUpActivitiesQuestions" :volunteerData="volunteerData" :path="path" />
+        <br>
+        <hr>
+        <br>
+        <br>
+        <router-link :to="{
+          name: 'FollowUpPage',
+          params: { id: uid },
+        }">
+          <v-btn color="secondary" class="my-button">Back</v-btn>
+        </router-link>
     </v-container>
     
 </template>

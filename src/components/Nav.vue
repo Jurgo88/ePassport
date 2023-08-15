@@ -45,14 +45,19 @@ watchEffect(firebaseUser)
           <v-app-bar-nav-icon></v-app-bar-nav-icon>
         </template> -->
 
-        <v-app-bar-title>ePasport</v-app-bar-title>
+        <v-app-bar-title >ePasport</v-app-bar-title>
 
         <!-- <v-spacer></v-spacer> -->
 
         <div v-if="userState.isSignIn">
-          <router-link to="/" class="">
+          <span v-if="$route.name !== 'HomePage'" >
+            <router-link to="/home" class="">
+              <v-btn icon ><i class="material-icons">home</i></v-btn>
+            </router-link>
+          </span>
+          <!-- <router-link to="/" class="">
             <v-btn icon ><i class="material-icons">home</i></v-btn>
-          </router-link>
+          </router-link> -->
 
           <router-link to="/profile" class="">
             <v-btn icon ><i class="material-icons">account_circle</i></v-btn>

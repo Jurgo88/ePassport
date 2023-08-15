@@ -59,6 +59,19 @@ console.log('Mame tieto data volunteerData  na Activities: ' + volunteerDataOnPr
 <!-- {{ followUpActivitiesQuestions.question1 }} -->
         <h1>Support during the activitiess</h1>
         <QuestionsList :questions="followUpActivitiesQuestions" :volunteerData="volunteerData" :path="path" />
+        <br>
+        <hr>
+        <br>
+        <br>
+        <router-link :to="{
+            name: 'FollowUpSupportPage',
+            params: {
+                data: volunteerData
+            }
+        }">
+            <v-btn color="primary" class="my-button">Support during the activities</v-btn>
+        </router-link>
+
     </v-container>
     
 </template>

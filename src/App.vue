@@ -3,7 +3,7 @@ import Nav from "./components/Nav.vue";
 </script>
 
 <template>
-  <Nav  v-if="$route.name !== 'PredeparturePage'"/>
+  <Nav  />
   <div class="nav-margin">
     <RouterView />
   </div>

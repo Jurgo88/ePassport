@@ -32,5 +32,14 @@
         }">
             <v-btn color="primary" class="my-button">Competences</v-btn>
         </router-link>
+        <br>
+        <br>
+        <hr>
+        <br>
+        <router-link :to="{
+            name: 'ProjectPage',
+        }">
+            <v-btn color="secondary" class="my-button">Back</v-btn>
+        </router-link>
     </v-container>
 </template>

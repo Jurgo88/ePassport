@@ -23,6 +23,7 @@ const question5value = ref(0);
 const question7value = ref(0);
 const question9value = ref(0);
 const question11value = ref(0);
+const question13value = ref(0);
 
 
 
@@ -67,6 +68,7 @@ onBeforeMount(async () => {
     question7value.value = volunteerData.value.afterProject?.support?.question7 || 0;
     question9value.value = volunteerData.value.afterProject?.support?.question9 || 0;
     question11value.value = volunteerData.value.afterProject?.support?.question11 || 0;
+    question13value.value = volunteerData.value.afterProject?.support?.question13 || 0;
 
 
     loading.value = false;

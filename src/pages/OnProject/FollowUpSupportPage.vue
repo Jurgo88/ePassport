@@ -55,6 +55,20 @@ console.log('Questions: ' + questions );
 <!-- {{ followUpActivitiesQuestions.question1 }} -->
         <h1>Support during the activities</h1>
         <QuestionsList :questions="followUpActivitiesQuestions" :volunteerData="volunteerData" :path="path" />
+        <br>
+        <hr>
+        <br>
+        <br>
+        <router-link :to="{
+                name: 'FollowUpCompetencesPage',
+                params: {
+                    data: volunteerData
+                }
+            }">
+                <v-btn color="primary" class="my-button">Competences</v-btn>
+        </router-link>
+
     </v-container>
+    
     
 </template>
