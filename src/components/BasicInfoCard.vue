@@ -45,6 +45,8 @@ const volunteerInfo = ref({
 
 const userMail = ref('');
 
+const isHidden = ref(false);
+
 const props = defineProps({
   volunteerData: {
     type: Object,
@@ -101,6 +103,7 @@ const submitForm = async (e) => {
 const onDateSelected = (e) => {
   console.log('onDateSelected + e ' + e);
   volunteerInfo.value.basicInfo.volunteerInfo.start = e.target.value;
+  isHidden.value = true;
 };
 
 const onFocus = (e) => {
@@ -109,12 +112,11 @@ const onFocus = (e) => {
 //   volunteerInfo.value.basicInfo.volunteerInfo.start = e.target.value;
 };
 
-// const modal = ref(false);
-// const date = ref('18.5');
+const showPicker = () => {
+  isHidden.value = false; // Show the v-col
+};
 
-// const openModal = () => {
-//   modal.value = true;
-// };
+
 
 
 </script>
@@ -134,15 +136,24 @@ const onFocus = (e) => {
                     <v-col cols="12">
                         <v-text-field class="" v-model="volunteerInfo.basicInfo.volunteerInfo.surname" label="Surname of volunteer" hide-details  clearable required></v-text-field> 
                     </v-col>
-                    <v-col cols="12">
-                        <v-text-field class="" v-model="volunteerInfo.basicInfo.volunteerInfo.start" label="Start of mobility" hide-details  clearable required></v-text-field>
+                    <v-col cols="12"  :class="{ hideInput: isHidden, showInput: !isHidden }" >
+                        <v-text-field 
+                           
+                            v-model="volunteerInfo.basicInfo.volunteerInfo.start" 
+                            label="Start of mobility" 
+                            hide-details 
+                            readonly 
+                            clearable 
+                            required 
+                            @click="showPicker()">
+                        </v-text-field>
                         <v-date-picker v-model="picker"></v-date-picker>
                     </v-col>
-                    <v-col cols="12">
+                    <v-col cols="12" :class="{ hideInput: !isHidden, showInput: isHidden }">
                         <v-date-picker v-model="volunteerInfo.basicInfo.volunteerInfo.start" label="Start of mobility" :format="datePickerFormat" required></v-date-picker>
                         <input type="date" class="myDatePicker" placeholder="Start of mobility" onfocus="(this.type='date')" v-model="volunteerInfo.basicInfo.volunteerInfo.start" @input="onDateSelected" @focus="this.showPicker()" />
                     </v-col>
-                    <v-col cols="12">
+                    <v-col cols="12"  >
                         <v-text-field class="" v-model="volunteerInfo.basicInfo.volunteerInfo.dateOfBirth" label="Date of birth" hide-details  clearable required></v-text-field>
                     </v-col>
                     <v-col cols="12">
@@ -253,6 +264,10 @@ input[type="date"]:focus:before {
   content: '' !important;
   margin-right: 1em;
 }
+.showInput {
+  display: none;
+}
+
 
 
 

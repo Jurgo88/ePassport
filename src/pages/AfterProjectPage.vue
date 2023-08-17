@@ -35,6 +35,14 @@ Use the following activity to evaluate your progress throughout your experience.
             }" >
             <v-btn block color="primary" class="my-button">General Evaluation</v-btn>
         </router-link>
+        <br>
+        <hr>
+        <br>
+        <router-link :to="{
+                path: '/home'
+            }" >
+            <v-btn block color="secondary" class="my-button">BACK</v-btn>
+        </router-link>
 
     </v-container>
     

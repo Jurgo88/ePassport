@@ -117,7 +117,7 @@ onBeforeMount(async () => {
            :to=" {
             name: 'AfterProjectPage',
            }">
-            <v-btn color="primary" class="my-button">Go Back</v-btn>
+            <v-btn color="secondary" class="my-button">Go Back</v-btn>
         </router-link>
 
 

@@ -35,7 +35,9 @@ onMounted(() => {
 console.log('Admin page');
 </script>
 <template>
-    <div class="container mx-auto">
+  <v-container>
+    
+    <div class="mx-auto">
       <div class="w-full text-center">
         <h1>Admin Page</h1>
         <table>
@@ -77,6 +79,7 @@ console.log('Admin page');
         </table>
       </div>
     </div>
+  </v-container>
   </template>
 
 <style scoped>

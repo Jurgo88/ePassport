@@ -133,9 +133,8 @@ onBeforeMount(async () => {
         <RatingBox :initialRating="question17value" :volunteerData="volunteerData" :path="path" questionData="question17" />
         <br>
         <QuestionsList :questions="lastQuestion" :path="path" :volunteerData="volunteerData" />
+        <hr>
         <br>
-        <router-link to="/after-project/support">Next</router-link>
-
         <router-link :to="{
                 name: 'CompetencesPage' 
             }" >

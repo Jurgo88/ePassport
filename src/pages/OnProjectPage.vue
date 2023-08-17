@@ -77,11 +77,7 @@ onMounted(() => {
         <v-toolbar-title><button @click="goBack"><i class="material-icons">arrow_back_ios_new</i></button></v-toolbar-title>
     </v-toolbar>
     <v-container class="mobile-first-container">
-        <v-row>
-            <v-col cols="12">
-                <h1>On The Project</h1>
-            </v-col>
-        </v-row>
+
         <router-link :to="{
                 path: '/project/roles' 
             }" >
@@ -101,6 +97,14 @@ onMounted(() => {
                 path: '/project/followup'
             }" >
             <v-btn block color="primary" class="my-button">Follow-up during the Project</v-btn>
+        </router-link>
+        <br>
+        <hr>
+        <br>
+        <router-link :to="{
+                path: '/home'
+            }" >
+            <v-btn block color="secondary" class="my-button">BACK</v-btn>
         </router-link>
 
        

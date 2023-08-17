@@ -25,8 +25,6 @@ const changePasswordState = store.state.auth.changePassword
         :warning="changePasswordState.isError"
         :warningMsg="changePasswordState.errorMessage"
     />
-
-    Sem dame info
   </v-container>
 </template>
 

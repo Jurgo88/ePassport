@@ -3,6 +3,7 @@ import { computed, onBeforeMount, ref } from 'vue';
 import { useStore } from 'vuex';
 import router from "../router";
 import {loadVolunteerDataByID } from "../../services/database";
+import sendData from '../../services/sendData';
 
 const store = useStore()
 const userState = computed(() => store.state.auth.userDetails)
@@ -24,6 +25,28 @@ const logOut = () => {
 const showChangePassword = () => {
   return store.dispatch('activeChangePasswordSheetAction')
 }
+
+const onDateSelected = (e) => {
+  console.log('onDateSelected + e ' + e);
+  volunteerInfo.value.basicInfo.volunteerInfo.start = e.target.value;
+};
+const onDateSelectedEnd = (e) => {
+  volunteerInfo.value.basicInfo.volunteerInfo.end = e.target.value;
+};
+
+
+const submitForm = async (e) => {
+    console.log('submitForm + e ' + e);
+  e.preventDefault();
+  try {
+    await sendData(volunteerData.value);
+    console.log('hehehe ' + volunteerData.value.basicInfo.volunteerInfo.name)
+  }
+  catch{
+    console.log('error');
+  }
+}
+
 
 onBeforeMount(async () => {
   try {
@@ -63,39 +86,90 @@ onBeforeMount(async () => {
   </div>
   <div v-if="!loading" class="flex-col text-center bg-white md:w-[75%] rounded-xl shadow-lg mx-auto sm:w-full relative pb-5 mb-8">
     <h1>Edit Volunteer Information</h1>
+    <v-container>
     <v-form @submit.prevent="submitForm">
       <!-- Volunteer Info -->
       <h2>Volunteer Information</h2>
       <v-text-field v-model="volunteerData.basicInfo.volunteerInfo.name" label="Name" />
       <v-text-field v-model="basicInfo.volunteerInfo.surname" label="Surname" />
+      <v-select v-model="basicInfo.volunteerInfo.sex" label="Sex" :items="['male', 'female']" required></v-select>
+      <div class ="dateInputs">
+        <v-date-picker v-model="basicInfo.volunteerInfo.start" label="Start of mobility" :format="datePickerFormat" required></v-date-picker>
+        <input type="date" class="myDatePicker" placeholder="Start of mobility" onfocus="(this.type='date')" v-model="basicInfo.volunteerInfo.start" @input="onDateSelected"  />
+        <br>
+        <br>
+        <v-date-picker v-model="basicInfo.volunteerInfo.end" label="Start of mobility" :format="datePickerFormat" required></v-date-picker>
+        <input type="date" class="myDatePicker" placeholder="End of mobility" onfocus="(this.type='date')" v-model="basicInfo.volunteerInfo.end" @input="onDateSelectedEnd"  />
+      <br>
+      <br>
+      </div>
       <v-text-field v-model="basicInfo.volunteerInfo.address" label="Address" />
       <v-text-field v-model="basicInfo.volunteerInfo.email" label="Email" />
       <v-text-field v-model="basicInfo.volunteerInfo.telephone" label="Phone" />
       <v-text-field v-model="basicInfo.volunteerInfo.birthDate" label="Birth Date" />
+      <v-text-field v-model="basicInfo.volunteerInfo.placeOfBirth" label="Place of Birth" />
+
 
       <!-- ... other fields for volunteer info ... -->
 
       <!-- HO Info -->
       <h2>Host Organization Information</h2>
-      <v-text-field v-model="basicInfo.hoInfo.hoName" label="HO Name" />
-      <v-text-field v-model="basicInfo.hoInfo.hoAddress" label="HO Address" />
+      <v-text-field v-model="basicInfo.hoInfo.hoName" label="Host Organization  Name" />
+      <v-text-field v-model="basicInfo.hoInfo.hoAddress" label="Host Organization  Address" />
+      <v-text-field v-model="basicInfo.hoInfo.projectName" label="Project name" />
+      <v-text-field v-model="basicInfo.hoInfo.projectNo" label="Project number" />
+      <v-text-field v-model="basicInfo.hoInfo.hoContactPerson" label="Contact person" />
+      <v-text-field v-model="basicInfo.hoInfo.hoTelephone" label="Host Organization telephone" />
+      <v-text-field v-model="basicInfo.hoInfo.hoEmail" label="Host Organization email" />
+      <v-text-field v-model="basicInfo.hoInfo.hoWeb" label="Host Organization website" />
+
 
       <!-- ... other fields for HO info ... -->
 
       <!-- SO Info -->
       <h2>Sending Organization Information</h2>
-      <v-text-field v-model="basicInfo.soInfo.soName" label="SO Name" />
-      <v-text-field v-model="basicInfo.soInfo.soAddress" label="SO Address" />
+      <v-text-field v-model="basicInfo.soInfo.soName" label="Sending Organization Name" />
+      <v-text-field v-model="basicInfo.soInfo.soAddress" label="Sending Organization Address" />
+      <v-text-field v-model="basicInfo.soInfo.soContactPerson" label="Contact person" />
+      <v-text-field v-model="basicInfo.soInfo.soTelephone" label="Sending Organization Phone" />
+      <v-text-field v-model="basicInfo.soInfo.soEmail" label="Sending Organization Email" />
+      <v-text-field v-model="basicInfo.soInfo.soWeb" label="Sending Organization Website" />
+
+
 
       <!-- ... other fields for SO info ... -->
 
-      <v-btn type="submit" color="primary">Submit</v-btn>
+      <v-btn type="submit" class="my-button" color="primary">Submit changes</v-btn>
     </v-form>
+    </v-container>
 
 
   </div>
 </template>
 
-<style scoped>
-
+<style >
+input[type="date"] {
+    background: #e8e8e8;
+    border: none;
+    /* border-bottom: 1px solid #000000; */
+    outline: none;
+    height: 50px;
+    width: 100%;
+    color: #000000;
+    font-size: 16px;
+    margin: 5px;
+}
+input[type="date"]:before {
+  color: #2B2E4A;
+  content: attr(placeholder) !important;
+  margin-right: 1em;
+}
+input[type="date"]:focus:before {
+  content: '' !important;
+  margin-right: 1em;
+}
+.dateInputs{
+  padding-right: 5px;
+  margin-left: -5px;
+}
 </style>
