@@ -43,6 +43,11 @@
             }" >
             <v-btn block color="primary" class="my-button">Health and Security Quizz</v-btn>
         </router-link>
+        <router-link :to="{
+                name: 'BeforeProjectChecklistPage' 
+            }" >
+            <v-btn block color="primary" class="my-button">Before departure CHECKLIST </v-btn>
+        </router-link>
         <br>
         <hr>
         <br>

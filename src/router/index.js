@@ -326,6 +326,15 @@ const routes = [
         }
     },
     {
+        path: "/predeparture/checklist",
+        name: 'BeforeProjectChecklistPage',
+        component: () => import('../pages/Predeparture/BeforeProjectChecklistPage.vue'), // Lazy loading
+        props: true,
+        beforeEnter: (to, from, next) => {
+                checkAuthAndProceed(to, from, next, '/login');
+            }
+    },
+    {
         path: "/project",
         name: 'OnProjectPage',
         component: OnTheProjectPage,

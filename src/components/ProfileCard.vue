@@ -14,8 +14,8 @@ const basicInfo = ref({});
 
 // volunteerData.value = loadVolunteerDataByID(userState.value.userData.email);
 // const basicInfo = volunteerData.value.basicInfo;
-console.log(volunteerData.value);
-console.log(basicInfo);
+// console.log(volunteerData.value);
+// console.log(basicInfo);
 
 const logOut = () => {
   store.dispatch('logOutAction')
@@ -54,8 +54,8 @@ onBeforeMount(async () => {
     const dataFromDatabase = await loadVolunteerDataByID(userState.value.userData.email);
     volunteerData.value = dataFromDatabase; // Meníme hodnotu ref.
     basicInfo.value = volunteerData.value.basicInfo;
-    console.log(volunteerData.value);
-    console.log(basicInfo);
+    // console.log(volunteerData.value);
+    // console.log(basicInfo);
     loading.value = false;
   } catch (error) {
     console.error(error);
