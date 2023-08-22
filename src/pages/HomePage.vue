@@ -14,7 +14,7 @@ const isAdmin = computed(() => userState.value?.userData?.uid === admin);
 
 <template>
   <v-container fluid class="container mx-auto">
-    <div class="text-center">
+    <div class="">
       <AdminPage v-if="isAdmin" :userState="userState"/>
       <VolunteerPage v-if="!isAdmin" :userState="userState"/>
     </div>
@@ -45,6 +45,16 @@ const isAdmin = computed(() => userState.value?.userData?.uid === admin);
     }
     h3{
         font-size: 20px;
+        font-weight: 700;
+        color: #0c2f6b;
+    }
+    h4{
+        font-size: 16px;
+        font-weight: 700;
+        color: #0c2f6b;
+    }
+    h5{
+        font-size: 14px;
         font-weight: 700;
         color: #0c2f6b;
     }

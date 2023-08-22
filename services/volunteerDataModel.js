@@ -227,11 +227,6 @@ export const volunteerDataModel = {
       question1: '',
       question2: '',
     },
-    management: {
-        question1: '',
-        question2: '',
-        question3: '',
-  },
     followUp: {
       activities: {
         question1: '',

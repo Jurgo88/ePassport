@@ -80,13 +80,13 @@ export const questions = {
             question6: 'VISA: procedures for obtaining a VISA – required/provided documents. Are there any steps to follow, or registrations to make upon arrival in the country? If yes, what are required documents.',
             question7: 'Vaccination: any vaccination(s) is/are required to enter the country?',
             question8: 'Concerning the telephone package, do you know what is the best to do? : Will a mobile phone/SIM card be provided? Can I buy one at the airport?',
-            question9: '2. Accommodation <br> Type of the accommodation provided (house, flat, hostel...), single, shared with other international volunteers/ local volunteers/ interns/ other staff members/host family. What are the rules of the accommodation (if you are going to live in the host country)? Equipment & facilities (internet, towels, bedsheets, fridge, washing machine...) location/address, transport means & stops to go from home to the airport/train station/office/field',
-            question10: '3. Office<br>Which are the working conditions (working hours, days off, holidays/imposed holidays, computer, internet, etc.)?',
-            question11: '4. Other locations where I need to carry out activities (in the field)',
-            question12: '5. Transport<br>Monthly pass, foot walk, taxi, bicycle....',
-            question13: '6. Day to day<br>Seasons & weather ... what to bring with me, law and regulations (drinking alcohol in public spaces...), living costs and cheap places to buy food...',
-            question14: '7. Security in the country<br>How is the security in the country? (Streets? Dangerous zones? Etc.)',
-            question15: '8. Project, role and responsibilities<br>Hosting organisation (location, aim, organigram, when possible, projects, how decisions are made)',
+            question9: '<h3>2. Accommodation</h3> <br> Type of the accommodation provided (house, flat, hostel...), single, shared with other international volunteers/ local volunteers/ interns/ other staff members/host family. What are the rules of the accommodation (if you are going to live in the host country)? Equipment & facilities (internet, towels, bedsheets, fridge, washing machine...) location/address, transport means & stops to go from home to the airport/train station/office/field',
+            question10: '<h3>3. Office</h3><br>Which are the working conditions (working hours, days off, holidays/imposed holidays, computer, internet, etc.)?',
+            question11: '<h3>4. Other locations where I need to carry out activities (in the field)</h3>',
+            question12: '<h3>5. Transport</h3><br>Monthly pass, foot walk, taxi, bicycle....',
+            question13: '<h3>6. Day to day</h3><br>Seasons & weather ... what to bring with me, law and regulations (drinking alcohol in public spaces...), living costs and cheap places to buy food...',
+            question14: '<h3>7. Security in the country</h3><br>How is the security in the country? (Streets? Dangerous zones? Etc.)',
+            question15: '<h3>8. Project, role and responsibilities</h3><br>Hosting organisation (location, aim, organigram, when possible, projects, how decisions are made)',
             question16: 'Your role and responsibilities in the project: which will be your mission and first activities',
             question17: 'Beneficiaries you will be working with - who will your project impact directly or indirectly?',
             question18: 'Resources: what resources are in place, available for the project you will be involved in; your planned activities.',
@@ -170,11 +170,6 @@ export const questions = {
         activities: {
             question1: 'What are the main activities you are going to undertake?',
             question2: 'What kind of extra activities would you like to carry out, considering your personal project and initiatives? Are you aware of any interesting topic, activity, habit, etc that appeals to you in this country?',
-        },
-        management: {
-            question1: 'Čo som sa naučil/a?',
-            question2: 'Čo by som urobil/a inak?',
-            question3: 'Čo by som urobil/a inak?',
         },
         followUp: {
             activities: {
