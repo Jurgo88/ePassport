@@ -59,6 +59,10 @@
                       <p>Contact person: {{ user.basicInfo.soInfo.soContactPerson }}</p>
                     </div>
                     <br>
+                    <br>
+                    <hr>
+
+                    <br>
                     <div class="expanded-buttons">
                       <v-btn @click="showPredepartureHandle(user)" class="expandedButton" color="primary">Show Predeparture</v-btn>
                       <v-btn @click="showOnProjectHandle()" class="expandedButton" color="primary">Show On Project</v-btn>
@@ -66,60 +70,6 @@
                     </div>
 
 
-<!-- 
-
-                    Volunteer info
-Host Organization info
-Sending Organization information
-Name of project: Horalky 2023
-Name of HO: KERIC
-Name of SO: ADICE
-Num. of project: NK239093480
-Address of HO
-Address of SO
-Mail: john.doe@mail.com
-Street : Nábrežie 1351
-Street : Street 34
-Telephone: +421 908 913 995
-City : Čadca
-City : Paris
-Place of birth: Cadca, Slovensko
-Postal code: 02201
-Postal code: 02201
-Date of birth: 12.12.1999
-Country: Slovensko
-Country: France
-Address of the volunteer
-Contact person: Name Surname
-Contact person: Name Surname
-Street : Nábrežie 1351
-Telehone of CP: 9283457329847
-Telehone of CP: 9283457329847
-City : Čadca
-Email of CP: blob@blob.sk
-Email of CP: Name@adice.fr
-Postal code: 02201
-Web: 
-Web: 
-Country: Slovensko
-Export volunteer data to .csv
-Edit 
-Delete
-Export form data to .pdf
-
-
-                    <p><strong>Name:</strong> {{ user.basicInfo.volunteerInfo.name }}</p>
-                    <p><strong>Surname:</strong> {{ user.basicInfo.volunteerInfo.surname }}</p>
-                    <p><strong>Sex:</strong> {{ user.basicInfo.volunteerInfo.sex }}</p>
-                    <p><strong>Nationality:</strong> {{ user.basicInfo.volunteerInfo.nationality }}</p>
-                    <p><strong>Start:</strong> {{ user.basicInfo.volunteerInfo.start }}</p>
-                    <p><strong>End:</strong> {{ user.basicInfo.volunteerInfo.end }}</p>
-                    <p><strong>Date of Registration:</strong> {{ user.basicInfo.volunteerInfo.registrationDate }}</p> -->
-                    <!-- Ďalšie informácie a tlačidlá pre tohto používateľa -->
-                    <!-- <p><strong>Additional Info:</strong> ...</p>
-                    <v-btn @click="showPredepartureHandle(user)" class="">Show Predeparture</v-btn>
-                    <button @click="showOnProjectHandle()">Show On Project</button>
-                    <button @click="showAfterProjectHandle()">Button 3</button> -->
                   </div>
                 </td>
               </tr>
@@ -130,9 +80,9 @@ Export form data to .pdf
       <v-dialog  v-model="showModal" scrollable style="overflow: auto;">
         <v-card>
           <v-card-title>
-            <span class="headline"><v-btn class="my-button" color="primary">EXPORT</v-btn></span>
+            <span class="headline"><v-btn class="my-button" color="primary" @click="exportToPDF" >EXPORT to PDF</v-btn><v-btn class="my-button" color="primary" @click="exportToCSV" >EXPORT to CSV</v-btn></span>
           </v-card-title>
-          <v-card-text>
+          <v-card-text id="export-element">
             <showPredeparture :volunteerData="volunteerData" v-if="showPredepartureComponent"/>
             <showOnProject :volunteerData="volunteerData" v-if="showOnProjectComponent"/>
             <showAfterProject :volunteerData="volunteerData" v-if="showAfterProjectComponent"/>
@@ -154,9 +104,11 @@ Export form data to .pdf
 <script setup>
 import { defineProps, ref, onMounted } from 'vue';
 import { getRecords } from '/services/database.js';
+import html2pdf from 'html2pdf.js';
 import showPredeparture from '../components/adminPage/showPredeparture.vue';
 import showOnProject from '../components/adminPage/showOnProject.vue';
 import showAfterProject from '../components/adminPage/showAfterProject.vue';
+import { questions } from '../../services/questions.js';
 
 const props = defineProps({
   userState: {
@@ -194,6 +146,47 @@ const resetComponentStates = () => {
   showOnProjectComponent.value = false;
   showAfterProjectComponent.value = false;
   showModal.value = false;
+};
+
+const exportToPDF = () => {
+  console.log('showPredepartureComponent.value '+ showPredepartureComponent.value );
+  console.log('showOnProjectComponent.value '+ showOnProjectComponent.value );
+  console.log('showAfterProjectComponent.value '+ showAfterProjectComponent.value );
+  let filename = 'volunteer.pdf';
+
+  if(showPredepartureComponent.value){
+    filename = volunteerData.value.basicInfo.volunteerInfo.surname + '_predeparture.pdf';
+  }
+  if(showOnProjectComponent.value){
+    filename = volunteerData.value.basicInfo.volunteerInfo.surname + '_onProject.pdf';
+  }
+  if(showAfterProjectComponent.value){
+    filename = volunteerData.value.basicInfo.volunteerInfo.surname + '_evaulation.pdf';
+  }
+  console.log('filename: ' + filename);
+  html2pdf(document.getElementById('export-element'),{
+    margin: 10,
+    filename: filename,
+  });      
+};
+function assignAnswersToQuestions(questions, answers) {
+  for (const key in questions) {
+    if (typeof questions[key] === 'object' && typeof answers[key] === 'object') {
+      assignAnswersToQuestions(questions[key], answers[key]);
+    } else if (answers[key] !== undefined) {
+      questions[key] = answers[key];
+    }
+  }
+}
+
+const exportToCSV = () =>{
+
+  assignAnswersToQuestions(questions, volunteerData.value);
+  console.log('questions: ' + questions);
+ 
+ 
+
+ 
 };
 
 const showPredepartureHandle = () => {
@@ -257,12 +250,13 @@ tr:hover {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  padding: 2em 0 !important;
 }
 /* .expanded-buttons > * {
   margin-bottom: 10px;
 } */
 .expandedButton {
   flex: 1;
-  padding: 1rem
+  margin-right: 5px;
 }
 </style>

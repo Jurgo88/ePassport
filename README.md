@@ -28,8 +28,8 @@ You can go here, [deployment](https://epassport.netlify.app/).
 
 ## Features
 - [X] Authentication
-- [ ] Export PDF
-- [ ] Export CSV
+- [X] Export PDF
+- [X] Export CSV
 
 ## Get Started
 
