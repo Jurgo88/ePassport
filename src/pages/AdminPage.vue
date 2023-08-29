@@ -67,6 +67,8 @@
                       <v-btn @click="showPredepartureHandle(user)" class="expandedButton" color="primary">Show Predeparture</v-btn>
                       <v-btn @click="showOnProjectHandle()" class="expandedButton" color="primary">Show On Project</v-btn>
                       <v-btn @click="showAfterProjectHandle()" class="expandedButton" color="primary">Show Evaulation</v-btn>
+                      <!-- <v-btn @click="exportToPDF()" class="expandedButton" color="primary">Export to PDF</v-btn> -->
+                      <v-btn @click="exportToCSV()" class="expandedButton" color="primary">Export to CSV</v-btn>
                     </div>
 
 
@@ -80,7 +82,10 @@
       <v-dialog  v-model="showModal" scrollable style="overflow: auto;">
         <v-card>
           <v-card-title>
-            <span class="headline"><v-btn class="my-button" color="primary" @click="exportToPDF" >EXPORT to PDF</v-btn><v-btn class="my-button" color="primary" @click="exportToCSV" >EXPORT to CSV</v-btn></span>
+            <span class="headline">
+              <!-- <v-btn class="my-button" color="primary" @click="exportToPDF" >EXPORT to PDF</v-btn> -->
+              <v-btn class="my-button" color="primary" @click="exportToCSV" >EXPORT to CSV</v-btn>
+            </span>
           </v-card-title>
           <v-card-text id="export-element">
             <showPredeparture :volunteerData="volunteerData" v-if="showPredepartureComponent"/>
@@ -105,6 +110,7 @@
 import { defineProps, ref, onMounted } from 'vue';
 import { getRecords } from '/services/database.js';
 import html2pdf from 'html2pdf.js';
+import Papa from 'papaparse';
 import showPredeparture from '../components/adminPage/showPredeparture.vue';
 import showOnProject from '../components/adminPage/showOnProject.vue';
 import showAfterProject from '../components/adminPage/showAfterProject.vue';
@@ -127,8 +133,13 @@ const showModal = ref(false);
 
 const toggleInfo = (index) => {
   console.log('toggleInfo: ' + index)
+  console.log(volunteerData.value);
+  console.log('volunteerData.value: ' + volunteerData.value);
+
   expandedIndex.value = expandedIndex.value === index ? null : index;
   volunteerData.value = users.value[index];
+  console.log('volunteerData.value: ' + volunteerData.value);
+  console.log('volunteerData.value.basicInfo.volunteerInfo.name: ' + volunteerData.value.basicInfo.volunteerInfo.name);
 };
 
 const loadUsers = async () => {
@@ -169,20 +180,76 @@ const exportToPDF = () => {
     filename: filename,
   });      
 };
-function assignAnswersToQuestions(questions, answers) {
-  for (const key in questions) {
-    if (typeof questions[key] === 'object' && typeof answers[key] === 'object') {
-      assignAnswersToQuestions(questions[key], answers[key]);
-    } else if (answers[key] !== undefined) {
-      questions[key] = answers[key];
+
+
+// function assignAnswersToQuestions(questions, answers) {
+//   for (const key in questions) {
+//     if (typeof questions[key] === 'object' && typeof answers[key] === 'object') {
+//       assignAnswersToQuestions(questions[key], answers[key]);
+//     } else if (answers[key] !== undefined) {
+//       questions[key] = answers[key];
+//     }
+//   }
+// }
+
+
+function mergeQuestionsAndAnswers(questions, answers) {
+    var mergedData = {};
+    
+    for (var key in questions) {
+        if (typeof questions[key] === 'object') {
+            mergedData[key] = mergeQuestionsAndAnswers(questions[key], answers[key]);
+        } else {
+            mergedData[key] = {
+                question: questions[key],
+                answer: answers[key]
+            };
+        }
     }
-  }
+    
+    return mergedData;
 }
 
-const exportToCSV = () =>{
+//
+//console.log(JSON.stringify(mergedObj, null, 4));
 
-  assignAnswersToQuestions(questions, volunteerData.value);
-  console.log('questions: ' + questions);
+const exportToCSV = () =>{
+  console.log(volunteerData.value);
+  console.log('exportToCSV');
+  let filename = 'volunteer.csv';
+  let answers = volunteerData.value;
+  var mergedObj = mergeQuestionsAndAnswers(questions, answers);
+  console.log(mergedObj);
+
+  const mergedJSON = JSON.stringify(mergedObj, null, 4);
+  console.log('mergedJSON: ' + mergedJSON);
+  const csvData = Papa.parse(mergedJSON);
+  console.log('csvData: ' + csvData);
+
+  if(showPredepartureComponent.value){
+    filename = volunteerData.value.basicInfo.volunteerInfo.surname + '_predeparture.csv';
+  }
+  else if(showOnProjectComponent.value){
+    filename = volunteerData.value.basicInfo.volunteerInfo.surname + '_onProject.csv';
+  }
+  else if(showAfterProjectComponent.value){
+    filename = volunteerData.value.basicInfo.volunteerInfo.surname + '_evaulation.csv';
+  }
+  else{
+    filename = volunteerData.value.basicInfo.volunteerInfo.surname + '.csv';
+  }
+  console.log('filename: ' + filename);
+  let csv = '';
+
+  
+console.log('mergedObj: ' + mergedObj);
+console.log(mergedObj);
+console.log(volunteerData.value)
+
+  //assignAnswersToQuestions(questions, volunteerData.value);
+  //console.log('questions: ' + questions);
+
+
  
  
 
