@@ -163,7 +163,7 @@ onMounted(() => {
         <router-link :to="{
                 name: 'HealthPage' 
             }" >
-            <v-btn block color="primary" class="my-button">Health and Security Quizz</v-btn>
+            <v-btn block color="primary" class="my-button">Health and Security Quiz</v-btn>
         </router-link>
 
 

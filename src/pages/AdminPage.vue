@@ -83,8 +83,8 @@
         <v-card>
           <v-card-title>
             <span class="headline">
-              <!-- <v-btn class="my-button" color="primary" @click="exportToPDF" >EXPORT to PDF</v-btn> -->
-              <v-btn class="my-button" color="primary" @click="exportToCSV" >EXPORT to CSV</v-btn>
+              <v-btn class="my-button" color="primary" @click="exportToPDF" >EXPORT to PDF</v-btn>
+              <!-- <v-btn class="my-button" color="primary" @click="exportToCSV" >EXPORT to CSV</v-btn> -->
             </span>
           </v-card-title>
           <v-card-text id="export-element">

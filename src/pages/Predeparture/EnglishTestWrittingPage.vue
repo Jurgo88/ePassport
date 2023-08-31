@@ -74,7 +74,7 @@ onBeforeMount(async () => {
 </script>
 <template>
     <v-container v-if="!loading">
-        <h1>Written COMPREHENSION</h1>
+        <h1>Reading COMPREHENSION</h1>
         <br>
         <p>
             Read the testimony of a participant who volunteered as part of the EU Aid Volunteers programme on the ADICE website: 
@@ -113,7 +113,14 @@ onBeforeMount(async () => {
         <br>
         <br>
         <QuestionsList :questions="secondQuestions" :volunteerData="volunteerData" :path="path" />
-    
+        <br>
+        <hr>
+        <br>
+        <router-link :to="{
+                name: 'EnglishTestPage' 
+            }" >
+            <v-btn block color="secondary" class="my-button">BACK</v-btn>
+        </router-link>
     </v-container>
 </template>
 <style src="../../css/checkbox.css"></style>
