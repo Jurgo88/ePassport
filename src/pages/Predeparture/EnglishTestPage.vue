@@ -23,9 +23,9 @@ import { useRoute, useRouter } from 'vue-router';
             <b>The test is divided into 3 parts:</b>  
 
             <ul>
-                <li>Part 1: MCQ (40 questions)</li>
+                <li>Part 1: Multiple choice test </li>
                 <li>Part 2: Listening comprehension</li>
-                <li>Part 3: Written comprehension</li>
+                <li>Part 3: Reading comprehension</li>
             </ul>
         </p>
         <br>
@@ -61,7 +61,7 @@ import { useRoute, useRouter } from 'vue-router';
             }"
             >
             <v-btn
-                text="Start Written"
+                text="Start Reading"
                 color="primary"
                 class="my-button"
                 >

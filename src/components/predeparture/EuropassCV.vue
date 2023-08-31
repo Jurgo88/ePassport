@@ -135,6 +135,7 @@ function uploadSelectedFile() {
             <v-btn 
               :text="uploadbuttonText"
               :color="uploadbuttonColor"
+              class="my-button"
               @click="uploadSelectedFile">
             </v-btn>
           </div>
@@ -142,6 +143,15 @@ function uploadSelectedFile() {
                        
             
         </div>
+        <br>
+        <hr>
+        <br>
+        <router-link :to="{
+                path: '/predeparture' 
+            }" >
+            <v-btn block color="secondary" class="my-button">Back</v-btn>
+        </router-link>
+
 
 
     </v-container>

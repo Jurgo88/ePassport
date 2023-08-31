@@ -54,18 +54,19 @@ onBeforeMount(async () => {
 <template>
     <v-container v-if="!loading">
         <h1>Letter to myself</h1>
-        <p>How this experience is connected with my future career? (My first motivation to do an international mobility, 
+        <br>
+        <p>How is this experience is connected with my future career? (My first motivation to do an international mobility), 
             which specific mission and which countries. 
         <br><br>
         What would I like to achieve personally and professionally, my strengths to reach these objectives, my fears and challenges, 
-        what should I leave home and what should I take with me - material and not only)
+        what should I leave home and what should I take with me - material and not only
         <br><br>
         Hybrid or virtual mobility? Explain also how you will organize your tasks in remote. 
         What is important for you and the organisation which will work with you?
     </p>
     <br>
     <br>
-    {{ questions.beforeProject.letterToMyself  }}
+    <!-- {{ questions.beforeProject.letterToMyself  }} -->
     <br>
     <br>
     <hr>
@@ -73,5 +74,11 @@ onBeforeMount(async () => {
     <AnswerBox :answer="volunteerData.beforeProject.letterToMyself" :volunteerData="volunteerData" @answer="handleAnswer" />
     <br>
     <hr>
+    <br>
+    <router-link :to="{
+            path: '/predeparture' 
+        }" >
+        <v-btn block color="secondary" class="my-button">Back</v-btn>
+    </router-link>
     </v-container>
 </template>

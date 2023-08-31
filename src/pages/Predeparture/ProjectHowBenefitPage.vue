@@ -42,7 +42,7 @@ onBeforeMount(async () => {
 </script>
 <template>
     <v-container v-if="!loading">
-        <h1>HOW WILL THE PROJECT BENEFIT ME?</h1>
+        <h1>How will I benefit from this project?</h1>
     <QuestionsList
         :questions="thisFormQuestions"
         :volunteerData="volunteerData"

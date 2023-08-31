@@ -102,5 +102,13 @@
             <li><a href="https://www.facebook.com/groups/BratislavaLEM">https://www.facebook.com/groups/BratislavaLEM</a> - Bratislava Language Exchange Meetings</li>
         </ul>
         <br>
+        <br>
+        <hr>
+        <br>
+        <router-link :to="{
+                name: 'EnglishTestPage' 
+            }" >
+            <v-btn block color="secondary" class="my-button">BACK</v-btn>
+        </router-link>
     </v-container>
 </template>

@@ -1,7 +1,7 @@
 // For formating text in HTM using tag with v-html
 export const questions = {
     beforeProject: {
-        letterToMyself: 'Where did Jac volunteer and when did he start?',
+        letterToMyself: 'Letter to myself',
         englishTest: {
             listening: {
                 Scenario1: {
@@ -36,7 +36,7 @@ export const questions = {
         },
         project: {
             advantages: {
-                question1: 'Myadvantages & strengths',
+                question1: 'My advantages & strengths',
                 question2: 'Why do I think it is an advantage or a strength?',
                 question3: 'My fears and challenges',
                 question4: 'Please justify each answer',

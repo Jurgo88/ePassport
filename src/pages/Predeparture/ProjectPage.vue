@@ -38,7 +38,7 @@
             :to="{
             name: 'ProjectHowBenefitPage'
             }">
-            <v-btn text color="primary" class="my-button">HOW WILL THE PROJECT BENEFIT ME?</v-btn>
+            <v-btn text color="primary" class="my-button">How will I benefit from this project?</v-btn>
         </router-link>
         <br>
         <br>
