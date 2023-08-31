@@ -50,7 +50,85 @@ console.log('MgmtPage');
     <br>
     <h3>Example 01: Daily Activity Log</h3>
 
+    <v-img src="../../../src/assets/daily_activity_log.png" alt="Activity Log 1" width="100%"></v-img>
+    <br>
+    <p>
+      How to keep a daily activity log:
+    </p>
+    <br>
+    <p>
+      To keep an Activity Log, you need to create a new spreadsheet and set up (for example) the following column headers:
+    </p>
+    <br>
+    <ul>
+      <li>Date/Time</li>
+      <li>Activity description</li>
+      <li>Value (high, medium, low, none)</li>
+      <li>How I feel</li>
+    </ul>
+    <br>
+    <p>
+      In the first column, Date/Time, note in the title column the date, and further indicate the hour each time you start a new task or activity.
+    </p>
+    <br>
+    <p>
+      In the second column, Activity Description, indicate the activity you started doing.
+    </p>
+    <br>
+    <p>
+      In the third column, Value, indicate which importance the task has in general (from your organisation’s point of view).
+    </p>
+    <br>
+    <p>
+      In the last column, How I feel, indicate the emotion you feel when doing the mentioned activity.
+    </p>
+    <br>
+    <h3>Example 02: Weekly Activity Log</h3>
+    <v-img src="../../../src/assets/weekly_activity_log.png" alt="Activity Log 2" width="100%"></v-img>
 
+    <br>
+    <p>      
+      How to keep a weekly activity log:
+    </p>
+
+    <br>
+    <p>
+      To keep a weekly activity Log, you need to create a new spreadsheet and set up (for example) the following column headers:
+    </p>
+    <br>
+    <ul>
+      <li>Tasks/Time</li>
+      <li>Checklist</li>
+      <li>Exchange (Questions/Answers)</li>
+    </ul>
+    <br>
+    <p>
+      In the column Tasks/Time you can indicate the action that has to be done for the moment or for the indicated time. For instance, 
+      training preparation is the action that must be completed.
+    </p>
+    <br>
+    <p>
+      Next, in the second column Checklist, you can indicate the tasks that need to be done in order for the task (for instance the training 
+      preparation) to be completed.
+    </p>
+    <br>
+    <p>
+      In the third column Exchange, the user can note the potential questions that have to be answered either with the participant, 
+      either with the hosting or sending organisation. The table will be considered complete, when all the questions will be answered.
+    </p>
+    <br>
+    <p>
+      Activity Logs are also useful in identifying non-core activities that do not contribute to achieving important objectives, 
+      and in giving the Host organisation and Sending organisation a better overall understanding of your daily schedule. 
+      Keeping such a track of your activities will support you to identify the tasks that feel less relevant and interesting and enable you to inform the hosting/sending organisation.
+    </p>
+    <br>
+    <br>
+    <hr>
+    <br>
+    <router-link to="/project/management/tools">
+      <v-btn color="primary" class="my-button">Digital Tools for Daily Task Management</v-btn>
+    </router-link>
 
   </v-container>
 </template>

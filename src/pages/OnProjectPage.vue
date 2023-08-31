@@ -86,7 +86,7 @@ onMounted(() => {
         <router-link :to="{
                 path: '/project/activities' 
             }" >
-            <v-btn block color="primary" class="my-button">Activities of the project:</v-btn>
+            <v-btn block color="primary" class="my-button">Activities of the project</v-btn>
         </router-link>
         <router-link :to="{
                 path: '/project/management' 

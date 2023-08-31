@@ -372,6 +372,16 @@ const routes = [
 
     },
     {
+        path: "/project/management/tools",
+        name: 'ManagementPageTools',
+        component: () => import('../pages/OnProject/ManagementPageTools.vue'), // Lazy loading
+        props: true,
+        beforeEnter: (to, from, next) => {
+            checkAuthAndProceed(to, from, next, '/login');
+        }
+
+    },
+    {
         path: "/project/followup",
         name: 'FollowUpPage',
         component: () => import('../pages/OnProject/FollowUpPage.vue'), // Lazy loading

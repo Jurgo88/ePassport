@@ -118,6 +118,7 @@ onMounted(() => {
             active
             bg-color="primary"
             rounded="true"
+            height="0"
             >
             <v-btn>
                 <i class="material-icons">add_home</i>
