@@ -7,6 +7,7 @@ export const volunteerDataModel = {
       end: '',
       dateOfBirth: '',
       placeOfBirth: '',
+      nationality: '',
       sex: '',
       address: '',
       telephone: '',
@@ -35,6 +36,7 @@ export const volunteerDataModel = {
     letterToMyself: '',
     europassCV: '',
     englishTest: {
+      result: '',
       listening: {
         Scenario1: {
           question1: '',

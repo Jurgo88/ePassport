@@ -37,7 +37,7 @@
         <hr>
         <br>
         <router-link :to="{
-            name: 'ProjectPage',
+            name: 'OnProjectPage',
         }">
             <v-btn color="secondary" class="my-button">Back</v-btn>
         </router-link>
