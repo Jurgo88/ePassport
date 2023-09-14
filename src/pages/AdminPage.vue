@@ -3,28 +3,39 @@
     <div class="mx-auto">
       <div class="w-full">
         <h1>Admin Page</h1>
+        <br>
+        <div class="export-btn" >
+          <v-btn @click="exportToCSV2()" color="primary" >Export to CSV</v-btn>
+        </div>
+        <br>
+        <br>
         <table>
           <thead>
             <tr>
+              <th>Select</th>
               <th>Name</th>
               <th>Surname</th>
               <th>Sex</th>
               <th>Nationality</th>
               <th>Start</th>
               <th>End</th>
-              <th>Date of Registration</th>
+              <!-- <th>Date of Registration</th> -->
             </tr>
           </thead>
           <tbody>
-            <template v-for="(user, index) in users" :key="index">
+            <template v-for="(user, index) in users" :key="index" >
               <tr @click="toggleInfo(index)" class="text-center">
+                <td>
+                  <!-- Add a checkbox input with a v-model -->
+                  <input type="checkbox" v-model="user.selected" @click.stop />
+                </td>
                 <td >{{ user.basicInfo.volunteerInfo.name }}</td>
                 <td>{{ user.basicInfo.volunteerInfo.surname }}</td>
                 <td>{{ user.basicInfo.volunteerInfo.sex }}</td>
                 <td>{{ user.basicInfo.volunteerInfo.nationality }}</td>
                 <td>{{ user.basicInfo.volunteerInfo.start }}</td>
                 <td>{{ user.basicInfo.volunteerInfo.end }}</td>
-                <td>{{ user.basicInfo.volunteerInfo.registrationDate }}</td>
+                <!-- <td>{{ user.basicInfo.volunteerInfo.registrationDate }}</td> -->
               </tr>
               <tr v-if="expandedIndex === index" :key="'expanded-' + user.userId">
                 <td colspan="7">
@@ -68,7 +79,7 @@
                       <v-btn @click="showOnProjectHandle()" class="expandedButton" color="primary">Show On Project</v-btn>
                       <v-btn @click="showAfterProjectHandle()" class="expandedButton" color="primary">Show Evaulation</v-btn>
                       <!-- <v-btn @click="exportToPDF()" class="expandedButton" color="primary">Export to PDF</v-btn> -->
-                      <v-btn @click="exportToCSV()" class="expandedButton" color="primary">Export to CSV</v-btn>
+                      <!-- <v-btn @click="exportToCSV()" class="expandedButton" color="primary">Export to CSV</v-btn> -->
                     </div>
 
 
@@ -212,6 +223,62 @@ function mergeQuestionsAndAnswers(questions, answers) {
 
 //
 //console.log(JSON.stringify(mergedObj, null, 4));
+
+// const exportToCSV2 = () =>{ 
+//   if (confirm('Are you sure you want to export to CSV?') == true) {
+//     console.log('ok');
+//     const selectedUsers = this.users.filter(user => user.selected);
+//     console.log('Selected Users:', selectedUsers);
+//   }
+//   else{
+//     console.log('cancel');
+//   }
+// }
+
+const exportToCSV2 = () => {
+  // Získání vybraných uživatelů
+  const selectedUsers = users.value.filter(user => user.selected);
+
+  if (selectedUsers.length === 0) {
+    alert('No volunteer selected.');
+    return;
+  }
+
+  // Příprava dat pro CSV
+  const csvData = [];
+  const headers = ['Name', 'Surname', 'Sex', 'Nationality', 'Start', 'End', 'Project'];
+
+  // Přidání záhlaví CSV
+  csvData.push(headers);
+
+  // Přidání údajů vybraných uživatelů
+  selectedUsers.forEach(user => {
+    const userData = [
+      user.basicInfo.volunteerInfo.name,
+      user.basicInfo.volunteerInfo.surname,
+      user.basicInfo.volunteerInfo.sex,
+      user.basicInfo.volunteerInfo.nationality,
+      user.basicInfo.volunteerInfo.start,
+      user.basicInfo.volunteerInfo.end,
+      user.basicInfo.hoInfo.projectName,
+    ];
+
+    csvData.push(userData);
+  });
+
+  // Převedení na CSV řetězec
+  const csvString = Papa.unparse(csvData);
+
+  // Otevřít CSV v novém okně nebo uložit na serveru
+  const blob = new Blob([csvString], { type: 'text/csv' });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'selected_users.csv';
+  a.click();
+
+  window.URL.revokeObjectURL(url);
+};
 
 const exportToCSV = () =>{
   console.log(volunteerData.value);
