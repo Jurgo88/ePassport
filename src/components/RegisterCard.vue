@@ -20,12 +20,21 @@ const localState = reactive({
 })
 
 const register = () => {
+  console.log('register')
   store.dispatch('registerAction', {
     email: emailModel.value,
     password: passwordModel.value,
   }).then(() => {
+    if (registerState.error) {
+      localState.emailError = true
+      router.push('/register')
+    }
+    else {
     store.dispatch('getUserAction')
-    router.push('/home')
+      router.push('/login')
+    }
+    
+    
   })
 }
 

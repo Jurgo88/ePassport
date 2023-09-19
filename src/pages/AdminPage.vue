@@ -27,7 +27,8 @@
               <tr @click="toggleInfo(index)" class="text-center">
                 <td>
                   <!-- Add a checkbox input with a v-model -->
-                  <input type="checkbox" v-model="user.selected" @click.stop />
+                  <input type="checkbox" v-model="user.selected" @click.stop /><span> - </span>
+                  <v-btn @click.stop="deleteUserHandle(user)" color="error" >Delete</v-btn>
                 </td>
                 <td >{{ user.basicInfo.volunteerInfo.name }}</td>
                 <td>{{ user.basicInfo.volunteerInfo.surname }}</td>
@@ -126,6 +127,11 @@ import showPredeparture from '../components/adminPage/showPredeparture.vue';
 import showOnProject from '../components/adminPage/showOnProject.vue';
 import showAfterProject from '../components/adminPage/showAfterProject.vue';
 import { questions } from '../../services/questions.js';
+import { deleteUser } from 'firebase/auth';
+import { ref as storageRef,  deleteObject } from 'firebase/storage';
+import { ref as dbRef, remove } from 'firebase/database';
+import { db } from '../../firebase/config';
+
 
 const props = defineProps({
   userState: {
@@ -156,6 +162,31 @@ const toggleInfo = (index) => {
 const loadUsers = async () => {
   users.value = await getRecords();
   console.log("Loaded users: " + users.value.length);
+};
+
+const deleteUserHandle = async (user) => {
+  console.log('deleteUser: ' + user.id);
+  const currentUser = props.userState.userData.uid;
+  console.log('user: ' + currentUser);
+  if (confirm('Are you sure you want to delete this user?') == true) {
+    await deleteUserRecords(user.id);
+    loadUsers();
+  }
+  else{
+    console.log('cancel');
+  }
+};
+
+const deleteUserRecords = async (userId) => {
+  console.log('deleteUserRecords: ' + userId);
+  const thisDbRef = ref(db, 'records/' + userId);
+  try {
+    await remove(thisDbRef);
+    console.log(thisDbRef);
+    console.log('Data byla úspěšně smazána z Realtime Database.');
+  } catch (error) {
+    console.error('Chyba při mazání dat z Realtime Database:', error);
+  }
 };
 
 // const showModal = () => {
@@ -246,7 +277,7 @@ const exportToCSV2 = () => {
 
   // Příprava dat pro CSV
   const csvData = [];
-  const headers = ['Name', 'Surname', 'Sex', 'Nationality', 'Start', 'End', 'Project'];
+  const headers = ['Name', 'Surname', 'Sex', 'Nationality', 'Start', 'End', 'Project', 'Number of project', 'Mail', 'Telephone', 'Place of birth', 'Date of birth', 'Address', 'Name of HO', 'Address of HO', 'Web', 'Telephone', 'Email', 'Contact person', 'Name of SO', 'Address of SO', 'Web', 'Telephone', 'Email', 'Contact person'];
 
   // Přidání záhlaví CSV
   csvData.push(headers);
@@ -261,6 +292,24 @@ const exportToCSV2 = () => {
       user.basicInfo.volunteerInfo.start,
       user.basicInfo.volunteerInfo.end,
       user.basicInfo.hoInfo.projectName,
+      user.basicInfo.hoInfo.projectNo,
+      user.basicInfo.volunteerInfo.email,
+      user.basicInfo.volunteerInfo.telephone,
+      user.basicInfo.volunteerInfo.placeOfBirth,
+      user.basicInfo.volunteerInfo.dateOfBirth,
+      user.basicInfo.volunteerInfo.address,
+      user.basicInfo.hoInfo.hoName,
+      user.basicInfo.hoInfo.hoAddress,
+      user.basicInfo.hoInfo.hoWeb,
+      user.basicInfo.hoInfo.hoTelephone,
+      user.basicInfo.hoInfo.hoEmail,
+      user.basicInfo.hoInfo.hoContactPerson,
+      user.basicInfo.soInfo.soName,
+      user.basicInfo.soInfo.soAddress,
+      user.basicInfo.soInfo.soWeb,
+      user.basicInfo.soInfo.soTelephone,
+      user.basicInfo.soInfo.soEmail,
+      user.basicInfo.soInfo.soContactPerson,
     ];
 
     csvData.push(userData);
@@ -355,7 +404,7 @@ onMounted(() => {
 
 console.log('Admin page');
 </script>
-
+<style src="../css/checkbox.css"></style>
 <style >
 table {
   width: 100%;

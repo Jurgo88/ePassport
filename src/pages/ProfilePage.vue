@@ -15,9 +15,6 @@ const changePasswordState = store.state.auth.changePassword
   <v-container>
     <div class="mx-auto">
       <ProfileCard />
-      <Transition>
-        <ChangePasswordCard v-if="isShow" />
-      </Transition>
     </div>
     <Message
         :success="changePasswordState.isSuccess"

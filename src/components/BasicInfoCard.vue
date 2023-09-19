@@ -170,7 +170,7 @@ const datePickerFormat = 'YYYY-MM-DD';
                     </v-col>
                     <v-col cols="12" :class="{ hideInput: !isHidden, showInput: isHidden }">
                         <v-date-picker v-model="volunteerInfo.basicInfo.volunteerInfo.start" label="Start of mobility" format="YYYY-DD-MM" required></v-date-picker>
-                        <input  type="date" class="myDatePicker" placeholder="Starttt of mobility" onfocus="(this.type='date')" v-model="volunteerInfo.basicInfo.volunteerInfo.start" @input="onDateSelected"  />
+                        <input  type="date" class="myDatePicker" placeholder="Start of mobility" onfocus="(this.type='date')" v-model="volunteerInfo.basicInfo.volunteerInfo.start" @input="onDateSelected"  />
                     </v-col>
                     <v-col cols="12"  :class="{ hideInput: isHiddenDate, showInput: !isHiddenDate }" >
                         <v-text-field 
@@ -254,7 +254,7 @@ const datePickerFormat = 'YYYY-MM-DD';
                         <v-text-field class="" v-model="volunteerInfo.basicInfo.soInfo.soEmail" label="Sending organisation email" hide-details  clearable required></v-text-field>
                     </v-col>
                     <v-col cols="12">
-                        <v-text-field class="" v-model="volunteerInfo.basicInfo.soInfo.soWebsite" label="Sending organisation website" hide-details  clearable required></v-text-field>
+                        <v-text-field class="" v-model="volunteerInfo.basicInfo.soInfo.soWeb" label="Sending organisation website" hide-details  clearable required></v-text-field>
                     </v-col>
 
                     <v-btn color="primary" type="submit">Submit</v-btn>

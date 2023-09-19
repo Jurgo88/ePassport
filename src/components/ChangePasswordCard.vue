@@ -62,7 +62,10 @@ const changePassword = () => {
       <p v-if="localState.newPasswordError" class="text-red-500 text-xs italic text-left">New password can't be equal to old password</p>
     </div>
     <div class="text-right mr-5">
-      <button class="bg-[#2B2E4A] rounded-full drop-shadow-lg text-white text-md h-9 w-[85px] opacity-40" :class="{ 'ableChange': !localState.disableChange }" :disabled="localState.disableChange">Change</button>
+      <!-- <button class="bg-[#2B2E4A] rounded-full drop-shadow-lg text-white text-md h-9 w-[85px] opacity-40" :class="{ 'ableChange': !localState.disableChange }" :disabled="localState.disableChange">Change</button> -->
+      <v-btn class="myButton" color="secondary" :disabled="localState.disableChange">Change</v-btn>
+      <br>
+      <br>
     </div>
   </form>
 </template>

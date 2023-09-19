@@ -1,7 +1,7 @@
 <script setup>
-// import { ref, onMounted  } from 'vue';
+// import { ref, computed, onMounted  } from 'vue';
 import { ref } from 'vue';
-import { ref as storageRef, uploadBytes, listAll } from 'firebase/storage';
+import { ref as storageRef, uploadBytes, listAll, getDownloadURL, deleteObject } from 'firebase/storage';
 import { storage, firebaseAuth } from '../../../firebase/config';
 import sendData from '../../../services/sendData';
 
@@ -13,6 +13,11 @@ const props = defineProps({
 });
 
 const volunteerData = ref(props.volunteerData);
+const hasCV = ref(false);
+
+hasCV.value = volunteerData.value.beforeProject.europassCV ? true : false;
+
+
 
 let selectedFile = null;
 const user = firebaseAuth.currentUser;
@@ -20,6 +25,13 @@ const userEmail = user.email;
 const isSelected = ref(false);
 const uploadbuttonColor = ref('primary');
 const uploadbuttonText = ref('Send your CV');
+const downloadYourCV = ref('Download your CV: ');
+
+if(hasCV.value)
+{
+  const fileName = volunteerData.value.beforeProject.europassCV.split('/')[2];
+  downloadYourCV.value = downloadYourCV.value + fileName;
+}
 
 
 
@@ -42,6 +54,9 @@ async function uploadFile(file) {
     console.log('Súbor bol úspešne nahraný na Firebase Storage.');
     uploadbuttonColor.value = 'success';
     uploadbuttonText.value = 'File uploaded';
+    downloadYourCV.value = downloadYourCV.value + file.name;
+    setTimeout(() => hasCV.value = true, 1000);
+    // setTimeout(() => uploadbuttonColor.value = 'primary', 1000);
   } catch (error) {
     console.error('Chyba pri nahrávaní súboru:', error);
   }
@@ -56,6 +71,49 @@ function uploadSelectedFile() {
   if (selectedFile) {
     uploadFile(selectedFile);
   }
+}
+
+function downloadCV() {
+  const thisIsStorageRef = storageRef(storage, volunteerData.value.beforeProject.europassCV);
+  getDownloadURL(thisIsStorageRef)
+    .then((url) => {
+      console.log('downloadCV' + url);
+      window.open(url, '_blank');
+    })
+    .catch((error) => {
+      console.error('Chyba pri sťahovaní súboru:', error);
+    });
+}
+function DeleteCV() {
+  const thisIsStorageRef = storageRef(storage, volunteerData.value.beforeProject.europassCV);
+  if(confirm("Are you sure you want to delete your CV?") == false)
+  {
+    return;
+  }
+  deleteObject(thisIsStorageRef)
+    .then(() => {
+      console.log('File deleted successfully');
+      volunteerData.value.beforeProject.europassCV = '';
+      sendData(volunteerData.value);
+      hasCV.value = false;
+      uploadbuttonColor.value = 'primary';
+      uploadbuttonText.value = 'Send your CV';
+      isSelected.value = false;
+      downloadYourCV.value = 'Download your CV: ';
+      // setTimeout(() => window.location.reload(), 3000);
+    })
+    .catch((error) => {
+      console.error('Error deleting file:', error);
+    });
+  thisIsStorageRef.delete().then(() => {
+    console.log('File deleted successfully');
+    volunteerData.value.beforeProject.europassCV = '';
+    sendData(volunteerData.value);
+    uploadbuttonColor.value = 'primary';
+    uploadbuttonText.value = 'Send your CV';
+  }).catch((error) => {
+    console.error('Error deleting file:', error);
+  });
 }
 
 </script>
@@ -123,7 +181,7 @@ function uploadSelectedFile() {
 
         <br>
         <br>
-        <div align="center">
+        <div v-if="!hasCV" align="center">
           <div >
             <v-file-input
               label="Upload your Europass CV" 
@@ -138,10 +196,23 @@ function uploadSelectedFile() {
               class="my-button"
               @click="uploadSelectedFile">
             </v-btn>
+          </div> 
+        </div>
+        <div v-else>
+          <div align="center">
+            <v-btn 
+              :text="downloadYourCV"
+              color="primary"
+              class="my-button"
+              @click="downloadCV()">
+            </v-btn>
+            <v-btn
+              text="Delete your CV"
+              color="error"
+              class="my-button"
+              @click="DeleteCV">
+            </v-btn>
           </div>
-         
-                       
-            
         </div>
         <br>
         <hr>

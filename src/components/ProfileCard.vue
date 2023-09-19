@@ -1,5 +1,6 @@
 <script setup>
 import { computed, onBeforeMount, ref } from 'vue';
+import ChangePasswordCard from "../components/ChangePasswordCard.vue";
 import { useStore } from 'vuex';
 import router from "../router";
 import {loadVolunteerDataByID } from "../../services/database";
@@ -8,6 +9,8 @@ import sendData from '../../services/sendData';
 const store = useStore()
 const userState = computed(() => store.state.auth.userDetails)
 const loading = ref(false);
+
+const isShow = computed(() => store.state.actionSheet.changePasswordSheet.isShow)
 
 const volunteerData = ref({});
 const basicInfo = ref({});
@@ -18,8 +21,14 @@ const basicInfo = ref({});
 // console.log(basicInfo);
 
 const logOut = () => {
+  if (confirm('Are you sure you want to log out?') === false) {
+    return;
+  }
+  else{
   store.dispatch('logOutAction')
   router.push('/login')
+  }
+    
 }
 
 const showChangePassword = () => {
@@ -68,22 +77,27 @@ onBeforeMount(async () => {
 
 <template>
   <div class="flex-col text-center bg-white md:w-[75%] rounded-xl shadow-lg mx-auto sm:w-full relative pb-5 mb-8">
-    <div class="overflow-hidden w-full h-full">
+    <!-- <div class="overflow-hidden w-full h-full">
       <img class="rounded-tl-xl rounded-tr-xl h-[300px] w-full top-0 left-0 " src="../assets/portfolio-1.jpg"  alt="portfolio"/>
     </div>
     <div class="flex justify-center z-30 absolute w-full top-[13rem]">
       <img class="rounded-full h-[200px] w-[200px] border-8 border-white" src="../assets/portfolio-2.jpg" alt="profile"/>
-    </div>
+    </div> -->
     <div class="mt-28">
       <h1 class="text-3xl text-left ml-5 mb-7" v-text="userState.userData.email" />
       <div class="text-center mr-5 flex justify-end">
-        <button class="bg-[#2B2E4A] rounded-full drop-shadow-lg text-white text-md h-9 w-[85px] hover:bg-[#FF9000] transition ease-in-out mr-5" @click="logOut">LogOut</button>
-        <button class="bg-[#2B2E4A] rounded-full drop-shadow-lg text-white text-md h-9 w-[190px] hover:bg-[#FF9000] transition ease-in-out" @click="showChangePassword">Change Password</button>
+        <!-- <button class="bg-[#2B2E4A] rounded-full drop-shadow-lg text-white text-md h-9 w-[85px] hover:bg-[#FF9000] transition ease-in-out mr-5" @click="logOut">LogOut</button> -->
+      <v-btn class="myButton" color="error" @click="logOut">LogOut</v-btn>
+        <!-- <button class="bg-[#2B2E4A] rounded-full drop-shadow-lg text-white text-md h-9 w-[190px] hover:bg-[#FF9000] transition ease-in-out" @click="showChangePassword">Change Password</button> -->
+        <v-btn class="myButton" color="secondary" @click="showChangePassword">Change Password</v-btn>
       </div>
     </div>
     <div>
     </div>
   </div>
+  <Transition>
+    <ChangePasswordCard v-if="isShow" />
+  </Transition>
   <div v-if="!loading" class="flex-col text-center bg-white md:w-[75%] rounded-xl shadow-lg mx-auto sm:w-full relative pb-5 mb-8">
     <h1>Edit Volunteer Information</h1>
     <v-container>
@@ -92,8 +106,16 @@ onBeforeMount(async () => {
       <h2>Volunteer Information</h2>
       <v-text-field v-model="volunteerData.basicInfo.volunteerInfo.name" label="Name" />
       <v-text-field v-model="basicInfo.volunteerInfo.surname" label="Surname" />
-      <v-select v-model="basicInfo.volunteerInfo.sex" label="Sex" :items="['male', 'female']" required></v-select>
+      <v-select v-model="basicInfo.volunteerInfo.sex" label="Sex" :items="['male', 'female', 'others']" required></v-select>
+      <v-text-field v-model="basicInfo.volunteerInfo.address" label="Address" />
+      <v-text-field v-model="basicInfo.volunteerInfo.email" label="Email" />
+      <v-text-field v-model="basicInfo.volunteerInfo.telephone" label="Phone" />
+      <v-text-field v-model="basicInfo.volunteerInfo.placeOfBirth" label="Place of Birth" />
       <div class ="dateInputs">
+        <v-date-picker v-model="basicInfo.volunteerInfo.birthDate" label="Birth Date" :format="datePickerFormat" required></v-date-picker>
+        <input type="date" class="myDatePicker" placeholder="Birth Date" onfocus="(this.type='date')" v-model="basicInfo.volunteerInfo.birthDate" @input="onDateSelected"  />
+        <br>
+        <br>
         <v-date-picker v-model="basicInfo.volunteerInfo.start" label="Start of mobility" :format="datePickerFormat" required></v-date-picker>
         <input type="date" class="myDatePicker" placeholder="Start of mobility" onfocus="(this.type='date')" v-model="basicInfo.volunteerInfo.start" @input="onDateSelected"  />
         <br>
@@ -103,11 +125,6 @@ onBeforeMount(async () => {
       <br>
       <br>
       </div>
-      <v-text-field v-model="basicInfo.volunteerInfo.address" label="Address" />
-      <v-text-field v-model="basicInfo.volunteerInfo.email" label="Email" />
-      <v-text-field v-model="basicInfo.volunteerInfo.telephone" label="Phone" />
-      <v-text-field v-model="basicInfo.volunteerInfo.birthDate" label="Birth Date" />
-      <v-text-field v-model="basicInfo.volunteerInfo.placeOfBirth" label="Place of Birth" />
 
 
       <!-- ... other fields for volunteer info ... -->
