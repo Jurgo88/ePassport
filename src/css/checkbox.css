@@ -1,9 +1,8 @@
 .v-selection-control__input input{
-    opacity: 1;
-    color: red;
-    height: 20px;
-    margin-top: 9px;
+    opacity: 1 !important;
+    height: 20px !important;
+    margin-top: 9px !important;
   }
   .v-checkbox .v-selection-control {
-    min-height: 30px;
+    min-height: 30px !important;
   }

@@ -79,6 +79,7 @@
                       <v-btn @click="showPredepartureHandle(user)" class="expandedButton" color="primary">Show Predeparture</v-btn>
                       <v-btn @click="showOnProjectHandle()" class="expandedButton" color="primary">Show On Project</v-btn>
                       <v-btn @click="showAfterProjectHandle()" class="expandedButton" color="primary">Show Evaulation</v-btn>
+                      <v-btn v-if="hasCV" @click="downloadCV()" class="expandedButton" color="primary" >Open CV</v-btn>
                       <!-- <v-btn @click="exportToPDF()" class="expandedButton" color="primary">Export to PDF</v-btn> -->
                       <!-- <v-btn @click="exportToCSV()" class="expandedButton" color="primary">Export to CSV</v-btn> -->
                     </div>
@@ -128,9 +129,9 @@ import showOnProject from '../components/adminPage/showOnProject.vue';
 import showAfterProject from '../components/adminPage/showAfterProject.vue';
 import { questions } from '../../services/questions.js';
 import { deleteUser } from 'firebase/auth';
-import { ref as storageRef,  deleteObject } from 'firebase/storage';
+import { ref as storageRef, getDownloadURL, deleteObject } from 'firebase/storage';
 import { ref as dbRef, remove } from 'firebase/database';
-import { db } from '../../firebase/config';
+import { db, storage } from '../../firebase/config';
 
 
 const props = defineProps({
@@ -147,6 +148,7 @@ const showPredepartureComponent = ref(false);
 const showOnProjectComponent = ref(false);
 const showAfterProjectComponent = ref(false);
 const showModal = ref(false);
+const hasCV = ref(false);
 
 const toggleInfo = (index) => {
   console.log('toggleInfo: ' + index)
@@ -157,12 +159,23 @@ const toggleInfo = (index) => {
   volunteerData.value = users.value[index];
   console.log('volunteerData.value: ' + volunteerData.value);
   console.log('volunteerData.value.basicInfo.volunteerInfo.name: ' + volunteerData.value.basicInfo.volunteerInfo.name);
+  if(volunteerData.value.beforeProject.europassCV)
+  {
+    hasCV.value = true;
+  }
+  else{
+    hasCV.value = false;
+  }
+  console.log('hasCV: ' + hasCV.value);
 };
 
 const loadUsers = async () => {
   users.value = await getRecords();
   console.log("Loaded users: " + users.value.length);
 };
+
+
+
 
 const deleteUserHandle = async (user) => {
   console.log('deleteUser: ' + user.id);
@@ -330,17 +343,13 @@ const exportToCSV2 = () => {
 };
 
 const exportToCSV = () =>{
-  console.log(volunteerData.value);
   console.log('exportToCSV');
   let filename = 'volunteer.csv';
   let answers = volunteerData.value;
   var mergedObj = mergeQuestionsAndAnswers(questions, answers);
-  console.log(mergedObj);
 
   const mergedJSON = JSON.stringify(mergedObj, null, 4);
-  console.log('mergedJSON: ' + mergedJSON);
   const csvData = Papa.parse(mergedJSON);
-  console.log('csvData: ' + csvData);
 
   if(showPredepartureComponent.value){
     filename = volunteerData.value.basicInfo.volunteerInfo.surname + '_predeparture.csv';
@@ -354,23 +363,25 @@ const exportToCSV = () =>{
   else{
     filename = volunteerData.value.basicInfo.volunteerInfo.surname + '.csv';
   }
-  console.log('filename: ' + filename);
-  let csv = '';
-
-  
-console.log('mergedObj: ' + mergedObj);
-console.log(mergedObj);
-console.log(volunteerData.value)
-
-  //assignAnswersToQuestions(questions, volunteerData.value);
-  //console.log('questions: ' + questions);
-
-
- 
- 
-
- 
+  console.log('filename: ' + filename); 
 };
+
+const downloadCV = () =>{
+  console.log("Download CV");
+  let filename = volunteerData.value.basicInfo.volunteerInfo.surname + '_CV.pdf';
+
+
+  const thisIsStorageRef = storageRef(storage, volunteerData.value.beforeProject.europassCV);
+  getDownloadURL(thisIsStorageRef)
+    .then((url) => {
+      console.log('downloadCV' + url);
+      window.open(url, '_blank');
+    })
+    .catch((error) => {
+      console.error('Chyba pri sťahovaní súboru:', error);
+    });
+
+}
 
 const showPredepartureHandle = () => {
   // Tu môžete umiestniť funkcionalitu pre tlačidlá
