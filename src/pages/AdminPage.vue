@@ -174,9 +174,6 @@ const loadUsers = async () => {
   console.log("Loaded users: " + users.value.length);
 };
 
-
-
-
 const deleteUserHandle = async (user) => {
   console.log('deleteUser: ' + user.id);
   const currentUser = props.userState.userData.uid;
