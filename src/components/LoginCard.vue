@@ -71,13 +71,38 @@ const validateForm = () => {
       </span>
       <p v-if="localState.passwordError" class="text-red-500 text-xs italic text-left">Password is required</p>
     </div>
-    <button class="bg-[#2B2E4A] rounded-full drop-shadow-lg text-white text-md h-9 w-[85px] opacity-40" :class="{ 'ableSignIn': !localState.disableSignIn }" :disabled="localState.disableSignIn">Login</button>
+    <!-- <button class="bg-[#fff] my-btn w-100 drop-shadow-lg  text-md h-9 w-[85px] opacity-40" :class="{ 'ableSignIn': !localState.disableSignIn }" :disabled="localState.disableSignIn">Login</button> -->
+
+    <v-btn :class="{ 'ableSignIn': !localState.disableSignIn }" :disabled="localState.disableSignIn" class="my-btn w-100  singIn" @click="signIn">Login</v-btn>
+      <br>
+      <br>
+
+    <router-link to="/register" class="text-white text-md">
+      <v-btn class="my-btn w-100  register" >Register </v-btn>
+    </router-link>
+ 
+
   </form>
 </template>
 
 <style scoped lang="postcss">
 .ableSignIn {
-  @apply hover:bg-[#FF9000] transition ease-in-out opacity-100
+  @apply hover:bg-[#0c2e6b] transition ease-in-out opacity-100
+}
+.register {
+  @apply hover:bg-[#0c2e6b] transition ease-in-out opacity-100  
+}
+.register{
+  border: 1px solid #fff;
+}
+.register:hover{
+  color: #fff;
+}
+.singIn{
+  border: 1px solid #fff;
+}
+.singIn:hover{
+  color: #fff;
 }
 form{
   background-color: #0c2e6b;

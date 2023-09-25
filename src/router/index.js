@@ -77,9 +77,9 @@ const routes = [
         path: "/register",
         name: 'RegisterPage',
         component: RegisterPage,
-        beforeEnter: (to, from, next) => {
-            checkAuthAndProceed(to, from, next, '/login');
-        }
+        // beforeEnter: (to, from, next) => {
+        //     checkAuthAndProceed(to, from, next, '/login');
+        // }
     },
     // {
     //     path: "/predeparture",
