@@ -1,6 +1,5 @@
 <script setup>
 import { defineProps, ref, onBeforeMount } from 'vue';
-import AnswerBox from '../AnswerBox.vue';
 import sendData  from '/services/sendData.js';
 
 
@@ -28,21 +27,13 @@ const props = defineProps({
 });
 
 const volunteerData = ref(props.volunteerData);
-const answer = ref('');
 const buttonColor = ref('red');
-const path = ref(props.path);
 const loading = ref(true);
-// let currentObject = volunteerData.value; // Začiatočný objekt je volunteerData.value
 
 const questionKeys = Object.keys(props.questions);
 const multiQuestions = [];
 
-// const buttonColors = ref({
-//   question1: 'red',
-//   question2: 'red',
-//   question3: 'red',
-//   question4: 'red',
-// });
+
 
 const buttonColors = {
     question1: 'red',
@@ -62,36 +53,9 @@ for (let i = 0; i < questionKeys.length; i++) {
     answer2: ref(''),
     answer3: ref('')
   };
-  //multiQuestions.push(answerObj);
 }
 
 
-
-// if(answer.value == ''){
-//   buttonColor.value = 'red';
-// }
-// else{
-//   buttonColor.value = 'green';
-// }
-
-// const getValueByPath = (obj, path) => {
-//   loading.value = true;
-//   const pathArray = path.split('.');
-//   let value = obj;
-
-//   for (const key of pathArray) {
-//     console.log(`Key: ${key}, Value: ${value}`);
-//     value = value[key];
-//     if (value === undefined) {
-//       return undefined;
-//     }
-//   }
-//   loading.value = false;
-//   console.log("pozrime sa co tu mame na getValueByPath " + value);
-//   return value;
-// };
-
-// const questionData = ref(getValueByPath(volunteerData.value, path.value));
 
 const handleButtonClick = (index) => {
     console.log('indexk : ' + index);
@@ -110,13 +74,9 @@ const handleButtonClick = (index) => {
     currentObject[index].answer2 = multiQuestions[index].answer2.value; // Priradenie hodnoty
     currentObject[index].answer3 = multiQuestions[index].answer3.value; // Priradenie hodnoty
 
-
-
-
-    sendData(volunteerData.value);
-
     
     checkButtons(index);
+    sendData(volunteerData.value);
 
 }
 
@@ -146,9 +106,8 @@ onBeforeMount(() => {
     checkButtons('question3');
     checkButtons('question4');
     checkButtons('question5');
+    checkButtons('question6');
 
-    // let currentObject = volunteerData.value; 
-    
 });
 
 
