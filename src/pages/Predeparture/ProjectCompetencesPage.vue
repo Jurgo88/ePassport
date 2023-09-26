@@ -129,6 +129,7 @@ onBeforeMount(async () => {
             ></v-checkbox>
         </div>
         <br>
+        Network <br>
         {{ thisFormQuestions.question9 }}
         <div v-for="(question, index) in competencesCheckbox4Values" :key="index">
             <v-checkbox

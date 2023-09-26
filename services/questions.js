@@ -60,7 +60,7 @@ export const questions = {
                 question6: 'Technical competences',
                 question7: 'Management competences',
                 question8: 'Relational competences',
-                question9: 'Network<br>I can bring new partners that:',
+                question9: 'I can bring new partners that:',
                 question10: 'Personal competences',
                 question11: 'Other',
             },
