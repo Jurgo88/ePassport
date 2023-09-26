@@ -50,7 +50,7 @@ console.log('MgmtPage');
     <br>
     <h3>Example 01: Daily Activity Log</h3>
 
-    <v-img src="../../../src/assets/daily_activity_log.png" alt="Activity Log 1" width="100%"></v-img>
+    <v-img src="../../src/assets/daily_activity_log.png" alt="Activity Log 1" width="100%"></v-img>
     <br>
     <p>
       How to keep a daily activity log:
@@ -84,7 +84,7 @@ console.log('MgmtPage');
     </p>
     <br>
     <h3>Example 02: Weekly Activity Log</h3>
-    <v-img src="../../../src/assets/weekly_activity_log.png" alt="Activity Log 2" width="100%"></v-img>
+    <v-img src="../../src/assets/weekly_activity_log.png" alt="Activity Log 2" width="100%"></v-img>
 
     <br>
     <p>      
