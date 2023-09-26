@@ -95,13 +95,12 @@ label {
 }
 
 .v-selection-control__input input{
-    opacity: 0.7;
+    opacity: 0.7 !important;
     color: red !important;
-    height: 40px;
-    margin-top: 0px;
+    height: 40px !important;
+    margin-top: 0px !important;
   }
   .v-selection-control__input {
-    color: primary !important;
     
     margin-left: -24px;
   }

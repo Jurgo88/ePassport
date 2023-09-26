@@ -79,6 +79,16 @@ onBeforeMount(async () => {
     <v-container v-if="!loading">
         <h1>Learning and competences</h1>
         <br>
+        <b>Rating:</b>
+        <ol>
+            <li>1. not at all satisfied</li>
+            <li>2. slightly satisfied</li>
+            <li>3. neutral</li>
+            <li>4. very satisfied</li>
+            <li>5. extremely satisfied</li>
+        </ol>
+        <br>
+        <br>
         {{thisFormQuestions.question1}}
         <RatingBox :initialRating="question1value" :volunteerData="volunteerData" :path="path" questionData="question1" />
         <br>

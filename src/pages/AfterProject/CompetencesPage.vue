@@ -88,6 +88,15 @@ onBeforeMount(async () => {
         <br>
         <QuestionsList :questions="secondQuestion" :volunteerData="volunteerData" :path="path" />
         <br>
+        <b>Rating:</b>
+        <ol>
+            <li>1. not at all satisfied</li>
+            <li>2. slightly satisfied</li>
+            <li>3. neutral</li>
+            <li>4. very satisfied</li>
+            <li>5. extremely satisfied</li>
+        </ol>
+        <br>
         {{ thisFormQuestions.question12 }}
         <RatingBox :initialRating="question12value" :volunteerData="volunteerData" :path="path" questionData="question12" />
         <br>
