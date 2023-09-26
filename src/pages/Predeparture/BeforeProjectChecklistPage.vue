@@ -19,13 +19,13 @@ const checkboxes = ref([false, false, false , false, false, false, false, false,
 const allCheckboxesSelected = computed(() => {
   for (let i = 0; i < checkboxes.value.length; i++) {
     if (!checkboxes.value[i]) {
-      return false;
+      return "secondary";
     }
   }
   console.log('allCheckboxesSelected computed true');
   selectedAll.value = true;
   nextButtonColor.value = 'success';
-  return true;
+  return "success";
 });
 
 
@@ -42,13 +42,17 @@ function controlChecklistFromDatabase() {
 
   if(hasChecklist.value)
   {
+    for (let i = 0; i < checkboxes.value.length; i++) {
+      checkboxes.value[i] = volunteerData.value.beforeProject.checklist[i];
+    }
     nextButtonColor.value = 'success';
-    checkAllCheckboxes();
+    // checkAllCheckboxes();
   }
 }
 
 function saveChecklist() {
-  volunteerData.value.beforeProject.checklist = true;
+  volunteerData.value.beforeProject.checklist = checkboxes.value;
+  // console.log(checkboxes.value);
   sendData(volunteerData.value);
 }
 
@@ -138,9 +142,9 @@ onBeforeMount(async () => {
         <br>
 
         <!-- Sellect all for test purpose -->
-        <v-checkbox v-model="selectedAll" label="Select all" @change="checkAllCheckboxes"></v-checkbox>
+        <!-- <v-checkbox v-model="selectedAll" label="Select all" @change="checkAllCheckboxes"></v-checkbox> -->
 
-        <v-btn @click="saveChecklist" :color="nextButtonColor" class="my-button" :disabled="!allCheckboxesSelected">Save</v-btn>
+        <v-btn @click="saveChecklist" :color="allCheckboxesSelected" class="my-button sticky">Save</v-btn>
         <hr>
         <br>
         <router-link :to="{
@@ -153,3 +157,9 @@ onBeforeMount(async () => {
     </v-container>
 </template>
 <style src="../../css/checkbox.css"></style>
+<style scoped>
+ .sticky {
+     position: sticky;
+     bottom: 10px;
+ }
+</style>
