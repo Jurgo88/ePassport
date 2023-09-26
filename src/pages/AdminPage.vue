@@ -129,6 +129,7 @@ import showOnProject from '../components/adminPage/showOnProject.vue';
 import showAfterProject from '../components/adminPage/showAfterProject.vue';
 import { questions } from '../../services/questions.js';
 import { deleteUser } from 'firebase/auth';
+import { doc, deleteDoc } from 'firebase/firestore';
 import { ref as storageRef, getDownloadURL, deleteObject } from 'firebase/storage';
 import { ref as dbRef, remove } from 'firebase/database';
 import { db, storage } from '../../firebase/config';
@@ -190,12 +191,14 @@ const deleteUserHandle = async (user) => {
 const deleteUserRecords = async (userId) => {
   console.log('deleteUserRecords: ' + userId);
   const thisDbRef = ref(db, 'records/' + userId);
+  const myDoc = doc(db, 'records', userId);
+  console.log('myDoc: ' + myDoc);
+  console.log('thisDbRef: ' + thisDbRef.value);
   try {
-    await remove(thisDbRef);
-    console.log(thisDbRef);
-    console.log('Data byla úspěšně smazána z Realtime Database.');
+    await deleteDoc(myDoc);
+    console.log('Data was succsesfull deleted.');
   } catch (error) {
-    console.error('Chyba při mazání dat z Realtime Database:', error);
+    console.error('Chyba pri mazání dat z Database:', error);
   }
 };
 
@@ -277,7 +280,7 @@ function mergeQuestionsAndAnswers(questions, answers) {
 // }
 
 const exportToCSV2 = () => {
-  // Získání vybraných uživatelů
+  // Get selected users
   const selectedUsers = users.value.filter(user => user.selected);
 
   if (selectedUsers.length === 0) {
@@ -285,7 +288,7 @@ const exportToCSV2 = () => {
     return;
   }
 
-  // Příprava dat pro CSV
+  // Data for CSV
   const csvData = [];
   const headers = ['Name', 'Surname', 'Sex', 'Nationality', 'Start', 'End', 'Project', 'Number of project', 'Mail', 'Telephone', 'Place of birth', 'Date of birth', 'Address', 'Name of HO', 'Address of HO', 'Web', 'Telephone', 'Email', 'Contact person', 'Name of SO', 'Address of SO', 'Web', 'Telephone', 'Email', 'Contact person'];
 
