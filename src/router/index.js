@@ -77,9 +77,35 @@ const routes = [
         path: "/register",
         name: 'RegisterPage',
         component: RegisterPage,
-        // beforeEnter: (to, from, next) => {
-        //     checkAuthAndProceed(to, from, next, '/login');
-        // }
+        beforeEnter: (to, from, next) => {
+             const unsubscribe = firebaseAuth.onAuthStateChanged(user => {
+                console.log("register");
+                console.log(user);
+                unsubscribe();
+                // clear cache memory and saved data
+                localStorage.clear();
+                sessionStorage.clear();
+                
+
+                next();
+
+            //     next('/register');
+            //     // if (user) {
+            //     //     unsubscribe();
+            //     //     next('/register');
+            //     // } else {
+            //     //     unsubscribe();
+            //     //     next('/register');
+            //     // }
+            });
+            console.log(to);
+            console.log(from);
+            console.log(next);
+            // to('/register');
+            // from('/login');
+            // next('/register');
+
+        }
     },
     // {
     //     path: "/predeparture",

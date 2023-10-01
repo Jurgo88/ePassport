@@ -16,6 +16,7 @@ const isAdmin = computed(() => userState.value?.userData?.uid === admin);
 const logOut = () => {
   store.dispatch('logOutAction')
   router.push('/login')
+  window.location.reload(true);
 }
 
 const firebaseUser = () => firebaseAuth.onAuthStateChanged(user => {

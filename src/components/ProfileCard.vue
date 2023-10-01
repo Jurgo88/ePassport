@@ -27,6 +27,7 @@ const logOut = () => {
   else{
   store.dispatch('logOutAction')
   router.push('/login')
+  window.location.reload()
   }
     
 }
